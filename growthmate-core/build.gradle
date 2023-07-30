@@ -1,4 +1,6 @@
 dependencies {
+    implementation project(':growthmate-common')
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     implementation 'org.flywaydb:flyway-core'
