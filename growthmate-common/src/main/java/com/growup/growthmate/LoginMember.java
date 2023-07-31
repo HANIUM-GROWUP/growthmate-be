@@ -1,4 +1,4 @@
-package com.growup;
+package com.growup.growthmate;
 
 public record LoginMember(Long id) {
 }
