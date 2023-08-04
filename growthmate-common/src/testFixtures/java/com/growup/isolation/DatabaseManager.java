@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-class DatabaseCleaner {
+class DatabaseManager {
 
     private final EntityManager entityManager;
     private final List<String> tableNames;
 
-    public DatabaseCleaner(EntityManager entityManager) {
+    public DatabaseManager(EntityManager entityManager) {
         this.entityManager = entityManager;
         this.tableNames = extractTableNames(entityManager);
     }
@@ -40,11 +40,19 @@ class DatabaseCleaner {
     }
 
     @Transactional
-    public void truncateTables() {
+    public void unRestrictForeignKeys() {
         entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate();
+    }
+
+    @Transactional
+    public void restrictForeignKeys() {
+        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
+    }
+
+    @Transactional
+    public void truncateTables() {
         for (String tableName : tableNames) {
             entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
         }
-        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
     }
 }
