@@ -30,4 +30,11 @@ public class Post {
 
     @Embedded
     private PostContent content;
+
+    public Post(WriterId writerId, CompanyId companyId, Title title, PostContent content) {
+        this.writerId = writerId;
+        this.companyId = companyId;
+        this.title = title;
+        this.content = content;
+    }
 }
