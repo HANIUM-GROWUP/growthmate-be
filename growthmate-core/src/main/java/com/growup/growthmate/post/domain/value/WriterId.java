@@ -1,8 +1,7 @@
-package com.growup.growthmate.post.domain;
+package com.growup.growthmate.post.domain.value;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Lob;
 import lombok.*;
 
 @Embeddable
@@ -10,9 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Getter
-public class PostContent {
+public class WriterId {
 
-    @Column(name = "content", nullable = false)
-    @Lob
-    private String value;
+    @Column(nullable = false, name = "member_id")
+    private Long value;
 }

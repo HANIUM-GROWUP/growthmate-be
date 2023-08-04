@@ -1,4 +1,4 @@
-package com.growup.growthmate.post.domain;
+package com.growup.growthmate.post.domain.value;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -9,8 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Getter
-public class Title {
+public class CompanyId {
 
-    @Column(name = "title", nullable = false)
-    private String value;
+    @Column(nullable = false, name = "company_id")
+    private Long value;
 }
