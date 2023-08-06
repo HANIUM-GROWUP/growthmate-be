@@ -37,4 +37,12 @@ public class Post {
         this.title = title;
         this.content = content;
     }
+
+    public void updateTitle(Title title) {
+        this.title = title;
+    }
+
+    public void updateContent(PostContent content) {
+        this.content = content;
+    }
 }
