@@ -28,16 +28,16 @@ public class PostService {
     }
 
     public void update(PostUpdateCommand command) {
-        Post post = getPost(command);
+        Post post = validateAndGet(command);
         post.updateTitle(new Title(command.title()));
         post.updateContent(new PostContent(command.content()));
     }
 
-    private Post getPost(PostUpdateCommand command) {
+    private Post validateAndGet(PostUpdateCommand command) {
         PostException notFound = PostException.NOT_FOUND_POST;
         Post post = postRepository.findById(command.postId())
                 .orElseThrow(() -> new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage()));
-        if (!post.getWriterId().equals(new WriterId(command.writerId()))) {
+        if (!post.isSameWriterId(new WriterId(command.writerId()))) {
             PostException unauthorized = PostException.UNAUTHORIZED_WRITER;
             throw new BusinessException(unauthorized.getHttpStatusCode(), unauthorized.getMessage());
         }

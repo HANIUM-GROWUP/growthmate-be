@@ -45,4 +45,8 @@ public class Post {
     public void updateContent(PostContent content) {
         this.content = content;
     }
+
+    public boolean isSameWriterId(WriterId writerId) {
+        return this.writerId.equals(writerId);
+    }
 }
