@@ -5,6 +5,7 @@ import com.growup.growthmate.command.dto.PostCreateRequest;
 import com.growup.growthmate.command.dto.PostUpdateRequest;
 import com.growup.growthmate.post.application.PostService;
 import com.growup.growthmate.post.dto.PostCreateCommand;
+import com.growup.growthmate.post.dto.PostDeleteCommand;
 import com.growup.growthmate.post.dto.PostUpdateCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,14 @@ public class PostV1Controller {
                 postId, loginMember.id(), request.title(), request.content()
         );
         postService.update(command);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long postId,
+                                           LoginMember loginMember) {
+        PostDeleteCommand command = new PostDeleteCommand(postId, loginMember.id());
+        postService.delete(command);
         return ResponseEntity.noContent().build();
     }
 }
