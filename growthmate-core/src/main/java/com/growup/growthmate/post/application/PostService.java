@@ -29,24 +29,28 @@ public class PostService {
     }
 
     public void update(PostUpdateCommand command) {
-        Post post = validateAndGet(command.postId(), command.writerId());
+        Post post = getPost(command.postId());
+        validateWriter(command.writerId(), post);
         post.updateTitle(new Title(command.title()));
         post.updateContent(new PostContent(command.content()));
     }
 
     public void delete(PostDeleteCommand command) {
-        Post post = validateAndGet(command.postId(), command.writerId());
+        Post post = getPost(command.postId());
+        validateWriter(command.writerId(), post);
         postRepository.delete(post);
     }
 
-    private Post validateAndGet(Long postId, Long writerId) {
+    private Post getPost(Long postId) {
         PostException notFound = PostException.NOT_FOUND_POST;
-        Post post = postRepository.findById(postId)
+        return postRepository.findById(postId)
                 .orElseThrow(() -> new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage()));
+    }
+
+    private void validateWriter(Long writerId, Post post) {
         if (!post.isSameWriterId(new WriterId(writerId))) {
             PostException unauthorized = PostException.UNAUTHORIZED_WRITER;
             throw new BusinessException(unauthorized.getHttpStatusCode(), unauthorized.getMessage());
         }
-        return post;
     }
 }
