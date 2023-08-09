@@ -8,10 +8,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@SQLDelete(sql = "UPDATE post set is_deleted = 1 where post_id = ?")
+@Where(clause = "is_deleted = 0")
 public class Post {
 
     @Id
@@ -31,11 +35,15 @@ public class Post {
     @Embedded
     private PostContent content;
 
+    @Column(nullable = false)
+    private boolean isDeleted;
+
     public Post(WriterId writerId, CompanyId companyId, Title title, PostContent content) {
         this.writerId = writerId;
         this.companyId = companyId;
         this.title = title;
         this.content = content;
+        this.isDeleted = false;
     }
 
     public void updateTitle(Title title) {
