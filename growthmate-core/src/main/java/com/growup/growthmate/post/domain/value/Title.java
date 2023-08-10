@@ -16,12 +16,12 @@ public class Title {
     private String value;
 
     public Title(String value) {
-        validateValueLength(value);
+        validateValue(value);
         this.value = value;
     }
 
-    private void validateValueLength(String value) {
-        if (value.isBlank()) {
+    private void validateValue(String value) {
+        if (value == null || value.isBlank()) {
             PostException exception = PostException.INVALID_TITLE;
             throw new BusinessException(exception.getHttpStatusCode(), exception.getMessage());
         }

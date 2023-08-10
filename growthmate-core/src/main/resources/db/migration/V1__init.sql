@@ -17,6 +17,7 @@ CREATE TABLE post
     company_id BIGINT                NOT NULL,
     title      VARCHAR(255)          NOT NULL,
     content    LONGTEXT              NOT NULL,
+    is_deleted BIT(1)                NOT NULL,
     CONSTRAINT pk_post PRIMARY KEY (post_id)
 );
 
