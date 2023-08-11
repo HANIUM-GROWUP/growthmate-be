@@ -1,18 +1,23 @@
 package com.growup.growthmate.comment.application;
 
+import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.comment.domain.Comment;
 import com.growup.growthmate.comment.dto.CommentCreateCommand;
+import com.growup.growthmate.comment.exception.CommentException;
 import com.growup.isolation.TestIsolation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
 @TestIsolation
@@ -50,9 +55,16 @@ class CommentServiceTest {
             );
         }
 
-        @Test
-        void 내용이_비어_있으면_예외가_발생한다() {
+        @ParameterizedTest
+        @ValueSource(strings = {"", " "})
+        void 내용이_비어_있으면_예외가_발생한다(String blankContent) {
+            // given
+            CommentCreateCommand command = new CommentCreateCommand(TEST_POST_ID, blankContent, TEST_WRITER_ID);
 
+            // when then
+            assertThatThrownBy(() -> commentService.create(command))
+                    .isInstanceOf(BusinessException.class)
+                    .hasMessage(CommentException.INVALID_CONTENT.getMessage());
         }
     }
 }

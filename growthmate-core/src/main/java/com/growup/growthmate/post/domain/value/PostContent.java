@@ -22,7 +22,7 @@ public class PostContent {
         this.value = value;
     }
 
-    private static void validateContentLength(String value) {
+    private void validateContentLength(String value) {
         if (value == null || value.isBlank()) {
             PostException exception = PostException.INVALID_CONTENT;
             throw new BusinessException(exception.getHttpStatusCode(), exception.getMessage());
