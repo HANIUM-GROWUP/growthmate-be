@@ -4,6 +4,7 @@ import com.growup.growthmate.comment.domain.Comment;
 import com.growup.growthmate.comment.domain.CommentRepository;
 import com.growup.growthmate.comment.dto.CommentCreateCommand;
 import com.growup.growthmate.comment.dto.CommentMapper;
+import com.growup.growthmate.comment.dto.CommentUpdateCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,5 +20,9 @@ public class CommentService {
         Comment comment = CommentMapper.toDomain(command);
         Comment saved = commentRepository.save(comment);
         return saved.getId();
+    }
+
+    public void update(CommentUpdateCommand command) {
+
     }
 }
