@@ -32,4 +32,12 @@ public class Comment {
         this.writerId = writerId;
         this.content = content;
     }
+
+    public void updateContent(CommentContent content) {
+        this.content = content;
+    }
+
+    public boolean isSameWriterId(WriterId writerId) {
+        return this.writerId.equals(writerId);
+    }
 }
