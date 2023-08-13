@@ -28,25 +28,27 @@ public class CommentService {
     }
 
     public void update(CommentUpdateCommand command) {
-        Comment comment = getComment(command);
-        validateWriter(command, comment);
+        Comment comment = getComment(command.commentId());
+        validateWriter(comment, command.writerId());
         comment.updateContent(new CommentContent(command.content()));
     }
 
-    private Comment getComment(CommentUpdateCommand command) {
+    public void delete(CommentDeleteCommand command) {
+        Comment comment = getComment(command.commentId());
+        validateWriter(comment, command.writerId());
+        commentRepository.delete(comment);
+    }
+
+    private Comment getComment(Long commentId) {
         CommentException exception = CommentException.NOT_FOUND_COMMENT;
-        return commentRepository.findById(command.commentId())
+        return commentRepository.findById(commentId)
                 .orElseThrow(() -> new BusinessException(exception.getHttpStatusCode(), exception.getMessage()));
     }
 
-    private void validateWriter(CommentUpdateCommand command, Comment comment) {
+    private void validateWriter(Comment comment, Long writerId) {
         CommentException exception = CommentException.UNAUTHORIZED_WRITER;
-        if (!comment.isSameWriterId(new WriterId(command.writerId()))) {
+        if (!comment.isSameWriterId(new WriterId(writerId))) {
             throw new BusinessException(exception.getHttpStatusCode(), exception.getMessage());
         }
-    }
-
-    public void delete(CommentDeleteCommand command) {
-
     }
 }

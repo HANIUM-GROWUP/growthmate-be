@@ -33,6 +33,7 @@ CREATE TABLE comment
     post_id    BIGINT                NOT NULL,
     member_id  BIGINT                NOT NULL,
     content    LONGTEXT              NOT NULL,
+    is_deleted BIT(1)                NOT NULL,
     CONSTRAINT pk_comment PRIMARY KEY (comment_id)
 );
 

@@ -7,10 +7,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@SQLDelete(sql = "UPDATE comment set is_deleted = 1 where comment_id = ?")
+@Where(clause = "is_deleted = 0")
 public class Comment {
 
     @Id
@@ -27,10 +31,14 @@ public class Comment {
     @Embedded
     private CommentContent content;
 
+    @Column(nullable = false)
+    private boolean isDeleted;
+
     public Comment(PostId postId, WriterId writerId, CommentContent content) {
         this.postId = postId;
         this.writerId = writerId;
         this.content = content;
+        this.isDeleted = false;
     }
 
     public void updateContent(CommentContent content) {

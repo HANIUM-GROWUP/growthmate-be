@@ -3,6 +3,7 @@ package com.growup.growthmate.comment.application;
 import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.comment.domain.Comment;
 import com.growup.growthmate.comment.dto.CommentCreateCommand;
+import com.growup.growthmate.comment.dto.CommentDeleteCommand;
 import com.growup.growthmate.comment.dto.CommentUpdateCommand;
 import com.growup.growthmate.comment.exception.CommentException;
 import com.growup.isolation.TestIsolation;
@@ -130,6 +131,34 @@ class CommentServiceTest {
 
             // when then
             assertThatThrownBy(() -> commentService.update(command))
+                    .isInstanceOf(BusinessException.class)
+                    .hasMessage(CommentException.UNAUTHORIZED_WRITER.getMessage());
+        }
+    }
+
+    @Nested
+    @DisplayName("댓글을 삭제할 때")
+    class DeleteTest {
+        @Test
+        void 유효한_작성자면_삭제한다() {
+            // given
+            CommentDeleteCommand command = new CommentDeleteCommand(commentId, TEST_WRITER_ID);
+
+            // when
+            commentService.delete(command);
+
+            // then
+            Comment comment = entityManager.find(Comment.class, commentId);
+            assertThat(comment).isNull();
+        }
+
+        @Test
+        void 유효하지_않은_작성자면_예외가_발생한다() {
+            // given
+            CommentDeleteCommand command = new CommentDeleteCommand(commentId, 2L);
+
+            // when then
+            assertThatThrownBy(() -> commentService.delete(command))
                     .isInstanceOf(BusinessException.class)
                     .hasMessage(CommentException.UNAUTHORIZED_WRITER.getMessage());
         }
