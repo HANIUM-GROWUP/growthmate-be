@@ -5,6 +5,7 @@ import com.growup.growthmate.comment.domain.Comment;
 import com.growup.growthmate.comment.domain.CommentRepository;
 import com.growup.growthmate.comment.domain.value.CommentContent;
 import com.growup.growthmate.comment.dto.CommentCreateCommand;
+import com.growup.growthmate.comment.dto.CommentDeleteCommand;
 import com.growup.growthmate.comment.dto.CommentMapper;
 import com.growup.growthmate.comment.dto.CommentUpdateCommand;
 import com.growup.growthmate.comment.exception.CommentException;
@@ -43,5 +44,9 @@ public class CommentService {
         if (!comment.isSameWriterId(new WriterId(command.writerId()))) {
             throw new BusinessException(exception.getHttpStatusCode(), exception.getMessage());
         }
+    }
+
+    public void delete(CommentDeleteCommand command) {
+
     }
 }

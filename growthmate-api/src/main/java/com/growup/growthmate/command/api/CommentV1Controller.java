@@ -5,6 +5,7 @@ import com.growup.growthmate.command.dto.CommentCreateRequest;
 import com.growup.growthmate.command.dto.CommentUpdateRequest;
 import com.growup.growthmate.comment.application.CommentService;
 import com.growup.growthmate.comment.dto.CommentCreateCommand;
+import com.growup.growthmate.comment.dto.CommentDeleteCommand;
 import com.growup.growthmate.comment.dto.CommentUpdateCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,14 @@ public class CommentV1Controller {
                                               LoginMember loginMember) {
         CommentUpdateCommand command = new CommentUpdateCommand(commentId, request.content(), loginMember.id());
         commentService.update(command);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId,
+                                              LoginMember loginMember) {
+        CommentDeleteCommand command = new CommentDeleteCommand(commentId, loginMember.id());
+        commentService.delete(command);
         return ResponseEntity.noContent().build();
     }
 }
