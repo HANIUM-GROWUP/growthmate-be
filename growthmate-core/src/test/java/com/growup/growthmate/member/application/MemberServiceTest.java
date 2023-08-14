@@ -94,7 +94,9 @@ class MemberServiceTest {
 
             //then
             Member member = entityManager.find(Member.class, 1L);
-            assertThat(member.getId().equals(response.memberId()));
+            assertThat(member.getName().equals(response.name()));
+            assertThat(member.getEmail().equals(response.email()));
+            assertThat(member.getPictureUrl().equals(response.picture()));
         }
 
     }

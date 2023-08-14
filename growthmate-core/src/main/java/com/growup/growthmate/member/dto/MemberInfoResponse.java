@@ -3,5 +3,5 @@ package com.growup.growthmate.member.dto;
 import lombok.Builder;
 
 @Builder
-public record MemberInfoResponse(Long memberId) {
+public record MemberInfoResponse(String name, String email, String picture) {
 }

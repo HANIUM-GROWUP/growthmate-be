@@ -43,7 +43,9 @@ public class MemberService {
 
         Optional<Member> result = memberRepository.findById(memberId);
         return MemberInfoResponse.builder()
-                .memberId(result.get().getId())
+                .name(result.get().getName())
+                .email(result.get().getEmail())
+                .picture(result.get().getPictureUrl())
                 .build();
     }
 
