@@ -1,15 +1,37 @@
 spring:
+
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MySQL
-  h2:
-    console:
-      enabled: true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dreamroad
+    username: root
+    password: 1234
+
   jpa:
     properties:
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       hibernate:
         format_sql: true
+        hbm2ddl:
+          auto: create
         show_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE-CLIENT-ID}
+            client-secret: ${GOOGLE-CLIENT-SECRET}
+            scope: profile, email
+
+security:
+  jwt:
+    token:
+      secret-key: SGFuRXVtIEdyb3d0aE1hdGUgQmFja2VuZCBSYW5kb20gRW5jb2RpbmcgU2VjcmV0IEtleQ==
+      redirect-uri: http://localhost:3000/token
+
+cors:
+  allowed:
+    origins: http://localhost:3000
 
 logging:
   level:
