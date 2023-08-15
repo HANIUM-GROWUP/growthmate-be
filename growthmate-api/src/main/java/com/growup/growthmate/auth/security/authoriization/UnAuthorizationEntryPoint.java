@@ -1,6 +1,7 @@
 package com.growup.growthmate.auth.security.authoriization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.growup.growthmate.member.exception.MemberException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,13 @@ public class UnAuthorizationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
-//        ErrorCode errorCode = ErrorCode.AUTHORIZATION_FAIL;
-//        response.setStatus(errorCode.getHttpStatusCode());
+
+        int errorCode = MemberException.AUTHORIZATION_FAIL.getHttpStatusCode();
+        response.setStatus(errorCode);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+
         PrintWriter writer = response.getWriter();
-//        ExceptionResponse errorResponse = new ExceptionResponse(errorCode.getValue(), errorCode.getMessage());
-//        writer.println(objectMapper.writeValueAsString(errorResponse));
+        writer.println(objectMapper.writeValueAsString(MemberException.AUTHORIZATION_FAIL));
         writer.flush();
     }
 }
