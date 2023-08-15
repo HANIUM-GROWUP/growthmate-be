@@ -26,3 +26,19 @@ ALTER TABLE post
 
 ALTER TABLE post
     ADD CONSTRAINT FK_POST_ON_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+CREATE TABLE comment
+(
+    comment_id BIGINT AUTO_INCREMENT NOT NULL,
+    post_id    BIGINT                NOT NULL,
+    member_id  BIGINT                NOT NULL,
+    content    LONGTEXT              NOT NULL,
+    is_deleted BIT(1)                NOT NULL,
+    CONSTRAINT pk_comment PRIMARY KEY (comment_id)
+);
+
+ALTER TABLE comment
+    ADD CONSTRAINT FK_COMMENT_ON_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+ALTER TABLE comment
+    ADD CONSTRAINT FK_COMMENT_ON_POST FOREIGN KEY (post_id) REFERENCES post (post_id);
