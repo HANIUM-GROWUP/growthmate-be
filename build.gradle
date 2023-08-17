@@ -37,12 +37,12 @@ subprojects {
 	test {
 		useJUnitPlatform()
 	}
+}
 
-	bootJar {
-		enabled = false
-	}
-
-	jar {
-		enabled = true
-	}
+bootJar {
+	enabled = true
+	mainClass = 'com.growup.growthmate.GrowthMateApiApplication'
+}
+jar {
+	enabled = false
 }

@@ -1,0 +1,3 @@
+rootProject.name = 'growthmate'
+include 'growthmate-core'
+include 'growthmate-common'
