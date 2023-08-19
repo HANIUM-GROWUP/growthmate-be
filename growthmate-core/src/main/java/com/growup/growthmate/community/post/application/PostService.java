@@ -2,6 +2,7 @@ package com.growup.growthmate.community.post.application;
 
 import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.community.WriterId;
+import com.growup.growthmate.community.WriterValidator;
 import com.growup.growthmate.community.post.domain.Post;
 import com.growup.growthmate.community.post.domain.PostRepository;
 import com.growup.growthmate.community.post.domain.value.PostContent;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final WriterValidator writerValidator;
 
     public Long create(PostCreateCommand command) {
         Post post = PostMapper.toDomain(command);
@@ -30,14 +32,14 @@ public class PostService {
 
     public void update(PostUpdateCommand command) {
         Post post = getPost(command.postId());
-        validateWriter(command.writerId(), post);
+        writerValidator.validate(post, new WriterId(command.writerId()));
         post.updateTitle(new Title(command.title()));
         post.updateContent(new PostContent(command.content()));
     }
 
     public void delete(PostDeleteCommand command) {
         Post post = getPost(command.postId());
-        validateWriter(command.writerId(), post);
+        writerValidator.validate(post, new WriterId(command.writerId()));
         postRepository.delete(post);
     }
 
@@ -45,12 +47,5 @@ public class PostService {
         PostException notFound = PostException.NOT_FOUND_POST;
         return postRepository.findById(postId)
                 .orElseThrow(() -> new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage()));
-    }
-
-    private void validateWriter(Long writerId, Post post) {
-        if (!post.isSameWriterId(new WriterId(writerId))) {
-            PostException unauthorized = PostException.UNAUTHORIZED_WRITER;
-            throw new BusinessException(unauthorized.getHttpStatusCode(), unauthorized.getMessage());
-        }
     }
 }

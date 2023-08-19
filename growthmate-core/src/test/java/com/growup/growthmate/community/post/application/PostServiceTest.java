@@ -1,6 +1,7 @@
 package com.growup.growthmate.community.post.application;
 
 import com.growup.growthmate.BusinessException;
+import com.growup.growthmate.community.CommunityException;
 import com.growup.growthmate.community.post.domain.Post;
 import com.growup.growthmate.community.post.dto.PostCreateCommand;
 import com.growup.growthmate.community.post.dto.PostDeleteCommand;
@@ -155,7 +156,7 @@ class PostServiceTest {
             // when then
             assertThatThrownBy(() -> postService.update(command))
                     .isInstanceOf(BusinessException.class)
-                    .hasMessage(PostException.UNAUTHORIZED_WRITER.getMessage());
+                    .hasMessage(CommunityException.unAuthorization().getMessage());
         }
 
         @Test
@@ -196,7 +197,7 @@ class PostServiceTest {
             // when then
             assertThatThrownBy(() -> postService.delete(command))
                     .isInstanceOf(BusinessException.class)
-                    .hasMessage(PostException.UNAUTHORIZED_WRITER.getMessage());
+                    .hasMessage(CommunityException.unAuthorization().getMessage());
         }
     }
 }

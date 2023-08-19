@@ -1,6 +1,7 @@
 package com.growup.growthmate.community.comment.application;
 
 import com.growup.growthmate.BusinessException;
+import com.growup.growthmate.community.CommunityException;
 import com.growup.growthmate.community.comment.domain.Comment;
 import com.growup.growthmate.community.comment.dto.CommentCreateCommand;
 import com.growup.growthmate.community.comment.dto.CommentDeleteCommand;
@@ -132,7 +133,7 @@ class CommentServiceTest {
             // when then
             assertThatThrownBy(() -> commentService.update(command))
                     .isInstanceOf(BusinessException.class)
-                    .hasMessage(CommentException.UNAUTHORIZED_WRITER.getMessage());
+                    .hasMessage(CommunityException.unAuthorization().getMessage());
         }
     }
 
@@ -160,7 +161,7 @@ class CommentServiceTest {
             // when then
             assertThatThrownBy(() -> commentService.delete(command))
                     .isInstanceOf(BusinessException.class)
-                    .hasMessage(CommentException.UNAUTHORIZED_WRITER.getMessage());
+                    .hasMessage(CommunityException.unAuthorization().getMessage());
         }
     }
 }

@@ -2,6 +2,7 @@ package com.growup.growthmate.community.comment.application;
 
 import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.community.WriterId;
+import com.growup.growthmate.community.WriterValidator;
 import com.growup.growthmate.community.comment.domain.Comment;
 import com.growup.growthmate.community.comment.domain.CommentRepository;
 import com.growup.growthmate.community.comment.domain.value.CommentContent;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final WriterValidator writerValidator;
 
     public Long create(CommentCreateCommand command) {
         Comment comment = CommentMapper.toDomain(command);
@@ -29,13 +31,13 @@ public class CommentService {
 
     public void update(CommentUpdateCommand command) {
         Comment comment = getComment(command.commentId());
-        validateWriter(comment, command.writerId());
+        writerValidator.validate(comment, new WriterId(command.writerId()));
         comment.updateContent(new CommentContent(command.content()));
     }
 
     public void delete(CommentDeleteCommand command) {
         Comment comment = getComment(command.commentId());
-        validateWriter(comment, command.writerId());
+        writerValidator.validate(comment, new WriterId(command.writerId()));
         commentRepository.delete(comment);
     }
 
@@ -43,12 +45,5 @@ public class CommentService {
         CommentException exception = CommentException.NOT_FOUND_COMMENT;
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> new BusinessException(exception.getHttpStatusCode(), exception.getMessage()));
-    }
-
-    private void validateWriter(Comment comment, Long writerId) {
-        CommentException exception = CommentException.UNAUTHORIZED_WRITER;
-        if (!comment.isSameWriterId(new WriterId(writerId))) {
-            throw new BusinessException(exception.getHttpStatusCode(), exception.getMessage());
-        }
     }
 }

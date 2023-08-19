@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public abstract class CommunityBaseEntity {
+public class CommunityBaseEntity {
 
     @Embedded
     private WriterId writerId;
