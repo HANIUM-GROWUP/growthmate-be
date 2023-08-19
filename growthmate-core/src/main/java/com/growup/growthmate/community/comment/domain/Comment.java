@@ -1,5 +1,6 @@
 package com.growup.growthmate.community.comment.domain;
 
+import com.growup.growthmate.community.CommunityBaseEntity;
 import com.growup.growthmate.community.WriterId;
 import com.growup.growthmate.community.comment.domain.value.CommentContent;
 import com.growup.growthmate.community.comment.domain.value.PostId;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @SQLDelete(sql = "UPDATE comment set is_deleted = 1 where comment_id = ?")
 @Where(clause = "is_deleted = 0")
-public class Comment {
+public class Comment extends CommunityBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,26 +27,15 @@ public class Comment {
     private PostId postId;
 
     @Embedded
-    private WriterId writerId;
-
-    @Embedded
     private CommentContent content;
 
-    @Column(nullable = false)
-    private boolean isDeleted;
-
     public Comment(PostId postId, WriterId writerId, CommentContent content) {
+        super(writerId);
         this.postId = postId;
-        this.writerId = writerId;
         this.content = content;
-        this.isDeleted = false;
     }
 
     public void updateContent(CommentContent content) {
         this.content = content;
-    }
-
-    public boolean isSameWriterId(WriterId writerId) {
-        return this.writerId.equals(writerId);
     }
 }
