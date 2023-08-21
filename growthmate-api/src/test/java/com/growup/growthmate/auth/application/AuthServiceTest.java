@@ -6,6 +6,7 @@ import com.growup.growthmate.auth.dto.LoginResponse;
 import com.growup.growthmate.auth.token.JwtTokenProvider;
 import com.growup.growthmate.member.domain.Member;
 import com.growup.growthmate.member.domain.MemberRepository;
+import com.growup.isolation.TestIsolation;
 import io.jsonwebtoken.io.Encoders;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
+@TestIsolation
 class AuthServiceTest {
 
     @Autowired

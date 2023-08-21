@@ -24,6 +24,6 @@ public class OAuthLoginFailureHandler implements AuthenticationFailureHandler {
         OAuth2AuthenticationException oAuthException = (OAuth2AuthenticationException) exception;
         OAuth2Error oAuth2Error = oAuthException.getError();
 
-        response.sendRedirect(redirectUrl + "/?errorCode=" + oAuth2Error.getErrorCode());
+        response.sendRedirect(redirectUrl + "?errorCode=" + oAuth2Error.getErrorCode());
     }
 }
