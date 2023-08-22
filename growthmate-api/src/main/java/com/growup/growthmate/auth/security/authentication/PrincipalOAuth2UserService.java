@@ -41,7 +41,8 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
         try {
             return authService.login(loginRequest);
         } catch (BusinessException exception) {
-            OAuth2Error oAuth2Error = new OAuth2Error(String.valueOf(500));
+            String errorCode = String.valueOf(exception.getHttpStatusCode());
+            OAuth2Error oAuth2Error = new OAuth2Error(errorCode);
             throw new OAuth2AuthenticationException(oAuth2Error);
         }
     }

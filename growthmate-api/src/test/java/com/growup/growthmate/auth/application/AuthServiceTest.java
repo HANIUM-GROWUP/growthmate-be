@@ -40,14 +40,6 @@ class AuthServiceTest {
     );
 
     @Test
-    void encode() {
-
-        String secretKey = "HanEum GrowthMate Backend Random Encoding Secret Key";
-
-        System.out.println(Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8)));
-    }
-
-    @Test
     void 처음인_사용자는_DB에_저장된다() {
         // when˚
         LoginResponse loginResponse = authService.login(loginRequest);
