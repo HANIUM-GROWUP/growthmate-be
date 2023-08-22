@@ -17,7 +17,7 @@ import java.io.IOException;
 public class OAuthLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private static final String SET_COOKIE = "Set-Cookie";
-    private static final String ACCESS_TOKEN = "accessToken";
+    private static final String AUTHORIZATION = "Authorization";
 
     @Value("${security.jwt.token.redirect-uri}")
     private String redirectUrl;
@@ -30,7 +30,7 @@ public class OAuthLoginSuccessHandler implements AuthenticationSuccessHandler {
         OAuth2Member oauth2Member = (OAuth2Member) authentication.getPrincipal();
 
         response.setContentType("application/json;charset=UTF-8");
-        response.addHeader(ACCESS_TOKEN, oauth2Member.getAccessToken());
+        response.addHeader(AUTHORIZATION, "Bearer " + oauth2Member.getAccessToken());
         response.sendRedirect(redirectUrl);
     }
 }
