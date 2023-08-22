@@ -2,7 +2,7 @@ name: Backend CD # actions 이름
 
 on:
   push:
-    branches: [ infra-basic ]
+    branches: [ features/infra-basic ] # 임시로 브랜치 설정
 
 jobs:
   deploy:
