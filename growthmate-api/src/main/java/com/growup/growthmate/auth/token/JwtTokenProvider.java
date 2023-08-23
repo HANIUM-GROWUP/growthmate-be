@@ -16,14 +16,11 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    private static final String SECRET_KEY = "SGFuRXVtIEdyb3d0aE1hdGUgQmFja2VuZCBSYW5kb20gRW5jb2RpbmcgU2VjcmV0IEtleQ==";
-    private static final String EXPIRE_LENGTH = "86400"; // 24 * 60 * 60 (하루)
-
     private final SecretKey key;
     private final long validityInMilliseconds;
 
-    public JwtTokenProvider(@Value(SECRET_KEY) final String secretKey,
-                            @Value(EXPIRE_LENGTH) final long validityInMilliseconds) {
+    public JwtTokenProvider(@Value("${security.jwt.token.secret-key}") final String secretKey,
+                            @Value("${security.jwt.token.expire-length}") final long validityInMilliseconds) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         this.validityInMilliseconds = validityInMilliseconds;
     }

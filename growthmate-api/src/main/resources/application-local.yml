@@ -26,7 +26,8 @@ spring:
 security:
   jwt:
     token:
-      secret-key: SGFuRXVtIEdyb3d0aE1hdGUgQmFja2VuZCBSYW5kb20gRW5jb2RpbmcgU2VjcmV0IEtleQ==
+      secret-key: ${SECRET_KEY}
+      expire-length: ${EXPIRE_LENGTH}
       redirect-uri: http://localhost:3000/token
 
 # swagger settings
