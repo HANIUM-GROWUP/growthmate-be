@@ -1,4 +1,4 @@
-package com.growup.growthmate.config;
+package com.growup.growthmate.auth.security.config;
 
 import com.growup.growthmate.auth.security.authentication.OAuthLoginFailureHandler;
 import com.growup.growthmate.auth.security.authentication.OAuthLoginSuccessHandler;
