@@ -41,7 +41,9 @@ public class LoginMemberResolver implements HandlerMethodArgumentResolver {
 
     private String getAccessToken(HttpServletRequest request) {
 
+        MemberException noToken = MemberException.NO_FOUND_TOKEN;
+
         return JwtSupport.extractToken(Objects.requireNonNull(request))
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException(noToken.getHttpStatusCode(), noToken.getMessage()));
     }
 }
