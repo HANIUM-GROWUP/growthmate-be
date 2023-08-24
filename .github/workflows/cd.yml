@@ -15,7 +15,13 @@ jobs:
           distribution: 'adopt'
 
       - name: 저장소 Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          token: ${{ secrets.ACTION_TOKEN }}
+
+      - name: update submodules
+        run: git submodule update --remote
 
       - name: 스프링부트 애플리케이션 빌드
         run: ./gradlew bootJar
