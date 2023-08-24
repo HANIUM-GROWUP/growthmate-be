@@ -5,8 +5,7 @@ import com.growup.growthmate.member.domain.Member;
 import com.growup.growthmate.member.dto.MemberInfoResponse;
 import com.growup.growthmate.member.dto.MemberRequest;
 import com.growup.growthmate.member.dto.MemberUpdateInfoRequest;
-import com.growup.growthmate.member.exception.MemberException;
-import com.growup.isolation.TestIsolation;
+import com.growup.growthmate.isolation.TestIsolation;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestIsolation

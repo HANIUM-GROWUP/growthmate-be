@@ -1,21 +1,16 @@
 package com.growup.growthmate.auth.application;
 
-import com.growup.growthmate.GrowthMateApiApplication;
 import com.growup.growthmate.auth.dto.LoginRequest;
 import com.growup.growthmate.auth.dto.LoginResponse;
 import com.growup.growthmate.auth.token.JwtTokenProvider;
 import com.growup.growthmate.member.domain.Member;
 import com.growup.growthmate.member.domain.MemberRepository;
-import com.growup.isolation.TestIsolation;
-import io.jsonwebtoken.io.Encoders;
+import com.growup.growthmate.isolation.TestIsolation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLOutput;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;

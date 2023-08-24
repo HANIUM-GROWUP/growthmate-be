@@ -1,4 +1,4 @@
-package com.growup.isolation;
+package com.growup.growthmate.isolation;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;

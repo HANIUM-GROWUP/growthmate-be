@@ -1,4 +1,4 @@
-package com.growup.isolation;
+package com.growup.growthmate.isolation;
 
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;

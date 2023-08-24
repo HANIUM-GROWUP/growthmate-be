@@ -2,7 +2,7 @@ package com.growup.growthmate.post.application;
 
 import com.growup.growthmate.post.domain.Post;
 import com.growup.growthmate.post.dto.PostCreateCommand;
-import com.growup.isolation.TestIsolation;
+import com.growup.growthmate.isolation.TestIsolation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Test;
