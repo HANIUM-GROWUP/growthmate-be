@@ -6,7 +6,6 @@ import com.growup.growthmate.auth.dto.LoginRequest;
 import com.growup.growthmate.auth.dto.LoginResponse;
 import com.growup.growthmate.auth.security.oauth.OAuth2Member;
 import com.growup.growthmate.auth.security.oauth.OAuthProvider;
-import com.growup.growthmate.member.exception.MemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

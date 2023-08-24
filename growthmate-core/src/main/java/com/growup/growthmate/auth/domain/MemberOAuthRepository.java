@@ -1,4 +1,4 @@
-package com.growup.growthmate.auth.security;
+package com.growup.growthmate.auth.domain;
 
 import com.growup.growthmate.member.domain.Member;
 import org.springframework.data.repository.Repository;
