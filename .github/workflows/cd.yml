@@ -55,5 +55,5 @@ jobs:
             sudo docker stop $(sudo docker ps -a -q) 
             sudo docker rm -f $(sudo docker ps -qa)
             sudo docker pull ${{ secrets.DOCKER_IMG }}
-            sudo docker-compose up -d
+            sudo docker-compose -f docker-compose.yml up -d
             sudo docker image prune -f
