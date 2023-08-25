@@ -40,9 +40,8 @@ subprojects {
 }
 
 bootJar {
-	enabled = true
-	mainClass = 'com.growup.growthmate.GrowthMateApiApplication'
+	enabled = false
 }
 jar {
-	enabled = false
+	enabled = true
 }

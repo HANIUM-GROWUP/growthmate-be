@@ -7,6 +7,9 @@ dependencies {
     testFixturesImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-springBoot {
-    mainClass = 'com.growup.growthmate.GrowthMateApiApplication'
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
 }
