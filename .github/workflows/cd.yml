@@ -34,7 +34,7 @@ jobs:
           sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           sudo docker push ${{ secrets.DOCKER_IMG }} 
 
-      - name: 배포
+      - name: 배포 테스트
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_SERVER_HOST }}
