@@ -2,10 +2,9 @@ package com.growup.growthmate.auth.application;
 
 import com.growup.growthmate.auth.dto.LoginRequest;
 import com.growup.growthmate.auth.dto.LoginResponse;
-import com.growup.growthmate.auth.token.JwtTokenProvider;
+import com.growup.growthmate.isolation.TestIsolation;
 import com.growup.growthmate.member.domain.Member;
 import com.growup.growthmate.member.domain.MemberRepository;
-import com.growup.growthmate.isolation.TestIsolation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
@@ -26,9 +24,6 @@ class AuthServiceTest {
 
     @Autowired
     private MemberRepository memberRepository;
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
 
     private final LoginRequest loginRequest = new LoginRequest(
             "google", "안정후", "ajh@mail.com", "picture.com"
