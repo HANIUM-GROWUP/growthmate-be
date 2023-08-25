@@ -1,9 +1,6 @@
 package com.growup.growthmate.auth.token;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtException;
@@ -55,7 +52,7 @@ public class JwtTokenProvider {
                     .getBody()
                     .getExpiration()
                     .before(new Date());
-        } catch (JwtException | IllegalArgumentException e) {
+        } catch (MalformedJwtException | JwtException | IllegalArgumentException e) {
             return false;
         }
     }
