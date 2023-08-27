@@ -42,7 +42,6 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           source: "docker-compose.yml"
           target: "/home/ec2-user"
-          strip_components: 5
 
       - name: 배포
         uses: appleboy/ssh-action@v0.1.6
