@@ -51,7 +51,7 @@ public class MemberService {
 
     private Member getMember(MemberUpdateInfoRequest memberUpdateInfoRequest) {
 
-        MemberException notFound = MemberException.NO_FOUND_NAME;
+        MemberException notFound = MemberException.NO_FOUND_MEMBER;
 
         Member member = memberRepository.findById(memberUpdateInfoRequest.memberId())
                 .orElseThrow(() -> new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage()));
