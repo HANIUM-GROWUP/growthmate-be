@@ -22,12 +22,7 @@ public class MemberService {
 
     @Transactional
     public Member join(MemberRequest request) {
-
-        MemberException duplicated = MemberException.MEMBER_DUPLICATE_EMAIL;
-
-        if (memberRepository.existsByEmail(request.email())) {
-            throw new BusinessException(duplicated.getHttpStatusCode(), duplicated.getMessage());
-        }
+        validateDuplicateEmail(request.email());
         return memberRepository.save(request.toEntity());
     }
 
@@ -58,5 +53,11 @@ public class MemberService {
 
         return member;
     }
-}
 
+    private void validateDuplicateEmail(String email) {
+        MemberException duplicated = MemberException.MEMBER_DUPLICATE_EMAIL;
+        if (memberRepository.existsByEmail(email)) {
+            throw new BusinessException(duplicated.getHttpStatusCode(), duplicated.getMessage());
+        }
+    }
+}
