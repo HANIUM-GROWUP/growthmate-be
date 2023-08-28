@@ -72,7 +72,7 @@ class MemberServiceTest {
 
             //then
             Member member = entityManager.find(Member.class, 1L);
-            assertThat(member.getName().equals(NEW_NAME));
+            assertThat(member.getName()).isEqualTo(NEW_NAME);
         }
 
     }
@@ -92,9 +92,9 @@ class MemberServiceTest {
 
             //then
             Member member = entityManager.find(Member.class, 1L);
-            assertThat(member.getName().equals(response.name()));
-            assertThat(member.getEmail().equals(response.email()));
-            assertThat(member.getPictureUrl().equals(response.picture()));
+            assertThat(member.getName()).isEqualTo(response.name());
+            assertThat(member.getEmail()).isEqualTo(response.email());
+            assertThat(member.getPictureUrl()).isEqualTo(response.picture());
         }
 
     }
