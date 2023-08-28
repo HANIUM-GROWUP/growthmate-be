@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  growthmate-app:
+    container_name: growthmate-app
+    build: .
+    image: anjeonghoo/growthmate-application
+    environment:
+      - SPRING_DATASOURCE_USERNAME=growthmate
+      - SPRING_DATASOURCE_PASSWORD=growthmate
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "80:8080"
+    restart: always
