@@ -17,7 +17,7 @@ CREATE TABLE post
     company_id BIGINT                NOT NULL,
     title      VARCHAR(255)          NOT NULL,
     content    LONGTEXT              NOT NULL,
-    is_deleted BIT(1)                NOT NULL,
+    is_deleted BIT                   NOT NULL,
     CONSTRAINT pk_post PRIMARY KEY (post_id)
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE comment
     post_id    BIGINT                NOT NULL,
     member_id  BIGINT                NOT NULL,
     content    LONGTEXT              NOT NULL,
-    is_deleted BIT(1)                NOT NULL,
+    is_deleted BIT                   NOT NULL,
     CONSTRAINT pk_comment PRIMARY KEY (comment_id)
 );
 
