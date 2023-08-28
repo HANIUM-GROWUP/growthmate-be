@@ -33,15 +33,13 @@ public class MemberService {
         member.updateName(memberUpdateInfoRequest.name());
     }
 
-    @Transactional
     public MemberInfoResponse getMemberInfo(Long memberId) {
-
-        Optional<Member> result = memberRepository.findById(memberId);
-        return MemberInfoResponse.builder()
-                .name(result.get().getName())
-                .email(result.get().getEmail())
-                .picture(result.get().getPictureUrl())
-                .build();
+        return memberRepository.findById(memberId)
+                .map(member -> new MemberInfoResponse(member.getName(), member.getEmail(), member.getPictureUrl()))
+                .orElseThrow(() -> new BusinessException(
+                        MemberException.NO_FOUND_MEMBER.getHttpStatusCode(),
+                        MemberException.NO_FOUND_MEMBER.getMessage())
+                );
     }
 
     private Member getMember(MemberUpdateInfoRequest memberUpdateInfoRequest) {
