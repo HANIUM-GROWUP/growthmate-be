@@ -7,7 +7,7 @@ import com.growup.growthmate.community.comment.dto.CommentCreateCommand;
 import com.growup.growthmate.community.comment.dto.CommentDeleteCommand;
 import com.growup.growthmate.community.comment.dto.CommentUpdateCommand;
 import com.growup.growthmate.community.comment.exception.CommentException;
-import com.growup.isolation.TestIsolation;
+import com.growup.growthmate.isolation.TestIsolation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;

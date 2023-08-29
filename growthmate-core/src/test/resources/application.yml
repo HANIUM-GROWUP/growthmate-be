@@ -10,3 +10,9 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+
+security:
+  jwt:
+    token:
+      secret-key: SGFuRXVtIEdyb3d0aE1hdGUgQmFja2VuZCBSYW5kb20gRW5jb2RpbmcgU2VjcmV0IEtleQ==
+      expire-length: 86400

@@ -7,7 +7,7 @@ import com.growup.growthmate.community.post.dto.PostCreateCommand;
 import com.growup.growthmate.community.post.dto.PostDeleteCommand;
 import com.growup.growthmate.community.post.dto.PostUpdateCommand;
 import com.growup.growthmate.community.post.exception.PostException;
-import com.growup.isolation.TestIsolation;
+import com.growup.growthmate.isolation.TestIsolation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
