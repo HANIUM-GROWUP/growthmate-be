@@ -1,6 +1,10 @@
 package com.growup.growthmate.member.domain;
 
+import com.growup.growthmate.BusinessException;
+import com.growup.growthmate.community.post.domain.value.PostContent;
+import com.growup.growthmate.community.post.exception.PostException;
 import com.growup.growthmate.isolation.TestIsolation;
+import com.growup.growthmate.member.exception.MemberException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -12,33 +16,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Set;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
-@TestIsolation
 public class MemberNameTest {
 
-    private Validator validator;
-
-    @BeforeEach
-    public void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
-
     @ParameterizedTest
-    @ValueSource(strings = {"", "longerthantenwords"})
-    public void testNameLengthValidation(String value) {
-
-        Member member = Member.builder().name(value).build();
-
-        Set<ConstraintViolation<Member>> violations = validator.validate(member);
-
-        // 검증 결과 확인
-        assertEquals(1, violations.size()); // 오류가 1개 발견되어야 함
-
-        ConstraintViolation<Member> violation = violations.iterator().next();
-        assertEquals("이름은 최소 1자 부터 10자 이하여야 합니다.", violation.getMessage());
+    @ValueSource(strings = {"", " ", "longerthantenwords"})
+    void 이름은_공백이거나_10자리를_초과하면_안된다 (String value) {
+        // when then
+        assertThatThrownBy(() -> new Member().updateName(value))
+                .isInstanceOf(BusinessException.class)
+                .hasMessage(MemberException.INVALID_NAME.getMessage());
     }
 
 }

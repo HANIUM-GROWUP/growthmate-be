@@ -1,5 +1,8 @@
 package com.growup.growthmate.member.domain;
 
+import com.growup.growthmate.BusinessException;
+import com.growup.growthmate.community.post.exception.PostException;
+import com.growup.growthmate.member.exception.MemberException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -15,7 +18,6 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @Length(min = 1 , max = 10, message = "이름은 최소 1자 부터 10자 이하여야 합니다.")
     private String name;
 
     private String email;
@@ -24,7 +26,6 @@ public class Member {
 
     private String registrationId;
 
-    @Builder
     public Member(String name, String email, String pictureUrl, String registrationId) {
         this.name = name;
         this.email = email;
@@ -33,6 +34,14 @@ public class Member {
     }
 
     public void updateName(String name) {
+        validateNameLength(name);
         this.name = name;
+    }
+
+    private void validateNameLength(String value) {
+        if (value == null || value.isBlank() || value.length() > 11) {
+            MemberException exception = MemberException.INVALID_NAME;
+            throw new BusinessException(exception.getHttpStatusCode(), exception.getMessage());
+        }
     }
 }
