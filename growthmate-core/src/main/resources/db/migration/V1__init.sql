@@ -22,6 +22,7 @@ CREATE TABLE post
     title      VARCHAR(255)          NOT NULL,
     content    LONGTEXT              NOT NULL,
     is_deleted BIT                   NOT NULL,
+    created_at  datetime              NOT NULL,
     CONSTRAINT pk_post PRIMARY KEY (post_id)
 );
 
@@ -38,6 +39,7 @@ CREATE TABLE comment
     member_id  BIGINT                NOT NULL,
     content    LONGTEXT              NOT NULL,
     is_deleted BIT                   NOT NULL,
+    created_at  datetime              NOT NULL,
     CONSTRAINT pk_comment PRIMARY KEY (comment_id)
 );
 
