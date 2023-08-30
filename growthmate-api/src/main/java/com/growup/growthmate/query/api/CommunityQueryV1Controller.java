@@ -2,10 +2,7 @@ package com.growup.growthmate.query.api;
 
 import com.growup.growthmate.LoginMember;
 import com.growup.growthmate.query.application.CommunityQueryService;
-import com.growup.growthmate.query.dto.PagingParams;
-import com.growup.growthmate.query.dto.PostDetailRequest;
-import com.growup.growthmate.query.dto.PostDetailResponse;
-import com.growup.growthmate.query.dto.PostPreviewResponse;
+import com.growup.growthmate.query.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +27,15 @@ public class CommunityQueryV1Controller {
     public ResponseEntity<List<PostPreviewResponse>> findPosts(@PathVariable Long companyId,
                                                                @ModelAttribute PagingParams params) {
         List<PostPreviewResponse> responses = communityQueryService.findPostPreviews(companyId, params);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/posts/{postId}/comments")
+    public ResponseEntity<List<CommentResponse>> findComments(@PathVariable Long postId,
+                                                              @ModelAttribute PagingParams params,
+                                                              LoginMember loginMember) {
+        CommentQueryRequest request = new CommentQueryRequest(postId, loginMember.id());
+        List<CommentResponse> responses = communityQueryService.findComments(request, params);
         return ResponseEntity.ok(responses);
     }
 }

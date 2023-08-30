@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface PostQueryRepository extends Repository<Post, Long>, PostQueryDynamicRepository {
+public interface CommunityQueryRepository extends Repository<Post, Long>, CommunityQueryDynamicRepository {
 
     @Query(value = "select m.name, p.title, p.content, p.created_at, p.member_id " +
             "from POST p join MEMBER m on p.member_id = m.member_id " +

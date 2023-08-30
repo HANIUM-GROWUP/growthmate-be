@@ -2,12 +2,10 @@ package com.growup.growthmate.query.application;
 
 import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.community.post.exception.PostException;
-import com.growup.growthmate.query.dto.PagingParams;
-import com.growup.growthmate.query.dto.PostDetailRequest;
-import com.growup.growthmate.query.dto.PostDetailResponse;
-import com.growup.growthmate.query.dto.PostPreviewResponse;
+import com.growup.growthmate.query.dto.*;
+import com.growup.growthmate.query.repository.projection.CommentProjection;
 import com.growup.growthmate.query.repository.projection.PostDetailProjection;
-import com.growup.growthmate.query.repository.PostQueryRepository;
+import com.growup.growthmate.query.repository.CommunityQueryRepository;
 import com.growup.growthmate.query.repository.projection.PostPreviewProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,10 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommunityQueryService {
 
-    private final PostQueryRepository postQueryRepository;
+    private final CommunityQueryRepository communityQueryRepository;
 
     public PostDetailResponse findPostDetail(PostDetailRequest request) {
-        return postQueryRepository.findPostDetail(request.postId())
+        return communityQueryRepository.findPostDetail(request.postId())
                 .map(post -> toPostDetailResponse(post, request.loginId()))
                 .orElseThrow(this::throwNotFoundException);
     }
@@ -38,17 +36,13 @@ public class CommunityQueryService {
         );
     }
 
-    private boolean isMine(Long memberId, Long loginId) {
-        return memberId.equals(loginId);
-    }
-
     private BusinessException throwNotFoundException() {
         PostException notFound = PostException.NOT_FOUND_POST;
         return new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage());
     }
 
     public List<PostPreviewResponse> findPostPreviews(Long companyId, PagingParams params) {
-        return postQueryRepository.findPostPreviews(companyId, params.getCursor(), params.getSize()).stream()
+        return communityQueryRepository.findPostPreviews(companyId, params.getCursor(), params.getSize()).stream()
                 .map(this::getPostPreviewResponse)
                 .toList();
     }
@@ -62,5 +56,24 @@ public class CommunityQueryService {
                 projection.getCreatedAt(),
                 projection.getCommentCount()
         );
+    }
+
+    public List<CommentResponse> findComments(CommentQueryRequest request, PagingParams params) {
+        return communityQueryRepository.findComments(request.postId(), params.getCursor(), params.getSize()).stream()
+                .map(projection -> getCommentResponse(projection, request.loginId()))
+                .toList();
+    }
+
+    private CommentResponse getCommentResponse(CommentProjection projection, Long loginId) {
+        return new CommentResponse(
+                projection.getCommentId(),
+                projection.getName(),
+                projection.getContent(),
+                isMine(projection.getMemberId(), loginId)
+        );
+    }
+
+    private boolean isMine(Long memberId, Long loginId) {
+        return memberId.equals(loginId);
     }
 }
