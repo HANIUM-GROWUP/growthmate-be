@@ -1,4 +1,4 @@
-package com.growup.growthmate.query.dto;
+package com.growup.growthmate.query.dto.response;
 
 import java.time.LocalDateTime;
 

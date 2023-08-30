@@ -1,4 +1,4 @@
-package com.growup.growthmate.query.dto;
+package com.growup.growthmate.query.dto.response;
 
 public record CommentResponse(
         Long commentId,
