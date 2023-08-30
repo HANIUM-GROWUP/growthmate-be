@@ -4,7 +4,9 @@ import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.community.post.exception.PostException;
 import com.growup.growthmate.isolation.TestIsolation;
 import com.growup.growthmate.query.dto.PagingParams;
+import com.growup.growthmate.query.dto.request.CommentQueryRequest;
 import com.growup.growthmate.query.dto.request.PostDetailRequest;
+import com.growup.growthmate.query.dto.response.CommentResponse;
 import com.growup.growthmate.query.dto.response.PostDetailResponse;
 import com.growup.growthmate.query.dto.response.PostPreviewResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -173,7 +175,96 @@ class CommunityQueryServiceTest {
             // then
             assertThat(actual)
                     .map(PostPreviewResponse::commentCount)
-                    .containsExactly(3L, 2L, 1L, 0L);
+                    .containsExactly(3L, 2L, 1L, 13L);
+        }
+    }
+
+    @Nested
+    @DisplayName("게시글의 댓글 목록을 조회할 때")
+    class CommentQueryTest {
+
+        @Test
+        void postId만으로_조회하면_최신_10개를_조회한다() {
+            // given
+            CommentQueryRequest request = new CommentQueryRequest(11L, COMMENT_WRITER_ID);
+            PagingParams params = new PagingParams(null, null);
+
+            // when
+            List<CommentResponse> actual = communityQueryService.findComments(request, params);
+
+            // then
+            assertAll(
+                    () -> assertThat(actual)
+                            .map(CommentResponse::commentId)
+                            .containsExactly(20L, 19L, 18L, 17L, 16L, 15L, 14L, 13L, 12L, 11L),
+                    () -> assertThat(actual)
+                            .map(CommentResponse::content)
+                            .containsOnly(COMMENT_CONTENT),
+                    () -> assertThat(actual)
+                            .map(CommentResponse::isMine)
+                            .containsOnly(true)
+            );
+        }
+
+        @Test
+        void 로그인_회원이_작성자가_아니면_isMine이_false를_반환한다() {
+            // given
+            Long loginId = 100L;
+            CommentQueryRequest request = new CommentQueryRequest(11L, loginId);
+            PagingParams params = new PagingParams(null, null);
+
+            // when
+            List<CommentResponse> actual = communityQueryService.findComments(request, params);
+
+            // then
+            assertThat(actual)
+                    .map(CommentResponse::isMine)
+                    .containsOnly(false);
+        }
+
+        @Test
+        void cursor를_지정하면_cursor_이전에_만든_게시글을_조회한다() {
+            // given
+            CommentQueryRequest request = new CommentQueryRequest(11L, COMMENT_WRITER_ID);
+            PagingParams params = new PagingParams(19L, null);
+
+            // when
+            List<CommentResponse> actual = communityQueryService.findComments(request, params);
+
+            // then
+            assertThat(actual)
+                    .map(CommentResponse::commentId)
+                    .containsExactly(18L, 17L, 16L, 15L, 14L, 13L, 12L, 11L, 10L, 9L);
+        }
+
+        @Test
+        void 삭제된_댓글은_조회되지_않는다() {
+            // given
+            CommentQueryRequest request = new CommentQueryRequest(11L, 1L);
+            PagingParams params = new PagingParams(12L, null);
+
+            // when
+            List<CommentResponse> actual = communityQueryService.findComments(request, params);
+
+            // then
+            assertThat(actual)
+                    .map(CommentResponse::commentId)
+                    .containsExactly(11L, 10L, 9L, 7L);
+        }
+
+        @Test
+        void size만큼_조회된다() {
+            // given
+            CommentQueryRequest request = new CommentQueryRequest(11L, 1L);
+            PagingParams params = new PagingParams(null, 3);
+
+            // when
+            List<CommentResponse> actual = communityQueryService.findComments(request, params);
+
+            // then
+            assertThat(actual)
+                    .map(CommentResponse::commentId)
+                    .containsExactly(20L, 19L, 18L);
         }
     }
 }

@@ -12,4 +12,7 @@ public class CommunityFixture {
     public static final String POST_CONTENT = "게시글 내용입니다. 10글자를 넘어갑니다.";
 
     public static final Long DELETED_POST_ID = 2L;
+
+    public static final Long COMMENT_WRITER_ID = 1L;
+    public static final String COMMENT_CONTENT = "댓글 내용입니다.";
 }

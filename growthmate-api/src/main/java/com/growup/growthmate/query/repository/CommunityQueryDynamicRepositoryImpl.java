@@ -3,6 +3,7 @@ package com.growup.growthmate.query.repository;
 import com.growup.growthmate.query.repository.projection.CommentProjection;
 import com.growup.growthmate.query.repository.projection.PostPreviewProjection;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +24,7 @@ public class CommunityQueryDynamicRepositoryImpl implements CommunityQueryDynami
                 .from(post)
                 .join(member).on(post.writerId.value.eq(member.id))
                 .where(post.companyId.value.eq(companyId)
-                        .and(getCursorCondition(cursor)))
+                        .and(getCursorCondition(cursor, post.id)))
                 .orderBy(post.id.desc())
                 .limit(size)
                 .fetch();
@@ -35,16 +36,16 @@ public class CommunityQueryDynamicRepositoryImpl implements CommunityQueryDynami
                 .from(comment)
                 .join(member).on(comment.writerId.value.eq(member.id))
                 .where(comment.postId.value.eq(postId)
-                        .and(getCursorCondition(cursor)))
+                        .and(getCursorCondition(cursor, comment.id)))
                 .orderBy(comment.id.desc())
                 .limit(size)
                 .fetch();
     }
 
-    private BooleanBuilder getCursorCondition(Long cursor) {
+    private BooleanBuilder getCursorCondition(Long cursor, NumberPath<Long> id) {
         if (cursor == null) {
             return new BooleanBuilder();
         }
-        return new BooleanBuilder(post.id.lt(cursor));
+        return new BooleanBuilder(id.lt(cursor));
     }
 }
