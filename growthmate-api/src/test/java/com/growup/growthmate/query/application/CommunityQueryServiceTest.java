@@ -37,7 +37,7 @@ class CommunityQueryServiceTest {
         @Test
         void 정상적으로_조회한다() {
             // given
-            PostDetailRequest request = new PostDetailRequest(FIRST_POST_ID, FIRST_POST_WRITER_ID);
+            PostDetailRequest request = new PostDetailRequest(FIRST_POST_ID, POST_WRITER_ID);
 
             // when
             PostDetailResponse actual = communityQueryService.findPostDetail(request);
@@ -45,8 +45,8 @@ class CommunityQueryServiceTest {
             // then
             assertAll(
                     () -> assertThat(actual.writer()).isEqualTo(MEMBER_NAME),
-                    () -> assertThat(actual.title()).isEqualTo(FIRST_POST_TITLE),
-                    () -> assertThat(actual.content()).isEqualTo(FIRST_POST_CONTENT),
+                    () -> assertThat(actual.title()).isEqualTo(POST_TITLE),
+                    () -> assertThat(actual.content()).isEqualTo(POST_CONTENT),
                     () -> assertThat(actual.isMine()).isEqualTo(true)
             );
         }
@@ -68,7 +68,7 @@ class CommunityQueryServiceTest {
         void 게시글이_존재하지_않으면_예외가_발생한다() {
             // given
             Long postId = 100L;
-            PostDetailRequest request = new PostDetailRequest(postId, FIRST_POST_WRITER_ID);
+            PostDetailRequest request = new PostDetailRequest(postId, POST_WRITER_ID);
 
             // when then
             assertThatThrownBy(() -> communityQueryService.findPostDetail(request))
@@ -79,7 +79,7 @@ class CommunityQueryServiceTest {
         @Test
         void 삭제된_게시글은_조회되지_않는다() {
             // given
-            PostDetailRequest request = new PostDetailRequest(DELETED_POST_ID, FIRST_POST_WRITER_ID);
+            PostDetailRequest request = new PostDetailRequest(DELETED_POST_ID, POST_WRITER_ID);
 
             // when then
             assertThatThrownBy(() -> communityQueryService.findPostDetail(request))
@@ -101,47 +101,79 @@ class CommunityQueryServiceTest {
             List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
 
             // then
-            assertAll(
-                    () -> assertThat(actual)
-                            .map(PostPreviewResponse::postId)
-                            .containsExactly(12L, 11L, 10L, 9L, 8L, 7L, 6L, 5L, 4L, 3L)
-            );
+            assertThat(actual)
+                    .map(PostPreviewResponse::postId)
+                    .containsExactly(14L, 13L, 12L, 11L, 10L, 9L, 8L, 7L, 6L, 5L);
         }
 
         @Test
         void cursor를_지정하면_cursor_이전에_만든_게시글을_조회한다() {
             // given
+            PagingParams params = new PagingParams(13L, null);
 
             // when
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
 
             // then
+            assertThat(actual)
+                    .map(PostPreviewResponse::postId)
+                    .containsExactly(12L, 11L, 10L, 9L, 8L, 7L, 6L, 5L, 4L, 3L);
         }
 
         @Test
         void 삭제된_게시글은_조회되지_않는다() {
             // given
+            PagingParams params = new PagingParams(5L, null);
 
             // when
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
 
             // then
+            assertThat(actual)
+                    .map(PostPreviewResponse::postId)
+                    .containsExactly(4L, 3L, 1L);
         }
 
         @Test
         void size만큼_조회된다() {
             // given
+            PagingParams params = new PagingParams(null, 3);
 
             // when
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
 
             // then
+            assertThat(actual)
+                    .map(PostPreviewResponse::postId)
+                    .containsExactly(14L, 13L, 12L);
         }
 
         @Test
         void 게시글_본문이_요약되어_조회된다() {
             // given
+            PagingParams params = new PagingParams(2L, 1);
 
             // when
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
 
             // then
+            assertThat(actual)
+                    .map(PostPreviewResponse::preview)
+                    .containsExactly("게시글 내용입니다.");
+        }
+
+        @Test
+        void 댓글_개수가_알맞게_조회된다() {
+            // given
+            PagingParams params = new PagingParams(null, 4);
+
+            // when
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
+
+            // then
+            assertThat(actual)
+                    .map(PostPreviewResponse::commentCount)
+                    .containsExactly(3L, 2L, 1L, 0L);
         }
     }
 }

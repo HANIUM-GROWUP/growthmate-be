@@ -58,7 +58,7 @@ public class CommunityQueryService {
                 projection.getPostId(),
                 projection.getName(),
                 projection.getTitle(),
-                projection.getContent(),
+                projection.getContent().substring(0, 10),
                 projection.getCreatedAt(),
                 projection.getCommentCount()
         );
