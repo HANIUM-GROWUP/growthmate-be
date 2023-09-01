@@ -41,8 +41,10 @@ public class CommunityQueryV1Controller {
     public ResponseEntity<List<CommentResponse>> findComments(@PathVariable Long postId,
                                                               @ModelAttribute PagingParams params,
                                                               LoginMember loginMember) {
-        CommentQueryRequest request = new CommentQueryRequest(postId, loginMember.id());
-        List<CommentResponse> responses = communityQueryService.findComments(request, params);
+        CommentQueryRequest request = new CommentQueryRequest(
+                postId, loginMember.id(), params.getCursor(), params.getSize()
+        );
+        List<CommentResponse> responses = communityQueryService.findComments(request);
         return ResponseEntity.ok(responses);
     }
 }

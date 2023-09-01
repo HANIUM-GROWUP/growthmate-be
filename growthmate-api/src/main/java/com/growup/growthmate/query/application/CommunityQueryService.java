@@ -3,7 +3,6 @@ package com.growup.growthmate.query.application;
 import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.community.post.exception.PostException;
 import com.growup.growthmate.query.dto.CommunityResponseMapper;
-import com.growup.growthmate.query.dto.PagingParams;
 import com.growup.growthmate.query.dto.request.CommentQueryRequest;
 import com.growup.growthmate.query.dto.request.PostDetailRequest;
 import com.growup.growthmate.query.dto.request.PostPreviewRequest;
@@ -42,8 +41,8 @@ public class CommunityQueryService {
                 .toList();
     }
 
-    public List<CommentResponse> findComments(CommentQueryRequest request, PagingParams params) {
-        return communityQueryRepository.findComments(request.postId(), params.getCursor(), params.getSize()).stream()
+    public List<CommentResponse> findComments(CommentQueryRequest request) {
+        return communityQueryRepository.findComments(request.postId(), request.cursor(), request.size()).stream()
                 .map(post -> mapper.toResponse(post, isMine(post.getMemberId(), request.loginId())))
                 .toList();
     }
