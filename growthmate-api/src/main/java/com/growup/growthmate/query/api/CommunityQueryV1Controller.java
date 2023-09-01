@@ -5,6 +5,7 @@ import com.growup.growthmate.query.application.CommunityQueryService;
 import com.growup.growthmate.query.dto.*;
 import com.growup.growthmate.query.dto.request.CommentQueryRequest;
 import com.growup.growthmate.query.dto.request.PostDetailRequest;
+import com.growup.growthmate.query.dto.request.PostPreviewRequest;
 import com.growup.growthmate.query.dto.response.CommentResponse;
 import com.growup.growthmate.query.dto.response.PostDetailResponse;
 import com.growup.growthmate.query.dto.response.PostPreviewResponse;
@@ -31,7 +32,8 @@ public class CommunityQueryV1Controller {
     @GetMapping("/companies/{companyId}/posts")
     public ResponseEntity<List<PostPreviewResponse>> findPosts(@PathVariable Long companyId,
                                                                @ModelAttribute PagingParams params) {
-        List<PostPreviewResponse> responses = communityQueryService.findPostPreviews(companyId, params);
+        PostPreviewRequest request = new PostPreviewRequest(companyId, params.getCursor(), params.getSize());
+        List<PostPreviewResponse> responses = communityQueryService.findPostPreviews(request);
         return ResponseEntity.ok(responses);
     }
 

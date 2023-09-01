@@ -6,6 +6,7 @@ import com.growup.growthmate.query.dto.CommunityResponseMapper;
 import com.growup.growthmate.query.dto.PagingParams;
 import com.growup.growthmate.query.dto.request.CommentQueryRequest;
 import com.growup.growthmate.query.dto.request.PostDetailRequest;
+import com.growup.growthmate.query.dto.request.PostPreviewRequest;
 import com.growup.growthmate.query.dto.response.CommentResponse;
 import com.growup.growthmate.query.dto.response.PostDetailResponse;
 import com.growup.growthmate.query.dto.response.PostPreviewResponse;
@@ -35,8 +36,8 @@ public class CommunityQueryService {
         return new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage());
     }
 
-    public List<PostPreviewResponse> findPostPreviews(Long companyId, PagingParams params) {
-        return communityQueryRepository.findPostPreviews(companyId, params.getCursor(), params.getSize()).stream()
+    public List<PostPreviewResponse> findPostPreviews(PostPreviewRequest request) {
+        return communityQueryRepository.findPostPreviews(request.companyId(), request.cursor(), request.size()).stream()
                 .map(mapper::toResponse)
                 .toList();
     }

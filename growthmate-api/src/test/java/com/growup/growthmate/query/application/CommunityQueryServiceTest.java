@@ -6,6 +6,7 @@ import com.growup.growthmate.isolation.TestIsolation;
 import com.growup.growthmate.query.dto.PagingParams;
 import com.growup.growthmate.query.dto.request.CommentQueryRequest;
 import com.growup.growthmate.query.dto.request.PostDetailRequest;
+import com.growup.growthmate.query.dto.request.PostPreviewRequest;
 import com.growup.growthmate.query.dto.response.CommentResponse;
 import com.growup.growthmate.query.dto.response.PostDetailResponse;
 import com.growup.growthmate.query.dto.response.PostPreviewResponse;
@@ -94,13 +95,15 @@ class CommunityQueryServiceTest {
     @DisplayName("게시글 목록을 조회할 때")
     class PostPreviewsTest {
 
+        private static final Integer DEFAULT_SIZE = 10;
+
         @Test
         void companyId만으로_조회하면_최근_10개가_조회된다() {
             // given
-            PagingParams params = new PagingParams(null, null);
+            PostPreviewRequest request = new PostPreviewRequest(COMPANY_ID, null, DEFAULT_SIZE);
 
             // when
-            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(request);
 
             // then
             assertThat(actual)
@@ -111,10 +114,10 @@ class CommunityQueryServiceTest {
         @Test
         void cursor를_지정하면_cursor_이전에_만든_게시글을_조회한다() {
             // given
-            PagingParams params = new PagingParams(13L, null);
+            PostPreviewRequest request = new PostPreviewRequest(COMPANY_ID, 13L, DEFAULT_SIZE);
 
             // when
-            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(request);
 
             // then
             assertThat(actual)
@@ -125,10 +128,10 @@ class CommunityQueryServiceTest {
         @Test
         void 삭제된_게시글은_조회되지_않는다() {
             // given
-            PagingParams params = new PagingParams(5L, null);
+            PostPreviewRequest request = new PostPreviewRequest(COMPANY_ID, 5L, DEFAULT_SIZE);
 
             // when
-            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(request);
 
             // then
             assertThat(actual)
@@ -139,10 +142,10 @@ class CommunityQueryServiceTest {
         @Test
         void size만큼_조회된다() {
             // given
-            PagingParams params = new PagingParams(null, 3);
+            PostPreviewRequest request = new PostPreviewRequest(COMPANY_ID, null, 3);
 
             // when
-            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(request);
 
             // then
             assertThat(actual)
@@ -153,10 +156,10 @@ class CommunityQueryServiceTest {
         @Test
         void 게시글_본문이_요약되어_조회된다() {
             // given
-            PagingParams params = new PagingParams(2L, 1);
+            PostPreviewRequest request = new PostPreviewRequest(COMPANY_ID, 2L, 1);
 
             // when
-            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(request);
 
             // then
             assertThat(actual)
@@ -167,10 +170,10 @@ class CommunityQueryServiceTest {
         @Test
         void 댓글_개수가_알맞게_조회된다() {
             // given
-            PagingParams params = new PagingParams(null, 4);
+            PostPreviewRequest request = new PostPreviewRequest(COMPANY_ID, null, 4);
 
             // when
-            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(COMPANY_ID, params);
+            List<PostPreviewResponse> actual = communityQueryService.findPostPreviews(request);
 
             // then
             assertThat(actual)
