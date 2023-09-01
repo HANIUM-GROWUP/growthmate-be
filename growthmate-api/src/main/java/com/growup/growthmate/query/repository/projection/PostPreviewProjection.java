@@ -19,6 +19,9 @@ import static com.querydsl.core.types.ExpressionUtils.count;
 @Getter
 public class PostPreviewProjection {
 
+    private static final int CONTENT_MIN_INDEX = 0;
+    private static final int CONTENT_MAX_INDEX = 10;
+
     private static final Expression<Long> COMMENT_COUNT = ExpressionUtils.as(
             JPAExpressions.select(count(comment))
                     .from(comment)
@@ -40,4 +43,8 @@ public class PostPreviewProjection {
     private String content;
     private LocalDateTime createdAt;
     private Long commentCount;
+
+    public String getContent() {
+        return this.content.substring(CONTENT_MIN_INDEX, CONTENT_MAX_INDEX);
+    }
 }

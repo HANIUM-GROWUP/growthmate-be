@@ -26,7 +26,7 @@ public class CommunityResponseMapper {
                 projection.getPostId(),
                 projection.getName(),
                 projection.getTitle(),
-                projection.getContent().substring(0, 10),
+                projection.getContent(),
                 projection.getCreatedAt(),
                 projection.getCommentCount()
         );
