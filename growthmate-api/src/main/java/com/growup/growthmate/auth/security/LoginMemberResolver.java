@@ -1,11 +1,9 @@
 package com.growup.growthmate.auth.security;
 
-import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.LoginMember;
 import com.growup.growthmate.auth.token.JwtSupport;
 import com.growup.growthmate.auth.token.JwtTokenProvider;
 import com.growup.growthmate.auth.token.TokenPayload;
-import com.growup.growthmate.member.exception.MemberException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -16,6 +14,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -34,16 +33,11 @@ public class LoginMemberResolver implements HandlerMethodArgumentResolver {
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-        String accessToken = getAccessToken(request);
-        TokenPayload payload = jwtTokenProvider.getPayload(accessToken);
-        return new LoginMember(payload.id());
-    }
-
-    private String getAccessToken(HttpServletRequest request) {
-
-        MemberException noToken = MemberException.NO_FOUND_TOKEN;
-
-        return JwtSupport.extractToken(Objects.requireNonNull(request))
-                .orElseThrow(() -> new BusinessException(noToken.getHttpStatusCode(), noToken.getMessage()));
+        Optional<String> token = JwtSupport.extractToken(Objects.requireNonNull(request));
+        if (token.isPresent()) {
+            TokenPayload payload = jwtTokenProvider.getPayload(token.get());
+            return new LoginMember(payload.id());
+        }
+        return LoginMember.NOT_LOGIN;
     }
 }
