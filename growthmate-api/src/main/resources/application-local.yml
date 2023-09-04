@@ -1,0 +1,46 @@
+spring:
+
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
+  h2-console:
+    settings:
+      web-allow-others: false
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        hbm2ddl:
+          auto: none
+        show_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE-CLIENT-ID}
+            client-secret: ${GOOGLE-CLIENT-SECRET}
+            scope: profile, email
+
+security:
+  jwt:
+    token:
+      secret-key: SGFuRXVtIEdyb3d0aE1hdGUgQmFja2VuZCBSYW5kb20gRW5jb2RpbmcgU2VjcmV0IEtleQ==
+      expire-length: 86400
+      redirect-uri: http://localhost:3000/token
+
+cors:
+  allowed:
+    origins: http://localhost:3000
+
+logging:
+  level:
+    org:
+      hibernate.sql: debug

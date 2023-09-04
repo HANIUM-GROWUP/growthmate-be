@@ -1,4 +1,4 @@
-package com.growup;
+package com.growup.growthmate;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.TimeZone;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.growup")
 public class GrowthMateApiApplication {
 
     public static void main(String[] args) {
