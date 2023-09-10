@@ -3,7 +3,7 @@ INSERT INTO member (member_id, name, email, picture_url, registration_id)
 values (1, '이동규', 'ldk@gmail.com', 'picture.com', 'google');
 
 -- 1번 회사
-INSERT INTO company(company_id) values (1);
+INSERT INTO company(company_id, name) values (1, 'Naver');
 
 -- 1번 회사 게시글 14개 (삭제 게시글 1개)
 INSERT INTO post (post_id, member_id, company_id, title, content, is_deleted, created_at)
@@ -114,7 +114,7 @@ INSERT INTO comment(comment_id, post_id, member_id, content, is_deleted, created
 values (20, 11, 1, '댓글 내용입니다.', false, '2023-08-30 21:00:00');
 
 -- 2번 회사
-INSERT INTO company(company_id) values(2);
+INSERT INTO company(company_id, name) values(2, 'Kakao');
 
 -- 2번 회사 게시글
 INSERT INTO post (post_id, member_id, company_id, title, content, is_deleted, created_at)
