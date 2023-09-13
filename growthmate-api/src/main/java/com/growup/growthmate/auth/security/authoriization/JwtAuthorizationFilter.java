@@ -1,10 +1,9 @@
 package com.growup.growthmate.auth.security.authoriization;
 
-import com.growup.growthmate.auth.application.AuthService;
-import com.growup.growthmate.auth.dto.AuthorizationRequest;
-import com.growup.growthmate.auth.dto.AuthorizationResponse;
 import com.growup.growthmate.auth.security.oauth.OAuth2Member;
 import com.growup.growthmate.auth.token.JwtSupport;
+import com.growup.growthmate.auth.token.JwtTokenProvider;
+import com.growup.growthmate.auth.token.TokenPayload;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
-    private final AuthService authService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -36,11 +35,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private void validateToken(String accessToken) {
-        AuthorizationRequest authorizationRequest = new AuthorizationRequest(accessToken);
-        AuthorizationResponse authorizationResponse = authService.authorize(authorizationRequest);
-
-        if (authorizationResponse.isAuthorized()) {
-            OAuth2Member oauth2Member = new OAuth2Member(authorizationResponse.memberId(), accessToken);
+        if (jwtTokenProvider.isValidAccessToken(accessToken)) {
+            TokenPayload payload = jwtTokenProvider.getPayload(accessToken);
+            OAuth2Member oauth2Member = new OAuth2Member(payload.id(), accessToken);
             configureSecurityContext(oauth2Member);
         }
     }
