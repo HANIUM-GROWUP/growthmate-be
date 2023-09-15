@@ -6,6 +6,8 @@ import com.growup.growthmate.auth.dto.LoginRequest;
 import com.growup.growthmate.auth.dto.LoginResponse;
 import com.growup.growthmate.auth.security.oauth.OAuth2Member;
 import com.growup.growthmate.auth.security.oauth.OAuthProvider;
+import com.growup.growthmate.auth.token.JwtTokenProvider;
+import com.growup.growthmate.auth.token.TokenPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 
     private final AuthService authService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -38,7 +41,9 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 
     private LoginResponse login(LoginRequest loginRequest) {
         try {
-            return authService.login(loginRequest);
+            Long memberId = authService.login(loginRequest);
+            String accessToken = jwtTokenProvider.createToken(new TokenPayload(memberId));
+            return new LoginResponse(memberId, accessToken);
         } catch (BusinessException exception) {
             String errorCode = String.valueOf(exception.getHttpStatusCode());
             OAuth2Error oAuth2Error = new OAuth2Error(errorCode);

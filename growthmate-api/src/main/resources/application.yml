@@ -36,4 +36,4 @@ spring:
     activate:
       on-profile: prod
     import:
-      - classpath:be-config/application-prod.yml
+      - classpath:be-config/api-module/application-prod.yml

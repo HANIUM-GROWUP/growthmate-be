@@ -5,11 +5,11 @@ CREATE TABLE company_analysis
 (
     company_analysis_id BIGINT AUTO_INCREMENT NOT NULL,
     company_id          BIGINT                NOT NULL,
-    growth              DOUBLE                NOT NULL,
-    efficiency          DOUBLE                NOT NULL,
-    profitability       DOUBLE                NOT NULL,
-    technology          DOUBLE                NOT NULL,
-    financial_stability DOUBLE                NOT NULL,
+    growth               INT                   NOT NULL,
+    stability            INT                   NOT NULL,
+    profitability        INT                   NOT NULL,
+    efficiency           INT                   NOT NULL,
+    business_performance INT                   NOT NULL,
     CONSTRAINT pk_companyanalysis PRIMARY KEY (company_analysis_id)
 );
 

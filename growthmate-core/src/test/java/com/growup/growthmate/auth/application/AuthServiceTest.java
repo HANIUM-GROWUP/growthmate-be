@@ -1,7 +1,6 @@
 package com.growup.growthmate.auth.application;
 
 import com.growup.growthmate.auth.dto.LoginRequest;
-import com.growup.growthmate.auth.dto.LoginResponse;
 import com.growup.growthmate.isolation.TestIsolation;
 import com.growup.growthmate.member.domain.Member;
 import com.growup.growthmate.member.domain.MemberRepository;
@@ -32,14 +31,12 @@ class AuthServiceTest {
     @Test
     void 처음인_사용자는_DB에_저장된다() {
         // when˚
-        LoginResponse loginResponse = authService.login(loginRequest);
+        Long memberId = authService.login(loginRequest);
 
         // then
-        Long memberId = loginResponse.memberId();
         Optional<Member> joinedMember = memberRepository.findById(memberId);
         assertAll(
                 () -> assertThat(joinedMember).isPresent(),
-                () -> assertThat(loginResponse.accessToken()).isNotNull(),
                 () -> assertThat(memberRepository.findAll().size()).isOne()
         );
     }
@@ -51,14 +48,12 @@ class AuthServiceTest {
         authService.login(loginRequest);
 
         // when
-        LoginResponse loginResponse = authService.login(loginRequest);
+        Long memberId = authService.login(loginRequest);
 
         // then
-        Long memberId = loginResponse.memberId();
         Optional<Member> joinedMember = memberRepository.findById(memberId);
         assertAll(
                 () -> assertThat(joinedMember).isPresent(),
-                () -> assertThat(loginResponse.accessToken()).isNotNull(),
                 () -> assertThat(memberRepository.findAll().size()).isOne()
         );
     }

@@ -19,17 +19,17 @@ public class CompanyAnalysis {
     private Long companyId;
 
     @Column(nullable = false)
-    private Double growth;
+    private Integer growth;
 
     @Column(nullable = false)
-    private Double efficiency;
+    private Integer stability;
 
     @Column(nullable = false)
-    private Double profitability;
+    private Integer profitability;
 
     @Column(nullable = false)
-    private Double technology;
+    private Integer efficiency;
 
     @Column(nullable = false)
-    private Double financialStability;
+    private Integer businessPerformance;
 }
