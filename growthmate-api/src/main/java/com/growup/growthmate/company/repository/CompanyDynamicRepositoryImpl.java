@@ -16,10 +16,7 @@ public class CompanyDynamicRepositoryImpl implements CompanyDynamicRepository {
     @Override
     public CompanyAnalysis findCompanyAnalysis(CompanyAnalysisRequest request) {
 
-        return jpaQueryFactory.select(Projections.bean(CompanyAnalysis.class,
-                        companyAnalysis.growth, companyAnalysis.stability, companyAnalysis.profitability,
-                        companyAnalysis.efficiency, companyAnalysis.businessPerformance))
-                .from(companyAnalysis)
+        return jpaQueryFactory.selectFrom(companyAnalysis)
                 .where(companyAnalysis.companyId.eq(request.companyId()))
                 .fetchOne();
     }
