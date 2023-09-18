@@ -2,14 +2,13 @@ package com.growup.growthmate.company.repository;
 
 import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.dto.CompanyAnalysisRequest;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import static com.growup.growthmate.company.domain.QCompanyAnalysis.companyAnalysis;
 
 @RequiredArgsConstructor
-public class CompanyDynamicRepositoryImpl implements CompanyDynamicRepository {
+public class CompanyAnalysisRepositoryImpl implements CompanyAnalysisRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
