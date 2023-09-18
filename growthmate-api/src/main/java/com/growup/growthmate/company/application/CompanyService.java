@@ -20,8 +20,7 @@ public class CompanyService {
     public CompanyAnalysisResponse findCompanyAnalysis(CompanyAnalysisRequest request) {
 
         CompanyAnalysis entityResponse = companyRepository.findCompanyAnalysis(request);
-        CompanyAnalysisResponse response = companyAnalysisMapper.toAnalysisDTO(entityResponse);
 
-        return response;
+        return companyAnalysisMapper.toAnalysisDTO(entityResponse);;
     }
 }
