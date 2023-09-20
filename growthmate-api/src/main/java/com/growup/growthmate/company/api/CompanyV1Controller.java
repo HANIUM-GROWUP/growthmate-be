@@ -17,10 +17,9 @@ public class CompanyV1Controller {
 
     private final CompanyService companyService;
 
-    @GetMapping(value = "companies/{comapany_id}/analyze")
+    @GetMapping(value = "companies/{companyId}/analyze")
     public ResponseEntity<CompanyAnalysisResponse> findCompanyAnalysis(
-            @PathVariable Long companyId
-    ) {
+            @PathVariable Long companyId) {
 
         CompanyAnalysisRequest request = new CompanyAnalysisRequest(companyId);
         CompanyAnalysisResponse response = companyService.findCompanyAnalysis(request);
