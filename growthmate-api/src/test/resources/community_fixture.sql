@@ -3,7 +3,8 @@ INSERT INTO member (member_id, name, email, picture_url, registration_id)
 values (1, '이동규', 'ldk@gmail.com', 'picture.com', 'google');
 
 -- 1번 회사
-INSERT INTO company(company_id) values (1);
+INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
+values (1, '비트 망고', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1996-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 -- 1번 회사 게시글 14개 (삭제 게시글 1개)
 INSERT INTO post (post_id, member_id, company_id, title, content, is_deleted, created_at)
@@ -114,7 +115,8 @@ INSERT INTO comment(comment_id, post_id, member_id, content, is_deleted, created
 values (20, 11, 1, '댓글 내용입니다.', false, '2023-08-30 21:00:00');
 
 -- 2번 회사
-INSERT INTO company(company_id) values(2);
+INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
+values (2, '비트 망고', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1996-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 -- 2번 회사 게시글
 INSERT INTO post (post_id, member_id, company_id, title, content, is_deleted, created_at)

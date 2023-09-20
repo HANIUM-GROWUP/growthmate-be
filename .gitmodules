@@ -1,3 +1,6 @@
 [submodule "growthmate-api/src/main/resources/be-config"]
 	path = growthmate-api/src/main/resources/be-config
 	url = git@github.com:HANIUM-GROWUP/be-config.git
+[submodule "growthmate-batch/src/main/resources/be-config"]
+	path = growthmate-batch/src/main/resources/be-config
+	url = git@github.com:HANIUM-GROWUP/be-config.git
