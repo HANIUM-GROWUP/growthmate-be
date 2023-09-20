@@ -1,0 +1,8 @@
+FROM openjdk:17-oracle
+
+ADD . /home
+WORKDIR /home
+
+COPY growthmate-batch/build/libs/*.jar /home/app.jar
+
+CMD ["java", "-Dspring.profiles.active=local", "-jar", "/home/app.jar"]
