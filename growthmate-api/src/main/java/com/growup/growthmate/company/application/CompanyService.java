@@ -1,10 +1,13 @@
 package com.growup.growthmate.company.application;
 
 import com.growup.growthmate.BusinessException;
+import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.domain.exception.CompanyException;
-import com.growup.growthmate.company.dto.CompanyAnalysisRequest;
-import com.growup.growthmate.company.dto.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
+import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
+import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import com.growup.growthmate.company.mapper.CompanyAnalysisMapper;
 import com.growup.growthmate.company.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,15 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final CompanyAnalysisMapper companyAnalysisMapper;
+
+    public CompanyDetailResponse findCompanyDetail(CompanyDetailRequest request) {
+
+        Optional<Company> entityResponse = Optional.ofNullable(companyRepository.findCompanyDetail(request));
+
+        return entityResponse
+                .map(companyAnalysisMapper::toDetailDTO)
+                .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
+    }
 
     public CompanyAnalysisResponse findCompanyAnalysis(CompanyAnalysisRequest request) {
 
