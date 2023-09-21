@@ -46,4 +46,26 @@ public class Company {
 
     @Column(nullable = false)
     private String address;
+
+    public Company(String name,
+                   String imageUrl,
+                   String ceo,
+                   String scale,
+                   String businessType,
+                   String business,
+                   LocalDateTime establishmentDate,
+                   Long sales,
+                   Long employeeNumber,
+                   String address) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.ceo = ceo;
+        this.scale = scale;
+        this.businessType = businessType;
+        this.business = business;
+        this.establishmentDate = establishmentDate;
+        this.sales = sales;
+        this.employeeNumber = employeeNumber;
+        this.address = address;
+    }
 }

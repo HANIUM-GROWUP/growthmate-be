@@ -14,3 +14,5 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+
+company-file-path: growthmate-batch/build/classes/java/main/com/growup/growthmate/company-files/company.xlsx
