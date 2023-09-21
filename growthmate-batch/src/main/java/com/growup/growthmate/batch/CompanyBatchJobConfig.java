@@ -1,7 +1,7 @@
-package com.growup.growthmate;
+package com.growup.growthmate.batch;
 
-import com.growup.growthmate.company.CompanyReader;
-import com.growup.growthmate.company.CompanyWriter;
+import com.growup.growthmate.batch.company.CompanyReader;
+import com.growup.growthmate.batch.company.CompanyWriter;
 import com.growup.growthmate.company.domain.Company;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

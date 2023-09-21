@@ -1,0 +1,32 @@
+package com.growup.growthmate.support;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+
+import java.time.LocalDateTime;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class XSSFRowUtils {
+
+    public static long toLongValue(XSSFRow row, int rowIndex) {
+        return Long.parseLong(toStringValue(row, rowIndex));
+    }
+
+    public static LocalDateTime toLocalDateTime(XSSFRow row, int rowIndex) {
+        String[] dateTime = toStringValue(row, rowIndex)
+                .replaceAll(" ", "")
+                .split("\\.");
+        return LocalDateTime.of(
+                Integer.parseInt(dateTime[0]),
+                Integer.parseInt(dateTime[1]),
+                Integer.parseInt(dateTime[2]),
+                0,
+                0
+        );
+    }
+
+    public static String toStringValue(XSSFRow row, int rowIndex) {
+        return row.getCell(rowIndex).getStringCellValue();
+    }
+}

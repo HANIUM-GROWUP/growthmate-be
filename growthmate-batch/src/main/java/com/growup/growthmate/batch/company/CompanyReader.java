@@ -1,4 +1,4 @@
-package com.growup.growthmate.company;
+package com.growup.growthmate.batch.company;
 
 import com.growup.growthmate.company.domain.Company;
 import lombok.extern.slf4j.Slf4j;

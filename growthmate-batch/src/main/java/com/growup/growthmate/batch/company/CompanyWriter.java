@@ -1,4 +1,4 @@
-package com.growup.growthmate.company;
+package com.growup.growthmate.batch.company;
 
 import com.growup.growthmate.company.domain.Company;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class CompanyWriter implements ItemWriter<Company> {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public void write(Chunk<? extends Company> chunk) throws Exception {
+    public void write(Chunk<? extends Company> chunk) {
         // todo
     }
 }
