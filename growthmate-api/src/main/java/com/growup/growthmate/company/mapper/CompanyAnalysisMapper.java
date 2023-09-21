@@ -5,6 +5,7 @@ import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
 import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import org.mapstruct.*;
+import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -14,6 +15,15 @@ import org.mapstruct.*;
 )
 public interface CompanyAnalysisMapper {
 
+    @Mappings({
+            @Mapping(source = "name", target = "name"),
+            @Mapping(source = "imageUrl", target = "imageUrl"),
+            @Mapping(source = "businessType", target = "businessType"),
+            @Mapping(source = "establishmentDate", target = "establishmentDate"),
+            @Mapping(source = "address", target = "address"),
+            @Mapping(source = "employeeNumber", target = "employeeNumber"),
+            @Mapping(source = "sales", target = "sales")
+    })
     CompanyDetailResponse toDetailDTO(Company company);
 
     @Mappings({
