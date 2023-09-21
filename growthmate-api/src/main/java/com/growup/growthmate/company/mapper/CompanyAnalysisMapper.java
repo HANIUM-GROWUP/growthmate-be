@@ -1,7 +1,9 @@
 package com.growup.growthmate.company.mapper;
 
+import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
-import com.growup.growthmate.company.dto.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import org.mapstruct.*;
 
 @Mapper(
@@ -11,6 +13,8 @@ import org.mapstruct.*;
         uses = CompanyAnalysis.class
 )
 public interface CompanyAnalysisMapper {
+
+    CompanyDetailResponse toDetailDTO(Company company);
 
     @Mappings({
             @Mapping(source = "growth", target = "growth"),
