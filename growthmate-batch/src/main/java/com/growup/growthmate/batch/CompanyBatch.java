@@ -16,7 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class CompanyBatchJobConfig {
+public class CompanyBatch {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;

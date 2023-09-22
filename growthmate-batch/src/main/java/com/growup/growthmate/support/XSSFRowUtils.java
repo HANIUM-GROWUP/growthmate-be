@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class XSSFRowUtils {
 
     public static long toLongValue(XSSFRow row, int cellIndex) {
-        return Long.parseLong(toStringValue(row, cellIndex));
+        return (long) row.getCell(cellIndex).getNumericCellValue();
     }
 
     public static LocalDateTime toLocalDateTime(XSSFRow row, int cellIndex) {
