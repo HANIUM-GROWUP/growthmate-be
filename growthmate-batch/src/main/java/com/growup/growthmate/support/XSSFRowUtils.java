@@ -14,8 +14,11 @@ public class XSSFRowUtils {
     }
 
     public static LocalDateTime toLocalDateTime(XSSFRow row, int cellIndex) {
-        String[] dateTime = toStringValue(row, cellIndex)
-                .replaceAll(" ", "")
+        String stringValue = toStringValue(row, cellIndex);
+        if (stringValue.isBlank()) {
+            return null;
+        }
+        String[] dateTime = stringValue.replaceAll(" ", "")
                 .split("\\.");
         return LocalDateTime.of(
                 Integer.parseInt(dateTime[0]),
