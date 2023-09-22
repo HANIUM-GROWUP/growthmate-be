@@ -1,4 +1,4 @@
-package com.growup.growthmate.company.repository;
+package com.growup.growthmate.company.repository.analysis;
 
 import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
@@ -14,14 +14,6 @@ import static com.growup.growthmate.company.domain.QCompanyAnalysis.companyAnaly
 public class CompanyAnalysisRepositoryImpl implements CompanyAnalysisRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-
-    @Override
-    public Company findCompanyDetail(CompanyDetailRequest request) {
-
-        return jpaQueryFactory.selectFrom(company)
-                .where(company.id.eq(request.companyId()))
-                .fetchOne();
-    }
 
     @Override
     public CompanyAnalysis findCompanyAnalysis(CompanyAnalysisRequest request) {
