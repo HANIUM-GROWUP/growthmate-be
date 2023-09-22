@@ -1,8 +1,10 @@
 package com.growup.growthmate.company.api;
 
 import com.growup.growthmate.company.application.CompanyService;
-import com.growup.growthmate.company.dto.CompanyAnalysisRequest;
-import com.growup.growthmate.company.dto.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
+import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
+import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class CompanyV1Controller {
 
     private final CompanyService companyService;
+
+    @GetMapping(value = "companies/{companyId}")
+    public ResponseEntity<CompanyDetailResponse> findCompanyDetail(
+            @PathVariable Long companyId) {
+
+        CompanyDetailRequest request = new CompanyDetailRequest(companyId);
+        CompanyDetailResponse response = companyService.findCompanyDetail(request);
+
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping(value = "companies/{companyId}/analyze")
     public ResponseEntity<CompanyAnalysisResponse> findCompanyAnalysis(
