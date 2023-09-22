@@ -5,7 +5,6 @@ import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
 import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import org.mapstruct.*;
-import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
