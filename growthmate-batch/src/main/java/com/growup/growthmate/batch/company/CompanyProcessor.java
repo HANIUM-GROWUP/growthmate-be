@@ -1,5 +1,6 @@
 package com.growup.growthmate.batch.company;
 
+import com.growup.growthmate.batch.company.repository.CompanyExistsRepository;
 import com.growup.growthmate.company.domain.Company;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;

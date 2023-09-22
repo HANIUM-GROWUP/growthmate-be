@@ -1,4 +1,4 @@
-package com.growup.growthmate.batch.company;
+package com.growup.growthmate.batch.company.repository;
 
 import com.growup.growthmate.company.domain.Company;
 import org.springframework.data.jpa.repository.Query;
