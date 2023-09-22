@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class XSSFRowUtils {
 
-    public static long toLongValue(XSSFRow row, int rowIndex) {
-        return Long.parseLong(toStringValue(row, rowIndex));
+    public static long toLongValue(XSSFRow row, int cellIndex) {
+        return Long.parseLong(toStringValue(row, cellIndex));
     }
 
-    public static LocalDateTime toLocalDateTime(XSSFRow row, int rowIndex) {
-        String[] dateTime = toStringValue(row, rowIndex)
+    public static LocalDateTime toLocalDateTime(XSSFRow row, int cellIndex) {
+        String[] dateTime = toStringValue(row, cellIndex)
                 .replaceAll(" ", "")
                 .split("\\.");
         return LocalDateTime.of(
@@ -26,7 +26,7 @@ public class XSSFRowUtils {
         );
     }
 
-    public static String toStringValue(XSSFRow row, int rowIndex) {
-        return row.getCell(rowIndex).getStringCellValue();
+    public static String toStringValue(XSSFRow row, int cellIndex) {
+        return row.getCell(cellIndex).getStringCellValue();
     }
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class CompanyReader implements ItemReader<Company> {
-    public static final int INITIAL_ROW_NUM = 1;
+    private static final int INITIAL_ROW_NUM = 1;
 
     private final XSSFSheet sheet;
     private final XSSFRowToCompanyMapper mapper;
