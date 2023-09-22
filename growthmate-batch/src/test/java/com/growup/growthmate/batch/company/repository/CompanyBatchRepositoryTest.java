@@ -1,9 +1,8 @@
 package com.growup.growthmate.batch.company.repository;
 
 import com.growup.growthmate.company.domain.Company;
+import com.growup.growthmate.fixture.CompanyFixtureRepository;
 import com.growup.growthmate.isolation.TestIsolation;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
 @TestIsolation
@@ -21,8 +20,8 @@ class CompanyBatchRepositoryTest {
     @Autowired
     private CompanyBatchRepository companyBatchRepository;
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    private CompanyFixtureRepository companyFixtureRepository;
 
     private final List<Company> insertCompanies = List.of(
             new Company(
@@ -48,11 +47,10 @@ class CompanyBatchRepositoryTest {
         companyBatchRepository.insertAll(insertCompanies);
 
         // then
-        assertAll(
-                () -> assertThat(em.find(Company.class, 1L)).isNotNull(),
-                () -> assertThat(em.find(Company.class, 2L)).isNotNull(),
-                () -> assertThat(em.find(Company.class, 3L)).isNotNull()
-        );
+        List<Company> companies = companyFixtureRepository.findAll();
+        assertThat(companies)
+                .map(Company::getId)
+                .containsOnly(1L, 2L, 3L);
     }
 
     @Test
@@ -82,9 +80,18 @@ class CompanyBatchRepositoryTest {
 
         // then
         assertAll(
-                () -> assertThat(em.find(Company.class, 1L).getName()).isEqualTo("회사11"),
-                () -> assertThat(em.find(Company.class, 2L).getName()).isEqualTo("회사22"),
-                () -> assertThat(em.find(Company.class, 3L).getName()).isEqualTo("회사33")
+                () -> assertThat(companyFixtureRepository.findById(1L))
+                        .map(Company::getName)
+                        .get()
+                        .isEqualTo("회사11"),
+                () -> assertThat(companyFixtureRepository.findById(2L))
+                        .map(Company::getName)
+                        .get()
+                        .isEqualTo("회사22"),
+                () -> assertThat(companyFixtureRepository.findById(3L))
+                        .map(Company::getName)
+                        .get()
+                        .isEqualTo("회사33")
         );
     }
 }

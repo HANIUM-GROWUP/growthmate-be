@@ -18,8 +18,8 @@ public class CompanyWriter implements ItemWriter<Company> {
 
     @Override
     public void write(Chunk<? extends Company> chunk) {
-        ArrayList<Company> insertCompanies = new ArrayList<>();
-        ArrayList<Company> updateCompanies = new ArrayList<>();
+        List<Company> insertCompanies = new ArrayList<>();
+        List<Company> updateCompanies = new ArrayList<>();
 
         for (Company company : chunk) {
             groupCompanies(company, insertCompanies, updateCompanies);
