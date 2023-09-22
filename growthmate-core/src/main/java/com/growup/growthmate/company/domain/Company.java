@@ -2,6 +2,7 @@ package com.growup.growthmate.company.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class Company {
 
@@ -67,5 +69,21 @@ public class Company {
         this.sales = sales;
         this.employeeNumber = employeeNumber;
         this.address = address;
+    }
+
+    public Company withId(Long id) {
+        return new Company(
+                id,
+                this.name,
+                this.imageUrl,
+                this.ceo,
+                this.scale,
+                this.businessType,
+                this.business,
+                this.establishmentDate,
+                this.sales,
+                this.employeeNumber,
+                this.address
+        );
     }
 }

@@ -1,5 +1,6 @@
 package com.growup.growthmate.batch;
 
+import com.growup.growthmate.batch.company.CompanyProcessor;
 import com.growup.growthmate.batch.company.CompanyReader;
 import com.growup.growthmate.batch.company.CompanyWriter;
 import com.growup.growthmate.company.domain.Company;
@@ -20,6 +21,7 @@ public class CompanyBatchJobConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final CompanyReader companyReader;
+    private final CompanyProcessor companyProcessor;
     private final CompanyWriter companyWriter;
 
     @Bean
@@ -34,6 +36,7 @@ public class CompanyBatchJobConfig {
         return new StepBuilder("companyInfoUpdate", jobRepository)
                 .<Company, Company>chunk(10, transactionManager)
                 .reader(companyReader)
+                .processor(companyProcessor)
                 .writer(companyWriter)
                 .build();
     }
