@@ -2,7 +2,7 @@ name: Batch module docker hub push # actions 이름
 
 on:
   push:
-    branches: [ feature/company-batch ]
+    branches: [ main ]
 
 jobs:
   deploy:
