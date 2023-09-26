@@ -10,6 +10,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -24,6 +25,9 @@ public class CompanyBatch {
     private final CompanyProcessor companyProcessor;
     private final CompanyWriter companyWriter;
 
+    @Value("${batch.company.chunk-size:100}")
+    private int chunkSize;
+
     @Bean
     public Job updateCompanyInfoJob() {
         return new JobBuilder("companyJob", jobRepository)
@@ -34,7 +38,7 @@ public class CompanyBatch {
     @Bean
     public Step updateCompanyInfoStep() {
         return new StepBuilder("companyInfoUpdate", jobRepository)
-                .<Company, Company>chunk(10, transactionManager)
+                .<Company, Company>chunk(chunkSize, transactionManager)
                 .reader(companyReader)
                 .processor(companyProcessor)
                 .writer(companyWriter)
