@@ -6,6 +6,7 @@ import com.growup.growthmate.batch.company.CompanyWriter;
 import com.growup.growthmate.company.domain.Company;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
@@ -32,6 +33,7 @@ public class CompanyBatch {
     public Job updateCompanyInfoJob() {
         return new JobBuilder("companyJob", jobRepository)
                 .start(updateCompanyInfoStep())
+                .listener(jobExecutionTimeListener())
                 .build();
     }
 
@@ -43,5 +45,10 @@ public class CompanyBatch {
                 .processor(companyProcessor)
                 .writer(companyWriter)
                 .build();
+    }
+
+    @Bean
+    public JobExecutionListener jobExecutionTimeListener() {
+        return new JobExecutionTimeListener();
     }
 }
