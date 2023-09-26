@@ -14,16 +14,25 @@ public class TimeLogAspect {
 
     @Around("@annotation(com.growup.growthmate.support.log.ExecutionTimeLog)")
     public Object execute(ProceedingJoinPoint joinPoint) {
-        StopWatch stopWatch = new StopWatch();
-        Object result;
         try {
-            stopWatch.start();
-            result = joinPoint.proceed();
-            stopWatch.stop();
-            log.info("실행 시간 (ms): {}", stopWatch.getTotalTimeMillis());
-            return result;
+            return proceedWithTimeCheck(joinPoint);
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Object proceedWithTimeCheck(ProceedingJoinPoint joinPoint) throws Throwable {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Object result = joinPoint.proceed();
+        stopWatch.stop();
+        logExecutionTime(joinPoint, stopWatch.getTotalTimeMillis());
+        return result;
+    }
+
+    private void logExecutionTime(ProceedingJoinPoint joinPoint, double executionTimeMillis) {
+        String targetName = joinPoint.getTarget().getClass().getSimpleName();
+        String methodName = joinPoint.getSignature().getName();
+        log.info("{}.{} 실행 시간 : {}ms", targetName, methodName, executionTimeMillis);
     }
 }
