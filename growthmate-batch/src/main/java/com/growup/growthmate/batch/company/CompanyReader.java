@@ -1,6 +1,7 @@
 package com.growup.growthmate.batch.company;
 
 import com.growup.growthmate.company.domain.Company;
+import com.growup.growthmate.support.log.ExecutionTimeLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -37,6 +38,7 @@ public class CompanyReader implements ItemReader<Company> {
     }
 
     @Override
+    @ExecutionTimeLog
     public Company read() {
         return Optional.ofNullable(sheet.getRow(rowNum++))
                 .map(mapper::map)

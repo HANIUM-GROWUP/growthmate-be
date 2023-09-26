@@ -2,6 +2,7 @@ package com.growup.growthmate.batch.company;
 
 import com.growup.growthmate.batch.company.repository.CompanyBatchRepository;
 import com.growup.growthmate.company.domain.Company;
+import com.growup.growthmate.support.log.ExecutionTimeLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
@@ -17,6 +18,7 @@ public class CompanyWriter implements ItemWriter<Company> {
     private final CompanyBatchRepository companyBatchRepository;
 
     @Override
+    @ExecutionTimeLog
     public void write(Chunk<? extends Company> chunk) {
         List<Company> insertCompanies = new ArrayList<>();
         List<Company> updateCompanies = new ArrayList<>();
