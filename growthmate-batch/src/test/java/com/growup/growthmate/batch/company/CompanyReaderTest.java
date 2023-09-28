@@ -31,6 +31,6 @@ class CompanyReaderTest {
         }
 
         // then
-        assertThat(companies).hasSize(29);
+        assertThat(companies).hasSize(355);
     }
 }

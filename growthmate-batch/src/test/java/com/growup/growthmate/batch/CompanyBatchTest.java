@@ -36,7 +36,7 @@ class CompanyBatchTest {
         List<Company> companies = companyFixtureRepository.findAll();
         assertAll(
                 () -> assertThat(actual.getStatus()).isEqualTo(BatchStatus.COMPLETED),
-                () -> assertThat(companies).hasSize(29)
+                () -> assertThat(companies).hasSize(355)
         );
 
     }

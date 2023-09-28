@@ -25,6 +25,7 @@ public class Company {
     @Column(nullable = false)
     private String name;
 
+    @Lob
     private String imageUrl;
 
     private String ceo;

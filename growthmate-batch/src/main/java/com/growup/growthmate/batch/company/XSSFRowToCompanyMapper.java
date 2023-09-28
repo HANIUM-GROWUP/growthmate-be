@@ -29,7 +29,7 @@ public class XSSFRowToCompanyMapper implements XSSFRowMapper<Company> {
                 XSSFRowUtils.toStringValue(row, SCALE),
                 XSSFRowUtils.toStringValue(row, BUSINESS_TYPE),
                 XSSFRowUtils.toStringValue(row, BUSINESS),
-                XSSFRowUtils.toLocalDateTime(row, ESTABLISHMENT_DATE),
+                XSSFRowUtils.toLocalDateTimeValue(row, ESTABLISHMENT_DATE),
                 XSSFRowUtils.toLongValue(row, SALES),
                 XSSFRowUtils.toLongValue(row, EMPLOYEE_NUMBER),
                 XSSFRowUtils.toStringValue(row, ADDRESS)

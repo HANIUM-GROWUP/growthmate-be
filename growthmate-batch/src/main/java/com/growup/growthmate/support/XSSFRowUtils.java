@@ -2,22 +2,29 @@ package com.growup.growthmate.support;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class XSSFRowUtils {
 
-    public static long toLongValue(XSSFRow row, int cellIndex) {
-        return (long) row.getCell(cellIndex).getNumericCellValue();
+    public static Long toLongValue(XSSFRow row, int cellIndex) {
+        return findCellByIndex(row, cellIndex)
+                .map(cell -> (long) cell.getNumericCellValue())
+                .orElse(null);
     }
 
-    public static LocalDateTime toLocalDateTime(XSSFRow row, int cellIndex) {
-        String stringValue = toStringValue(row, cellIndex);
-        if (stringValue.isBlank()) {
-            return null;
-        }
+    public static LocalDateTime toLocalDateTimeValue(XSSFRow row, int cellIndex) {
+        return Optional.ofNullable(toStringValue(row, cellIndex))
+                .filter(stringValue -> !stringValue.isBlank())
+                .map(XSSFRowUtils::convertToLocalDateTime)
+                .orElse(null);
+    }
+
+    private static LocalDateTime convertToLocalDateTime(String stringValue) {
         String[] dateTime = stringValue.replaceAll(" ", "")
                 .split("\\.");
         return LocalDateTime.of(
@@ -30,6 +37,12 @@ public class XSSFRowUtils {
     }
 
     public static String toStringValue(XSSFRow row, int cellIndex) {
-        return row.getCell(cellIndex).getStringCellValue();
+        return findCellByIndex(row, cellIndex)
+                .map(XSSFCell::getStringCellValue)
+                .orElse(null);
+    }
+
+    private static Optional<XSSFCell> findCellByIndex(XSSFRow row, int cellIndex) {
+        return Optional.ofNullable(row.getCell(cellIndex));
     }
 }
