@@ -30,7 +30,7 @@ class CompanyWriterTest {
     private final List<Company> insertCompanies = List.of(
             new Company(
                     "회사1", "picture.com", "대표", "대기업",
-                    "게임", "소프트웨어 공급", LocalDateTime.now(),
+                    "게임", "소프트웨어 공급", null,
                     139485530000L, 43L, "서울"
             ),
             new Company(
