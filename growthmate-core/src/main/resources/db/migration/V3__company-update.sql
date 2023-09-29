@@ -1,11 +1,11 @@
 ALTER TABLE company ADD CONSTRAINT comapny_name_unique UNIQUE (name);
 
-ALTER TABLE company MODIFY image_url LONGTEXT null;
-ALTER TABLE company MODIFY ceo null;
-ALTER TABLE company MODIFY scale null;
-ALTER TABLE company MODIFY business_type null;
-ALTER TABLE company MODIFY business null;
-ALTER TABLE company MODIFY establishment_date null;
-ALTER TABLE company MODIFY sales null;
-ALTER TABLE company MODIFY employee_number null;
-ALTER TABLE company MODIFY address null;
+ALTER TABLE company MODIFY COLUMN image_url LONGTEXT null;
+ALTER TABLE company MODIFY COLUMN ceo null;
+ALTER TABLE company MODIFY COLUMN scale null;
+ALTER TABLE company MODIFY COLUMN business_type null;
+ALTER TABLE company MODIFY COLUMN business null;
+ALTER TABLE company MODIFY COLUMN establishment_date null;
+ALTER TABLE company MODIFY COLUMN sales null;
+ALTER TABLE company MODIFY COLUMN employee_number null;
+ALTER TABLE company MODIFY COLUMN address null;
