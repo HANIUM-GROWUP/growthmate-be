@@ -1,8 +1,8 @@
-name: Batch module docker hub push # actions 이름
+name: Batch module docker hub push
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   deploy:
