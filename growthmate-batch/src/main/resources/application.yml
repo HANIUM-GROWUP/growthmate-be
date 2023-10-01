@@ -9,6 +9,9 @@ spring:
     enabled: true
     baseline-on-migrate: true
     version: 1
+  batch:
+    jdbc:
+      initialize-schema: always
 
 ---
 spring:

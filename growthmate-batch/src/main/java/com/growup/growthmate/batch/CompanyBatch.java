@@ -44,6 +44,7 @@ public class CompanyBatch {
                 .reader(companyReader)
                 .processor(companyProcessor)
                 .writer(companyWriter)
+                .allowStartIfComplete(true)
                 .build();
     }
 

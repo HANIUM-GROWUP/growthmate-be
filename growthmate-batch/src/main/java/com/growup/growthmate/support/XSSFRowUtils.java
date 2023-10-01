@@ -2,6 +2,7 @@ package com.growup.growthmate.support;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 
@@ -10,15 +11,10 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Slf4j
 public class XSSFRowUtils {
 
     private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]+\\s*\\.\\s*[0-9]+\\s*\\.\\s*[0-9]+");
-
-    public static Long toLongValue(XSSFRow row, int cellIndex) {
-        return findCellByIndex(row, cellIndex)
-                .map(cell -> (long) cell.getNumericCellValue())
-                .orElse(null);
-    }
 
     public static LocalDateTime toLocalDateTimeValue(XSSFRow row, int cellIndex) {
         return Optional.ofNullable(toStringValue(row, cellIndex))
@@ -40,12 +36,32 @@ public class XSSFRowUtils {
     }
 
     public static String toStringValue(XSSFRow row, int cellIndex) {
-        return findCellByIndex(row, cellIndex)
-                .map(XSSFCell::getStringCellValue)
+        return Optional.ofNullable(row.getCell(cellIndex))
+                .map(XSSFRowUtils::extractString)
                 .orElse(null);
     }
 
-    private static Optional<XSSFCell> findCellByIndex(XSSFRow row, int cellIndex) {
-        return Optional.ofNullable(row.getCell(cellIndex));
+    private static String extractString(XSSFCell cell) {
+        try {
+            return cell.getStringCellValue();
+        } catch (IllegalStateException | NumberFormatException e) {
+            log.error(cell + "는 StringValue로 변환될 수 없습니다.");
+            throw e;
+        }
+    }
+
+    public static Long toLongValue(XSSFRow row, int cellIndex) {
+        return Optional.ofNullable(row.getCell(cellIndex))
+                .map(cell -> (long) extractNumeric(cell))
+                .orElse(null);
+    }
+
+    private static double extractNumeric(XSSFCell cell) {
+        try {
+            return cell.getNumericCellValue();
+        } catch (IllegalStateException | NumberFormatException e) {
+            log.error(cell + "는 NumericValue로 변환될 수 없습니다.");
+            throw e;
+        }
     }
 }
