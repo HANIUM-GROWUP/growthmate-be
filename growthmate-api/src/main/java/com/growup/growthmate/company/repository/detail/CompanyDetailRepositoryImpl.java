@@ -5,7 +5,9 @@ import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
 import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
 import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -21,9 +23,17 @@ public class CompanyDetailRepositoryImpl implements CompanyDetailRepository {
     @Override
     public List<Company> findAllCompanies(CompanySelectRequest request) {
 
+        ComparableExpressionBase<?> orderByField;
+
+        if ("establishmentDate".equals(request.sort())) {
+            orderByField = company.establishmentDate;
+        } else {
+            orderByField = company.sales;
+        }
+
         return jpaQueryFactory.selectFrom(company)
                 .where(getCursorCondition(request.cursor(), company.id))
-                .orderBy(company.id.desc())
+                .orderBy(orderByField.desc())
                 .limit(request.size())
                 .fetch();
     }

@@ -24,9 +24,11 @@ public class CompanyV1Controller {
     private final CompanyService companyService;
 
     @GetMapping(value = "companies")
-    public ResponseEntity<List<CompanySelectResponse>> findAllCompanies(@ModelAttribute PagingParams params) {
+    public ResponseEntity<List<CompanySelectResponse>> findAllCompanies(
+            @ModelAttribute PagingParams params,
+            @RequestParam String sort) {
 
-        CompanySelectRequest request = new CompanySelectRequest(params.getCursor(), params.getSize());
+        CompanySelectRequest request = new CompanySelectRequest(params.getCursor(), params.getSize(), sort);
         List<CompanySelectResponse> responses = companyService.findAllCompanies(request);
 
         return ResponseEntity.ok(responses);
