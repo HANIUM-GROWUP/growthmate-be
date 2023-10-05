@@ -5,7 +5,11 @@ import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
 import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
 import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
+import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
+import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
 import com.growup.growthmate.isolation.TestIsolation;
+import com.growup.growthmate.query.dto.request.PostPreviewRequest;
+import com.growup.growthmate.query.dto.response.PostPreviewResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.List;
+
+import static com.growup.growthmate.fixture.CommunityFixture.COMPANY_ID;
 import static com.growup.growthmate.fixture.CompanyFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -22,12 +29,70 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Sql(scripts = "/company_fixture.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class CompanyServiceTest {
 
+    private static final Integer DEFAULT_SIZE = 10;
+
     @Autowired
     private CompanyService companyService;
 
     @Nested
-    @DisplayName("기업 정보 조회")
-    class CompanyInfoTest {
+    @DisplayName("기업 전체 조회")
+    class CompanySelectTest {
+
+        @Test
+        void 기본_조회해서_최근_10개를_가져온다() {
+
+            CompanySelectRequest request = new CompanySelectRequest(null, DEFAULT_SIZE, null);
+
+            // when
+            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+
+            // then
+            assertThat(actual)
+                    .map(CompanySelectResponse::name)
+                    .containsExactly("비트 망고15", "비트 망고14", "비트 망고13", "비트 망고12", "비트 망고11",
+                            "비트 망고10", "비트 망고9", "비트 망고8", "비트 망고7", "비트 망고6");
+
+        }
+
+        @Test
+        void cursor를_지정해서_이전_정보를_가져온다() {
+
+            // given
+            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, null);
+
+            // when
+            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+
+            // then
+            assertThat(actual)
+                    .map(CompanySelectResponse::name)
+                    .containsExactly("비트 망고12", "비트 망고11", "비트 망고10", "비트 망고9", "비트 망고8",
+                            "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고4", "비트 망고3");
+
+        }
+
+        @Test
+        void sort를_지정해서_정렬을_한다() {
+
+            // given
+            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, "establishmentDate");
+
+            // when
+            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+
+            // then
+            assertThat(actual)
+                    .map(CompanySelectResponse::name)
+                    .containsExactly("비트 망고12", "비트 망고11", "비트 망고10", "비트 망고9", "비트 망고8",
+                            "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고3", "비트 망고4");
+
+        }
+
+    }
+
+    @Nested
+    @DisplayName("기업 상세 정보 조회")
+    class CompanyDetailInfoTest {
 
         @Test
         void 기업_정보_상세_조회한다() {
