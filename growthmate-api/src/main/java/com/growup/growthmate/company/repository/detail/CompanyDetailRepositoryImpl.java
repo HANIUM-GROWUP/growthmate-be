@@ -27,8 +27,10 @@ public class CompanyDetailRepositoryImpl implements CompanyDetailRepository {
 
         if ("establishmentDate".equals(request.sort())) {
             orderByField = company.establishmentDate;
-        } else {
+        } else if ("sales". equals(request.sort())) {
             orderByField = company.sales;
+        } else {
+            orderByField = company.id;
         }
 
         return jpaQueryFactory.selectFrom(company)
