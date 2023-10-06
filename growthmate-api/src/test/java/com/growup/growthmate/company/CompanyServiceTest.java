@@ -72,7 +72,7 @@ class CompanyServiceTest {
         }
 
         @Test
-        void sort를_지정해서_정렬을_한다() {
+        void sort를_establishmentDate로_지정해서_정렬을_한다() {
 
             // given
             CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, "establishmentDate");
@@ -85,6 +85,23 @@ class CompanyServiceTest {
                     .map(CompanySelectResponse::name)
                     .containsExactly("비트 망고12", "비트 망고11", "비트 망고10", "비트 망고9", "비트 망고8",
                             "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고3", "비트 망고4");
+
+        }
+
+        @Test
+        void sort를_sales로_지정해서_정렬을_한다() {
+
+            // given
+            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, "sales");
+
+            // when
+            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+
+            // then
+            assertThat(actual)
+                    .map(CompanySelectResponse::name)
+                    .containsExactly("비트 망고3", "비트 망고4", "비트 망고5", "비트 망고6", "비트 망고7",
+                            "비트 망고8", "비트 망고9", "비트 망고10", "비트 망고11", "비트 망고12");
 
         }
 
