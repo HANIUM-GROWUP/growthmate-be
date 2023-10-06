@@ -8,8 +8,6 @@ import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
 import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
 import com.growup.growthmate.isolation.TestIsolation;
-import com.growup.growthmate.query.dto.request.PostPreviewRequest;
-import com.growup.growthmate.query.dto.response.PostPreviewResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

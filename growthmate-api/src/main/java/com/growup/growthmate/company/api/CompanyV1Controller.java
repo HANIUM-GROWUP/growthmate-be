@@ -8,8 +8,6 @@ import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
 import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
 import com.growup.growthmate.query.dto.PagingParams;
-import com.growup.growthmate.query.dto.request.PostPreviewRequest;
-import com.growup.growthmate.query.dto.response.PostPreviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
