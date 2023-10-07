@@ -39,7 +39,7 @@ class CompanyServiceTest {
         @Test
         void 기본_조회해서_최근_10개를_가져온다() {
 
-            CompanySelectRequest request = new CompanySelectRequest(null, DEFAULT_SIZE, null);
+            CompanySelectRequest request = new CompanySelectRequest(null, DEFAULT_SIZE, "id");
 
             // when
             List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
@@ -56,7 +56,7 @@ class CompanyServiceTest {
         void cursor를_지정해서_이전_정보를_가져온다() {
 
             // given
-            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, null);
+            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, "id");
 
             // when
             List<CompanySelectResponse> actual = companyService.findAllCompanies(request);

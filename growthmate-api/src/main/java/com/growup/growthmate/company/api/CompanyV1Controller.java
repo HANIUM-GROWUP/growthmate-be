@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -24,9 +25,11 @@ public class CompanyV1Controller {
     @GetMapping(value = "companies")
     public ResponseEntity<List<CompanySelectResponse>> findAllCompanies(
             @ModelAttribute PagingParams params,
-            @RequestParam String sort) {
+            @RequestParam Optional<String> sort) {
 
-        CompanySelectRequest request = new CompanySelectRequest(params.getCursor(), params.getSize(), sort);
+        String sortValue = sort.orElse("id");
+
+        CompanySelectRequest request = new CompanySelectRequest(params.getCursor(), params.getSize(), sortValue);
         List<CompanySelectResponse> responses = companyService.findAllCompanies(request);
 
         return ResponseEntity.ok(responses);
