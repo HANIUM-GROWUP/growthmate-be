@@ -14,12 +14,12 @@ import java.util.List;
 import static com.growup.growthmate.company.domain.QCompany.company;
 
 @RequiredArgsConstructor
-public class CompanyDetailRepositoryImpl implements CompanyDetailRepository {
+public class CompanyFindRepositoryImpl implements CompanyFindRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Company> findAllCompanies(CompanySelectRequest request) {
+    public List<Company> findSortedCompanies(CompanySelectRequest request) {
 
         ComparableExpressionBase<?> orderByField;
 

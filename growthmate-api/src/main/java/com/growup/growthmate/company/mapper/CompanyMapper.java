@@ -15,13 +15,13 @@ import java.util.List;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         uses = CompanyAnalysis.class
 )
-public interface CompanyAnalysisMapper {
+public interface CompanyMapper {
 
     @Mappings({
+            @Mapping(source = "id", target = "id"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "imageUrl", target = "imageUrl"),
-            @Mapping(source = "businessType", target = "businessType"),
-            @Mapping(source = "establishmentDate", target = "establishmentDate")
+            @Mapping(source = "businessType", target = "businessType")
     })
     List<CompanySelectResponse> toAllSelectDTO(List<Company> company);
 

@@ -6,9 +6,9 @@ import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
 
 import java.util.List;
 
-public interface CompanyDetailRepository {
+public interface CompanyFindRepository {
 
-    List<Company> findAllCompanies(CompanySelectRequest request);
+    List<Company> findSortedCompanies(CompanySelectRequest request);
 
     Company findCompanyDetail(CompanyDetailRequest request);
 

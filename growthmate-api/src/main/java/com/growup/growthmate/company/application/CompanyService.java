@@ -10,7 +10,7 @@ import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
 import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
 import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
-import com.growup.growthmate.company.mapper.CompanyAnalysisMapper;
+import com.growup.growthmate.company.mapper.CompanyMapper;
 import com.growup.growthmate.company.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,16 +25,12 @@ import java.util.Optional;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
-    private final CompanyAnalysisMapper companyAnalysisMapper;
+    private final CompanyMapper companyMapper;
 
     public List<CompanySelectResponse> findAllCompanies(CompanySelectRequest request) {
-        List<Company> companies = companyRepository.findAllCompanies(request);
+        List<Company> companies = companyRepository.findSortedCompanies(request);
 
-        if (companies.isEmpty()) {
-            throw new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage());
-        }
-
-        return companyAnalysisMapper.toAllSelectDTO(companies);
+        return companyMapper.toAllSelectDTO(companies);
     }
 
     public CompanyDetailResponse findCompanyDetail(CompanyDetailRequest request) {
@@ -42,7 +38,7 @@ public class CompanyService {
         Optional<Company> entityResponse = Optional.ofNullable(companyRepository.findCompanyDetail(request));
 
         return entityResponse
-                .map(companyAnalysisMapper::toDetailDTO)
+                .map(companyMapper::toDetailDTO)
                 .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
     }
 
@@ -51,7 +47,7 @@ public class CompanyService {
         Optional<CompanyAnalysis> entityResponse = Optional.ofNullable(companyRepository.findCompanyAnalysis(request));
 
         return entityResponse
-                .map(companyAnalysisMapper::toAnalysisDTO)
+                .map(companyMapper::toAnalysisDTO)
                 .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
     }
 }
