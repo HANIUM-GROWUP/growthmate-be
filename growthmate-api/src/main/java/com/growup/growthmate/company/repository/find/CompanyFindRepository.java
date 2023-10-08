@@ -1,4 +1,4 @@
-package com.growup.growthmate.company.repository.detail;
+package com.growup.growthmate.company.repository.find;
 
 import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
