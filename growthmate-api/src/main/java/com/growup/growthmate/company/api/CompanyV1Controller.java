@@ -3,10 +3,10 @@ package com.growup.growthmate.company.api;
 import com.growup.growthmate.company.application.CompanyService;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
-import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
-import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
-import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
-import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
+import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
+import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
+import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
+import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.query.dto.PagingParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +23,14 @@ public class CompanyV1Controller {
     private final CompanyService companyService;
 
     @GetMapping(value = "companies")
-    public ResponseEntity<List<CompanySelectResponse>> findAllCompanies(
+    public ResponseEntity<List<SortedCompanyResponse>> findAllCompanies(
             @ModelAttribute PagingParams params,
             @RequestParam Optional<String> sort) {
 
         String sortValue = sort.orElse("id");
 
-        CompanySelectRequest request = new CompanySelectRequest(params.getCursor(), params.getSize(), sortValue);
-        List<CompanySelectResponse> responses = companyService.findAllCompanies(request);
+        SortedCompanyRequest request = new SortedCompanyRequest(params.getCursor(), params.getSize(), sortValue);
+        List<SortedCompanyResponse> responses = companyService.findAllCompanies(request);
 
         return ResponseEntity.ok(responses);
     }

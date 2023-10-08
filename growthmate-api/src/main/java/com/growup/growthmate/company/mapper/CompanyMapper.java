@@ -3,8 +3,8 @@ package com.growup.growthmate.company.mapper;
 import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
-import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
-import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
+import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
+import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public interface CompanyMapper {
             @Mapping(source = "imageUrl", target = "imageUrl"),
             @Mapping(source = "businessType", target = "businessType")
     })
-    List<CompanySelectResponse> toAllSelectDTO(List<Company> company);
+    List<SortedCompanyResponse> toAllSelectDTO(List<Company> company);
 
     @Mappings({
             @Mapping(source = "name", target = "name"),

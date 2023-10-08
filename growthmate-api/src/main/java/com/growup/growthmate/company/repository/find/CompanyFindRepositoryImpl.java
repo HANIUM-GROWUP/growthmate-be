@@ -1,8 +1,9 @@
 package com.growup.growthmate.company.repository.find;
 
 import com.growup.growthmate.company.domain.Company;
-import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
-import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
+import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
+import com.growup.growthmate.company.dto.find.SortField;
+import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.NumberPath;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static com.growup.growthmate.company.domain.QCompany.company;
+import static com.growup.growthmate.company.dto.find.SortField.ESTABLISHMENT_DATE;
+import static com.growup.growthmate.company.dto.find.SortField.SALES;
 
 @RequiredArgsConstructor
 public class CompanyFindRepositoryImpl implements CompanyFindRepository {
@@ -19,16 +22,27 @@ public class CompanyFindRepositoryImpl implements CompanyFindRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Company> findSortedCompanies(CompanySelectRequest request) {
+    public List<Company> findSortedCompanies(SortedCompanyRequest request) {
 
         ComparableExpressionBase<?> orderByField;
 
-        if ("establishmentDate".equals(request.sort())) {
-            orderByField = company.establishmentDate;
-        } else if ("sales".equals(request.sort())) {
-            orderByField = company.sales;
-        } else {
-            orderByField = company.id;
+        SortField sortField;
+        try {
+            sortField = SortField.valueOf(request.sort().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            sortField = SortField.ID; // 기본값 설정
+        }
+
+        switch (sortField) {
+            case ESTABLISHMENT_DATE:
+                orderByField = company.establishmentDate;
+                break;
+            case SALES:
+                orderByField = company.sales;
+                break;
+            default:
+                orderByField = company.id;
+                break;
         }
 
         return jpaQueryFactory.selectFrom(company)

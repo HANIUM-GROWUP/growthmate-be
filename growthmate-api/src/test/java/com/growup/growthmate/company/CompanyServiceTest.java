@@ -3,10 +3,10 @@ package com.growup.growthmate.company;
 import com.growup.growthmate.company.application.CompanyService;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
-import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
-import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
-import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
-import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
+import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
+import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
+import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
+import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.isolation.TestIsolation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -39,14 +39,14 @@ class CompanyServiceTest {
         @Test
         void 기본_조회해서_최근_10개를_가져온다() {
 
-            CompanySelectRequest request = new CompanySelectRequest(null, DEFAULT_SIZE, "id");
+            SortedCompanyRequest request = new SortedCompanyRequest(null, DEFAULT_SIZE, "id");
 
             // when
-            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
 
             // then
             assertThat(actual)
-                    .map(CompanySelectResponse::name)
+                    .map(SortedCompanyResponse::name)
                     .containsExactly("비트 망고15", "비트 망고14", "비트 망고13", "비트 망고12", "비트 망고11",
                             "비트 망고10", "비트 망고9", "비트 망고8", "비트 망고7", "비트 망고6");
 
@@ -56,14 +56,14 @@ class CompanyServiceTest {
         void cursor를_지정해서_이전_정보를_가져온다() {
 
             // given
-            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, "id");
+            SortedCompanyRequest request = new SortedCompanyRequest(13L, DEFAULT_SIZE, "id");
 
             // when
-            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
 
             // then
             assertThat(actual)
-                    .map(CompanySelectResponse::name)
+                    .map(SortedCompanyResponse::name)
                     .containsExactly("비트 망고12", "비트 망고11", "비트 망고10", "비트 망고9", "비트 망고8",
                             "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고4", "비트 망고3");
 
@@ -73,14 +73,14 @@ class CompanyServiceTest {
         void sort를_establishmentDate로_지정해서_정렬을_한다() {
 
             // given
-            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, "establishmentDate");
+            SortedCompanyRequest request = new SortedCompanyRequest(13L, DEFAULT_SIZE, "establishmentDate");
 
             // when
-            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
 
             // then
             assertThat(actual)
-                    .map(CompanySelectResponse::name)
+                    .map(SortedCompanyResponse::name)
                     .containsExactly("비트 망고12", "비트 망고11", "비트 망고10", "비트 망고9", "비트 망고8",
                             "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고3", "비트 망고4");
 
@@ -90,14 +90,14 @@ class CompanyServiceTest {
         void sort를_sales로_지정해서_정렬을_한다() {
 
             // given
-            CompanySelectRequest request = new CompanySelectRequest(13L, DEFAULT_SIZE, "sales");
+            SortedCompanyRequest request = new SortedCompanyRequest(13L, DEFAULT_SIZE, "sales");
 
             // when
-            List<CompanySelectResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
 
             // then
             assertThat(actual)
-                    .map(CompanySelectResponse::name)
+                    .map(SortedCompanyResponse::name)
                     .containsExactly("비트 망고3", "비트 망고4", "비트 망고5", "비트 망고6", "비트 망고7",
                             "비트 망고8", "비트 망고9", "비트 망고10", "비트 망고11", "비트 망고12");
 

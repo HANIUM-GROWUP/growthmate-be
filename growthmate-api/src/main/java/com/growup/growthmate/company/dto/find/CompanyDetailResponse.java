@@ -1,4 +1,4 @@
-package com.growup.growthmate.company.dto.detail;
+package com.growup.growthmate.company.dto.find;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;

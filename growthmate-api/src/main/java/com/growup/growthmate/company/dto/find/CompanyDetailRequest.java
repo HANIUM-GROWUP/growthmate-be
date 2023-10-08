@@ -1,4 +1,4 @@
-package com.growup.growthmate.company.dto.detail;
+package com.growup.growthmate.company.dto.find;
 
 public record CompanyDetailRequest(Long companyId) {
 }

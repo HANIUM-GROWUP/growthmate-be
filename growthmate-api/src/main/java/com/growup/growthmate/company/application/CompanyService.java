@@ -6,10 +6,10 @@ import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.domain.exception.CompanyException;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
-import com.growup.growthmate.company.dto.detail.CompanyDetailRequest;
-import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
-import com.growup.growthmate.company.dto.detail.CompanySelectRequest;
-import com.growup.growthmate.company.dto.detail.CompanySelectResponse;
+import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
+import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
+import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
+import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.company.mapper.CompanyMapper;
 import com.growup.growthmate.company.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
 
-    public List<CompanySelectResponse> findAllCompanies(CompanySelectRequest request) {
+    public List<SortedCompanyResponse> findAllCompanies(SortedCompanyRequest request) {
         List<Company> companies = companyRepository.findSortedCompanies(request);
 
         return companyMapper.toAllSelectDTO(companies);
