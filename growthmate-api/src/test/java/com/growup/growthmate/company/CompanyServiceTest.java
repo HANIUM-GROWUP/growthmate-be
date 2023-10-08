@@ -82,7 +82,7 @@ class CompanyServiceTest {
             assertThat(actual)
                     .map(SortedCompanyResponse::name)
                     .containsExactly("비트 망고12", "비트 망고11", "비트 망고10", "비트 망고9", "비트 망고8",
-                            "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고3", "비트 망고4");
+                            "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고4", "비트 망고3");
 
         }
 
