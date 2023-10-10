@@ -1,16 +1,14 @@
 package com.growup.growthmate.batch.company;
 
 import com.growup.growthmate.company.domain.Company;
+import com.growup.growthmate.support.XSSSheetUtil;
 import com.growup.growthmate.support.log.ExecutionTimeLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Optional;
 
 @Slf4j
@@ -22,19 +20,10 @@ public class CompanyReader implements ItemReader<Company> {
     private final XSSFRowToCompanyMapper mapper;
     private int rowNum;
 
-    public CompanyReader(@Value("${company-file-path}") String path, XSSFRowToCompanyMapper mapper) {
-        this.sheet = initializeSheet(path);
+    public CompanyReader(@Value("${file-path.company}") String path, XSSFRowToCompanyMapper mapper) {
+        this.sheet = XSSSheetUtil.initialize(path);
         this.mapper = mapper;
         rowNum = INITIAL_ROW_NUM;
-    }
-
-    private XSSFSheet initializeSheet(String path) {
-        try (FileInputStream file = new FileInputStream(path)) {
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
-            return workbook.getSheetAt(0);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
