@@ -35,7 +35,7 @@ public class CompanyService {
 
     public CompanyDetailResponse findCompanyDetail(CompanyDetailRequest request) {
 
-        Optional<Company> entityResponse = Optional.ofNullable(companyRepository.findCompanyDetail(request));
+        Optional<Company> entityResponse = companyRepository.findCompanyDetail(request.companyId());
 
         return entityResponse
                 .map(companyMapper::toDetailDTO)

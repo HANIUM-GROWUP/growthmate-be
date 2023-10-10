@@ -4,10 +4,10 @@ values (1, '안정후', 'ajh@gmail.com', 'picture.com', 'google');
 
 -- company 테이블 sample data
 INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
-values (1, '비트 망고1', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1985-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
+values (1, '비트 망고1', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1985-07-01 00:00:00', 1394, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
-values (2, '비트 망고2', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1986-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
+values (2, '비트 망고2', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1986-07-01 00:00:00', 1394, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
 values (3, '비트 망고3', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1988-07-01 00:00:00', 139485530010, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
@@ -40,13 +40,13 @@ INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, busi
 values (12, '비트 망고12', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1996-07-01 00:00:00', 139485530001, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
-values (13, '비트 망고13', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1996-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
+values (13, '비트 망고13', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1997-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
-values (14, '비트 망고14', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1996-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
+values (14, '비트 망고14', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1998-07-01 00:00:00', 13948553, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 INSERT INTO company(company_id, name, image_url, ceo, scale, business_type, business, establishment_date, sales, employee_number, address)
-values (15, '비트 망고15', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1996-07-01 00:00:00', 139485530000, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
+values (15, '비트 망고15', 'picure.com', '이기섭', '중견기업', '모바일 게임, 소프트웨어 공급업', '게임 소프트웨어', '1999-07-01 00:00:00', 13948552, 43, '경기도 성남시 분당구 대왕판교로645번길 14 네오위즈판교타워 3층 (우)13487');
 
 
 -- company analysis 테이블 sample data

@@ -82,7 +82,7 @@ class CompanyServiceTest {
             assertThat(actual)
                     .map(SortedCompanyResponse::name)
                     .containsExactly("비트 망고12", "비트 망고11", "비트 망고10", "비트 망고9", "비트 망고8",
-                            "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고4", "비트 망고3");
+                            "비트 망고7", "비트 망고6", "비트 망고5", "비트 망고3", "비트 망고4");
 
         }
 
@@ -90,7 +90,7 @@ class CompanyServiceTest {
         void sort를_sales로_지정해서_정렬을_한다() {
 
             // given
-            SortedCompanyRequest request = new SortedCompanyRequest(13L, DEFAULT_SIZE, "sales");
+            SortedCompanyRequest request = new SortedCompanyRequest(3L, DEFAULT_SIZE, "sales");
 
             // when
             List<SortedCompanyResponse> actual = companyService.findSortedCompanies(request);
@@ -98,8 +98,8 @@ class CompanyServiceTest {
             // then
             assertThat(actual)
                     .map(SortedCompanyResponse::name)
-                    .containsExactly("비트 망고3", "비트 망고4", "비트 망고5", "비트 망고6", "비트 망고7",
-                            "비트 망고8", "비트 망고9", "비트 망고10", "비트 망고11", "비트 망고12");
+                    .containsExactly( "비트 망고4", "비트 망고5", "비트 망고6", "비트 망고7",
+                            "비트 망고8", "비트 망고9", "비트 망고10", "비트 망고11", "비트 망고12", "비트 망고13");
 
         }
 
