@@ -18,6 +18,6 @@ public class JobExecutionTimeListener implements JobExecutionListener {
     @Override
     public void afterJob(JobExecution jobExecution) {
         stopWatch.stop();
-        ExecutionTimeLogger.log("회사 Batch 전체 실행 시간", stopWatch.getTotalTimeMillis());
+        ExecutionTimeLogger.log("회사 Batch 전체", stopWatch.getTotalTimeMillis());
     }
 }

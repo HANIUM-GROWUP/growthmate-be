@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -54,6 +55,7 @@ public class CompanyBatch {
                 .reader(companyReader)
                 .processor(companyProcessor)
                 .writer(companyWriter)
+                .listener(stepExecutionTimeListener())
                 .allowStartIfComplete(true)
                 .build();
     }
@@ -65,6 +67,7 @@ public class CompanyBatch {
                 .reader(companyAnalysisReader)
                 .processor(companyAnalysisProcessor)
                 .writer(companyAnalysisWriter)
+                .listener(stepExecutionTimeListener())
                 .allowStartIfComplete(true)
                 .build();
     }
@@ -72,5 +75,10 @@ public class CompanyBatch {
     @Bean
     public JobExecutionListener jobExecutionTimeListener() {
         return new JobExecutionTimeListener();
+    }
+
+    @Bean
+    public StepExecutionListener stepExecutionTimeListener() {
+        return new StepExecutionTimeListener();
     }
 }
