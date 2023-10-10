@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class XSSSheetUtil {
+public class XSSSheetUtils {
 
     public static XSSFSheet initialize(String path) {
         try (FileInputStream file = new FileInputStream(path)) {

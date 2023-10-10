@@ -1,9 +1,6 @@
-package com.growup.growthmate.batch.company;
+package com.growup.growthmate.batch.analysis;
 
-import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.support.XSSSheetUtils;
-import com.growup.growthmate.support.log.ExecutionTimeLog;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,24 +8,24 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Slf4j
 @Component
-public class CompanyReader implements ItemReader<Company> {
+public class CompanyAnalysisReader implements ItemReader<CompanyAnalysisDto> {
+
     private static final int INITIAL_ROW_NUM = 1;
 
     private final XSSFSheet sheet;
-    private final XSSFRowToCompanyMapper mapper;
+    private final XSSRowToCompanyAnalysisMapper mapper;
     private int rowNum;
 
-    public CompanyReader(@Value("${file-path.company}") String path, XSSFRowToCompanyMapper mapper) {
+    public CompanyAnalysisReader(@Value("${file-path.company-analysis}") String path,
+                                 XSSRowToCompanyAnalysisMapper mapper) {
         this.sheet = XSSSheetUtils.initialize(path);
         this.mapper = mapper;
         rowNum = INITIAL_ROW_NUM;
     }
 
     @Override
-    @ExecutionTimeLog
-    public Company read() {
+    public CompanyAnalysisDto read() {
         return Optional.ofNullable(sheet.getRow(rowNum++))
                 .map(mapper::map)
                 .orElse(null);
