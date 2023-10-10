@@ -42,7 +42,7 @@ class CompanyServiceTest {
             SortedCompanyRequest request = new SortedCompanyRequest(null, DEFAULT_SIZE, "id");
 
             // when
-            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findSortedCompanies(request);
 
             // then
             assertThat(actual)
@@ -59,7 +59,7 @@ class CompanyServiceTest {
             SortedCompanyRequest request = new SortedCompanyRequest(13L, DEFAULT_SIZE, "id");
 
             // when
-            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findSortedCompanies(request);
 
             // then
             assertThat(actual)
@@ -76,7 +76,7 @@ class CompanyServiceTest {
             SortedCompanyRequest request = new SortedCompanyRequest(13L, DEFAULT_SIZE, "establishmentDate");
 
             // when
-            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findSortedCompanies(request);
 
             // then
             assertThat(actual)
@@ -93,7 +93,7 @@ class CompanyServiceTest {
             SortedCompanyRequest request = new SortedCompanyRequest(13L, DEFAULT_SIZE, "sales");
 
             // when
-            List<SortedCompanyResponse> actual = companyService.findAllCompanies(request);
+            List<SortedCompanyResponse> actual = companyService.findSortedCompanies(request);
 
             // then
             assertThat(actual)
