@@ -27,7 +27,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
 
-    public List<SortedCompanyResponse> findAllCompanies(SortedCompanyRequest request) {
+    public List<SortedCompanyResponse> findSortedCompanies(SortedCompanyRequest request) {
         List<Company> companies = companyRepository.findSortedCompanies(request);
 
         return companyMapper.toAllSelectDTO(companies);

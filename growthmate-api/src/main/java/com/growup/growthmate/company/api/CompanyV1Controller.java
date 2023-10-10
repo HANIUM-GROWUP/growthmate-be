@@ -25,12 +25,10 @@ public class CompanyV1Controller {
     @GetMapping(value = "companies")
     public ResponseEntity<List<SortedCompanyResponse>> findAllCompanies(
             @ModelAttribute PagingParams params,
-            @RequestParam Optional<String> sort) {
+            @RequestParam(defaultValue = "companyId") String sort) {
 
-        String sortValue = sort.orElse("id");
-
-        SortedCompanyRequest request = new SortedCompanyRequest(params.getCursor(), params.getSize(), sortValue);
-        List<SortedCompanyResponse> responses = companyService.findAllCompanies(request);
+        SortedCompanyRequest request = new SortedCompanyRequest(params.getCursor(), params.getSize(), sort);
+        List<SortedCompanyResponse> responses = companyService.findSortedCompanies(request);
 
         return ResponseEntity.ok(responses);
     }

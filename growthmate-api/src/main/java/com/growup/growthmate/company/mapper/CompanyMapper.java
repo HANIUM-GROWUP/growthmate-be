@@ -18,7 +18,7 @@ import java.util.List;
 public interface CompanyMapper {
 
     @Mappings({
-            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "id", target = "companyId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "imageUrl", target = "imageUrl"),
             @Mapping(source = "businessType", target = "businessType")
