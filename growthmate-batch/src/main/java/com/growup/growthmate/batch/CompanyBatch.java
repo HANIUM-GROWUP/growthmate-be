@@ -1,9 +1,14 @@
 package com.growup.growthmate.batch;
 
+import com.growup.growthmate.batch.analysis.CompanyAnalysisDto;
+import com.growup.growthmate.batch.analysis.CompanyAnalysisProcessor;
+import com.growup.growthmate.batch.analysis.CompanyAnalysisReader;
+import com.growup.growthmate.batch.analysis.CompanyAnalysisWriter;
 import com.growup.growthmate.batch.company.CompanyProcessor;
 import com.growup.growthmate.batch.company.CompanyReader;
 import com.growup.growthmate.batch.company.CompanyWriter;
 import com.growup.growthmate.company.domain.Company;
+import com.growup.growthmate.company.domain.CompanyAnalysis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
@@ -26,6 +31,10 @@ public class CompanyBatch {
     private final CompanyProcessor companyProcessor;
     private final CompanyWriter companyWriter;
 
+    private final CompanyAnalysisReader companyAnalysisReader;
+    private final CompanyAnalysisProcessor companyAnalysisProcessor;
+    private final CompanyAnalysisWriter companyAnalysisWriter;
+
     @Value("${batch.company.chunk-size:100}")
     private int chunkSize;
 
@@ -33,6 +42,7 @@ public class CompanyBatch {
     public Job updateCompanyInfoJob() {
         return new JobBuilder("companyJob", jobRepository)
                 .start(updateCompanyInfoStep())
+                .next(updateCompanyAnalysisStep())
                 .listener(jobExecutionTimeListener())
                 .build();
     }
@@ -44,6 +54,17 @@ public class CompanyBatch {
                 .reader(companyReader)
                 .processor(companyProcessor)
                 .writer(companyWriter)
+                .allowStartIfComplete(true)
+                .build();
+    }
+
+    @Bean
+    public Step updateCompanyAnalysisStep() {
+        return new StepBuilder("companyAnalysisUpdate", jobRepository)
+                .<CompanyAnalysisDto, CompanyAnalysis>chunk(chunkSize, transactionManager)
+                .reader(companyAnalysisReader)
+                .processor(companyAnalysisProcessor)
+                .writer(companyAnalysisWriter)
                 .allowStartIfComplete(true)
                 .build();
     }

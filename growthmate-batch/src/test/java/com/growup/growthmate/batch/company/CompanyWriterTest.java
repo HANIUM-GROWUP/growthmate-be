@@ -72,7 +72,7 @@ class CompanyWriterTest {
                 () -> assertThat(companies).hasSize(4),
                 () -> assertThat(companies)
                         .map(Company::getName)
-                        .containsOnly("회사1", "회사2", "비트 망고2", "그사비티2")
+                        .containsOnly("회사1", "회사2", "비트 망고2", "그라비티2")
         );
     }
 }
