@@ -3,8 +3,11 @@ package com.growup.growthmate.company.mapper;
 import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
-import com.growup.growthmate.company.dto.detail.CompanyDetailResponse;
+import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
+import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import org.mapstruct.*;
+
+import java.util.List;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -12,7 +15,15 @@ import org.mapstruct.*;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         uses = CompanyAnalysis.class
 )
-public interface CompanyAnalysisMapper {
+public interface CompanyMapper {
+
+    @Mappings({
+            @Mapping(source = "id", target = "companyId"),
+            @Mapping(source = "name", target = "name"),
+            @Mapping(source = "imageUrl", target = "imageUrl"),
+            @Mapping(source = "businessType", target = "businessType")
+    })
+    List<SortedCompanyResponse> toAllSelectDTO(List<Company> company);
 
     @Mappings({
             @Mapping(source = "name", target = "name"),
