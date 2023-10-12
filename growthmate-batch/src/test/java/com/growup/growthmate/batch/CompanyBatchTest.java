@@ -1,6 +1,6 @@
 package com.growup.growthmate.batch;
 
-import com.growup.growthmate.company.domain.Company;
+import com.growup.growthmate.fixture.CompanyAnalysisFixtureRepository;
 import com.growup.growthmate.fixture.CompanyFixtureRepository;
 import com.growup.growthmate.isolation.TestIsolation;
 import org.junit.jupiter.api.Test;
@@ -10,8 +10,6 @@ import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -27,16 +25,21 @@ class CompanyBatchTest {
     @Autowired
     private CompanyFixtureRepository companyFixtureRepository;
 
+    @Autowired
+    private CompanyAnalysisFixtureRepository companyAnalysisFixtureRepository;
+
     @Test
     void 회사_배치를_실행한다() throws Exception {
         // when
         JobExecution actual = jobLauncherTestUtils.launchJob();
 
         // then
-        List<Company> companies = companyFixtureRepository.findAll();
+        long companySize = companyFixtureRepository.count();
+        long analysisSize = companyAnalysisFixtureRepository.count();
         assertAll(
                 () -> assertThat(actual.getStatus()).isEqualTo(BatchStatus.COMPLETED),
-                () -> assertThat(companies).hasSize(355)
+                () -> assertThat(companySize).isEqualTo(355),
+                () -> assertThat(analysisSize).isEqualTo(355)
         );
 
     }

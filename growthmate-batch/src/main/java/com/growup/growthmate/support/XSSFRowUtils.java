@@ -56,6 +56,12 @@ public class XSSFRowUtils {
                 .orElse(null);
     }
 
+    public static Integer toIntValue(XSSFRow row, int cellIndex) {
+        return Optional.ofNullable(row.getCell(cellIndex))
+                .map(cell -> (int) extractNumeric(cell))
+                .orElse(null);
+    }
+
     private static double extractNumeric(XSSFCell cell) {
         try {
             return cell.getNumericCellValue();

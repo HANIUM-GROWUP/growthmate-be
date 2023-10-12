@@ -51,7 +51,7 @@ class CompanyWriterTest {
 
         // then
         List<Company> companies = companyFixtureRepository.findAll();
-        assertThat(companies).hasSize(4);
+        assertThat(companies).hasSize(6);
     }
 
     @Test
@@ -69,10 +69,10 @@ class CompanyWriterTest {
         // then
         List<Company> companies = companyFixtureRepository.findAll();
         assertAll(
-                () -> assertThat(companies).hasSize(2),
+                () -> assertThat(companies).hasSize(4),
                 () -> assertThat(companies)
                         .map(Company::getName)
-                        .containsOnly("회사1", "회사2")
+                        .containsOnly("회사1", "회사2", "비트 망고2", "그라비티2")
         );
     }
 }

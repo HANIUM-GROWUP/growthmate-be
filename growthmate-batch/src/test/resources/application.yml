@@ -24,7 +24,9 @@ spring:
     settings:
       web-allow-others: false
 
-company-file-path: src/test/resources/company-files/company.xlsx
+file-path:
+  company: src/test/resources/company-files/company.xlsx
+  company-analysis: src/test/resources/company-files/analysis.xlsx
 
 logging:
   level:
