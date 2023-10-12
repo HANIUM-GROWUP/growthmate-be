@@ -40,7 +40,7 @@ public class CompanyBatch {
     private int chunkSize;
 
     @Bean
-    public Job updateCompanyInfoJob() {
+    public Job updateCompanyJob() {
         return new JobBuilder("companyJob", jobRepository)
                 .start(updateCompanyInfoStep())
                 .next(updateCompanyAnalysisStep())
