@@ -9,6 +9,9 @@ spring:
     enabled: true
     baseline-on-migrate: true
     version: 1
+  batch:
+    jdbc:
+      initialize-schema: always
 
 ---
 spring:
@@ -23,4 +26,4 @@ spring:
     activate:
       on-profile: prod
     import:
-      - classpath:be-config/batch-module/application-prod.yml
+      - classpath:batch-config/application-prod.yml

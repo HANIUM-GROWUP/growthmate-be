@@ -2,11 +2,13 @@ package com.growup.growthmate.company.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 public class CompanyAnalysis {
 
@@ -32,4 +34,13 @@ public class CompanyAnalysis {
 
     @Column(nullable = false)
     private Integer businessPerformance;
+
+    public CompanyAnalysis(Long companyId,
+                           Integer growth,
+                           Integer stability,
+                           Integer profitability,
+                           Integer efficiency,
+                           Integer businessPerformance) {
+        this(null, companyId, growth, stability, profitability, efficiency, businessPerformance);
+    }
 }
