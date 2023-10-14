@@ -24,11 +24,11 @@ public class CompanyGrowth {
     private Integer year;
 
     @Column(nullable = false)
-    private Integer sales;
+    private Long sales;
 
     public CompanyGrowth(Long companyId,
                          Integer year,
-                         Integer sales) {
+                         Long sales) {
         this(null, companyId, year, sales);
     }
 }
