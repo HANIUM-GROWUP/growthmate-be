@@ -27,7 +27,7 @@ ALTER TABLE news
     ADD CONSTRAINT FK_NEWS_ON_COMPANY FOREIGN KEY (company_id) REFERENCES company (company_id);
 
 -- 평균
-CREATE TABLE average
+CREATE TABLE company_average
 (
     average_id  BIGINT AUTO_INCREMENT NOT NULL,
     industry_id BIGINT                NOT NULL,
@@ -35,10 +35,10 @@ CREATE TABLE average
     category    LONGTEXT               NOT NULL,
     score       BIGINT                NOT NULL,
     created_at  datetime              NOT NULL,
-    CONSTRAINT pk_average PRIMARY KEY (average_id)
+    CONSTRAINT pk_companyaverage PRIMARY KEY (average_id)
 );
 
-ALTER TABLE average
+ALTER TABLE company_average
     ADD CONSTRAINT FK_AVERAGE_ON_COMPANY FOREIGN KEY (company_id) REFERENCES company (company_id);
 
 -- 업종
