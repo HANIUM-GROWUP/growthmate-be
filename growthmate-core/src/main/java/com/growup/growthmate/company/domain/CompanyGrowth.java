@@ -20,15 +20,15 @@ public class CompanyGrowth {
     @Column(nullable = false)
     private Long companyId;
 
-    @Column(nullable = false)
+    @Column(name = "years", nullable = false)
     private Integer year;
 
     @Column(nullable = false)
-    private Long sales;
+    private Double sales;
 
     public CompanyGrowth(Long companyId,
                          Integer year,
-                         Long sales) {
+                         Double sales) {
         this(null, companyId, year, sales);
     }
 }
