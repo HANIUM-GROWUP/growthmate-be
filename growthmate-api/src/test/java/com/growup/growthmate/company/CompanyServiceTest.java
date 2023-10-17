@@ -7,6 +7,7 @@ import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
 import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
+import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
 import com.growup.growthmate.isolation.TestIsolation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -153,6 +154,29 @@ class CompanyServiceTest {
                     () -> assertThat(response.efficiency()).isEqualTo(EFFICIENCY),
                     () -> assertThat(response.businessPerformance()).isEqualTo(BUISNESS_PERFORMANCE)
             );
+        }
+
+    }
+
+    @Nested
+    @DisplayName("기업 성장 예측 그래프 조회")
+    class CompanyGrowthTest {
+
+        @Test
+        void 기업_성장_예측_그래프를_조회한다() {
+
+            //given
+
+            //when
+            List<CompanyGrowthResponse> response = companyService.findCompanyGrowth(COMPANY_ID);
+
+            //then
+            assertAll(
+                    () -> assertThat(response.size()).isEqualTo(4),
+                    () -> assertThat(response.get(0).year()).isEqualTo(2019),
+                    () -> assertThat(response.get(1).sales()).isEqualTo(-0.009791693)
+            );
+
         }
 
     }
