@@ -1,10 +1,10 @@
 -- 성장 예측
 CREATE TABLE company_growth
 (
-    company_growth_id  BIGINT AUTO_INCREMENT NOT NULL,
-    company_id BIGINT                NOT NULL,
-    year       INT                   NOT NULL,
-    sales      BIGINT                NOT NULL,
+    company_growth_id BIGINT AUTO_INCREMENT  NOT NULL,
+    company_id        BIGINT                 NOT NULL,
+    years             INT                    NOT NULL,
+    sales             DOUBLE                 NOT NULL,
     CONSTRAINT pk_growth PRIMARY KEY (company_growth_id)
 );
 
