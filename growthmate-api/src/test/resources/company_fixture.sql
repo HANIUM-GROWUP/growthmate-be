@@ -53,3 +53,16 @@ values (15, '비트 망고15', 'picure.com', '이기섭', '중견기업', '모�
 INSERT INTO company_analysis (company_analysis_id, company_id, growth, stability, profitability, efficiency,
                               business_performance)
 values (1, 1, 80, 70, 90, 50, 60);
+
+-- company growth 테이블 sample data
+INSERT INTO company_growth (company_growth_id, company_id, years, sales)
+values (1, 1, 2019, 36428728);
+
+INSERT INTO company_growth (company_growth_id, company_id, years, sales)
+values (2, 1, 2020, -0.009791693);
+
+INSERT INTO company_growth (company_growth_id, company_id, years, sales)
+values (3, 1, 2021, 1208988);
+
+INSERT INTO company_growth (company_growth_id, company_id, years, sales)
+values (4, 1, 2022, 0.215994326);

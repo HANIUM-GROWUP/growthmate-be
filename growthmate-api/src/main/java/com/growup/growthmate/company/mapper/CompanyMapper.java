@@ -5,6 +5,8 @@ import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
 import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
+import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
+import com.growup.growthmate.company.repository.growth.projection.CompanyGrowthProjection;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -44,5 +46,11 @@ public interface CompanyMapper {
             @Mapping(source = "businessPerformance", target = "businessPerformance")
     })
     CompanyAnalysisResponse toAnalysisDTO(CompanyAnalysis companyAnalysis);
+
+    @Mappings({
+            @Mapping(source = "year", target = "year"),
+            @Mapping(source = "sales", target = "sales")
+    })
+    List<CompanyGrowthResponse> toGrowthDTO(List<CompanyGrowthProjection> projection);
 
 }
