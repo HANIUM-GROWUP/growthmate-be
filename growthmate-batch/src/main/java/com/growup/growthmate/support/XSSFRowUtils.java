@@ -61,6 +61,11 @@ public class XSSFRowUtils {
                 .map(cell -> (int) extractNumeric(cell))
                 .orElse(null);
     }
+    public static Double toDoubleValue(XSSFRow row, int cellIndex) {
+        return Optional.ofNullable(row.getCell(cellIndex))
+                .map(XSSFRowUtils::extractNumeric)
+                .orElse(null);
+    }
 
     private static double extractNumeric(XSSFCell cell) {
         try {
