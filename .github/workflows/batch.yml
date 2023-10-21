@@ -2,7 +2,7 @@ name: Batch module docker hub push
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ feature/growth-batch ]
 
 jobs:
   deploy:
