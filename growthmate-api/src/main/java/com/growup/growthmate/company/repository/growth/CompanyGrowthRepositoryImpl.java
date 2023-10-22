@@ -18,7 +18,7 @@ public class CompanyGrowthRepositoryImpl implements CompanyGrowthRepository{
         return queryFactory.select(CompanyGrowthProjection.CONSTRUCTOR_EXPRESSION)
                 .from(companyGrowth)
                 .where(companyGrowth.companyId.eq(companyId))
-                .orderBy(companyGrowth.year.desc())
+                .orderBy(companyGrowth.year.asc())
                 .fetch();
     }
 }
