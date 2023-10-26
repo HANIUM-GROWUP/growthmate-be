@@ -173,9 +173,9 @@ class CompanyServiceTest {
             //then
             assertAll(
                     () -> assertThat(response.size()).isEqualTo(4),
-                    () -> assertThat(response.get(0).year()).isEqualTo(2022),
-                    () -> assertThat(response.get(1).sales()).isEqualTo(1208988.0),
-                    () -> assertThat(response.get(2).sales()).isEqualTo(-0.009791693)
+                    () -> assertThat(response.get(0).year()).isEqualTo(2019),
+                    () -> assertThat(response.get(1).sales()).isEqualTo(-0.009791693),
+                    () -> assertThat(response.get(2).sales()).isEqualTo(1208988.0)
             );
 
         }

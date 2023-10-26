@@ -27,6 +27,7 @@ spring:
 file-path:
   company: src/test/resources/company-files/company.xlsx
   company-analysis: src/test/resources/company-files/analysis.xlsx
+  company-growth: src/test/resources/company-files/growth.xlsx
 
 logging:
   level:
