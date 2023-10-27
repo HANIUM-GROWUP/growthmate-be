@@ -8,6 +8,7 @@ import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
+import com.growup.growthmate.company.dto.news.CompanyNewsRequest;
 import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
 import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.query.dto.PagingParams;
@@ -87,9 +88,11 @@ public class CompanyV1Controller {
      */
     @GetMapping(value = "/companies/{companyId}/news")
     public ResponseEntity<List<CompanyNewsResponse>> findCompanyNewsList(
-            @PathVariable Long companyId) {
+            @PathVariable Long companyId,
+            @ModelAttribute PagingParams params) {
 
-        List<CompanyNewsResponse> response = companyService.findCompanyNewsList(companyId);
+        CompanyNewsRequest request = new CompanyNewsRequest(companyId, params.getCursor(), params.getSize());
+        List<CompanyNewsResponse> response = companyService.findCompanyNewsList(request);
 
         return ResponseEntity.ok(response);
     }

@@ -9,6 +9,7 @@ import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
+import com.growup.growthmate.company.dto.news.CompanyNewsRequest;
 import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
 import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.isolation.TestIsolation;
@@ -209,9 +210,10 @@ class CompanyServiceTest {
         void 기업_언론_긍부정_뉴스_목록을_조회한다() {
 
             //given
+            CompanyNewsRequest request = new CompanyNewsRequest(COMPANY_ID, null, DEFAULT_SIZE);
 
             //when
-            List<CompanyNewsResponse> response = companyService.findCompanyNewsList(COMPANY_ID);
+            List<CompanyNewsResponse> response = companyService.findCompanyNewsList(request);
 
             //then
             assertAll(

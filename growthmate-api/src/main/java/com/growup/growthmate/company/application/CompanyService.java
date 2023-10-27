@@ -11,6 +11,7 @@ import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
+import com.growup.growthmate.company.dto.news.CompanyNewsRequest;
 import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
 import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.company.mapper.CompanyMapper;
@@ -77,9 +78,9 @@ public class CompanyService {
         return companyMapper.toSentimentDTO(entityResponse);
     }
 
-    public List<CompanyNewsResponse> findCompanyNewsList(Long companyId) {
+    public List<CompanyNewsResponse> findCompanyNewsList(CompanyNewsRequest request) {
 
-        List<CompanyNewsProjection> entityResponse = companyRepository.findCompanyNewsList(companyId);
+        List<CompanyNewsProjection> entityResponse = companyRepository.findCompanyNewsList(request);
 
         return entityResponse.stream()
                 .map(companyNewsMapper::toResponse)
