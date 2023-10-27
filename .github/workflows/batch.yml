@@ -2,7 +2,7 @@ name: Batch module docker hub push
 
 on:
   push:
-    branches: [ feature/sentiment-batch ]
+    branches: [ develop ]
 
 jobs:
   deploy:
