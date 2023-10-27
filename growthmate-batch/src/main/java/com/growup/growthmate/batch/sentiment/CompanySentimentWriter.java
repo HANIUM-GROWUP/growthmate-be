@@ -2,6 +2,7 @@ package com.growup.growthmate.batch.sentiment;
 
 import com.growup.growthmate.batch.sentiment.repository.CompanySentimentBatchRepository;
 import com.growup.growthmate.company.domain.CompanySentiment;
+import com.growup.growthmate.support.log.ExecutionTimeLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
@@ -17,6 +18,7 @@ public class CompanySentimentWriter implements ItemWriter<CompanySentiment> {
     private final CompanySentimentBatchRepository companySentimentBatchRepository;
 
     @Override
+    @ExecutionTimeLog
     public void write(Chunk<? extends CompanySentiment> chunk) {
         List<CompanySentiment> insertSentiments = new ArrayList<>();
         List<CompanySentiment> updateSentiments = new ArrayList<>();
