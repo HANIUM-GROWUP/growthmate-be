@@ -66,3 +66,17 @@ values (3, 1, 2021, 1208988);
 
 INSERT INTO company_growth (company_growth_id, company_id, years, sales)
 values (4, 1, 2022, 0.215994326);
+
+-- company sentiment 테이블 sample data
+INSERT INTO company_sentiment (company_sentiment_id, company_id, positive_rate, negative_rate)
+values (1, 1, 77.999, 22.001);
+
+-- company news 테이블 sample data
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (1, 1, '뉴스 제목입니다.1', '뉴스 상세설명입니다.1', 'news.url1', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (2, 1, '뉴스 제목입니다.2', '뉴스 상세설명입니다.2', 'news.url2', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (3, 1, '뉴스 제목입니다.3', '뉴스 상세설명입니다.3', 'news.url3', 'POSITIVE');

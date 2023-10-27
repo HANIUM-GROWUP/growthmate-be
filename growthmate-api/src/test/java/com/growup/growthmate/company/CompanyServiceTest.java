@@ -1,6 +1,7 @@
 package com.growup.growthmate.company;
 
 import com.growup.growthmate.company.application.CompanyService;
+import com.growup.growthmate.company.domain.Sentiment;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
 import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
@@ -8,6 +9,8 @@ import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
+import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
+import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.isolation.TestIsolation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -99,7 +102,7 @@ class CompanyServiceTest {
             // then
             assertThat(actual)
                     .map(SortedCompanyResponse::name)
-                    .containsExactly( "비트 망고4", "비트 망고5", "비트 망고6", "비트 망고7",
+                    .containsExactly("비트 망고4", "비트 망고5", "비트 망고6", "비트 망고7",
                             "비트 망고8", "비트 망고9", "비트 망고10", "비트 망고11", "비트 망고12", "비트 망고13");
 
         }
@@ -176,6 +179,46 @@ class CompanyServiceTest {
                     () -> assertThat(response.get(0).year()).isEqualTo(2019),
                     () -> assertThat(response.get(1).sales()).isEqualTo(-0.009791693),
                     () -> assertThat(response.get(2).sales()).isEqualTo(1208988.0)
+            );
+
+        }
+
+    }
+
+    @Nested
+    @DisplayName("기업 언론 정보 조회")
+    class CompanyNews {
+
+        @Test
+        void 기업_언론_감정_분석을_조회한다() {
+
+            //given
+
+            //when
+            CompanySentimentResponse response = companyService.findCompanySentiment(COMPANY_ID);
+
+            //then
+            assertAll(
+                    () -> assertThat(response.positiveRate()).isEqualTo(77.999),
+                    () -> assertThat(response.negativeRate()).isEqualTo(22.001)
+            );
+
+        }
+
+        @Test
+        void 기업_언론_긍부정_뉴스_목록을_조회한다() {
+
+            //given
+
+            //when
+            List<CompanyNewsResponse> response = companyService.findCompanyNewsList(COMPANY_ID);
+
+            //then
+            assertAll(
+                    () -> assertThat(response.size()).isEqualTo(3),
+                    () -> assertThat(response.get(0).title()).isEqualTo("뉴스 제목입니다.1"),
+                    () -> assertThat(response.get(1).description()).isEqualTo("뉴스 상세설명입니다.2"),
+                    () -> assertThat(response.get(2).sentiment()).isEqualTo(Sentiment.POSITIVE)
             );
 
         }
