@@ -8,6 +8,8 @@ import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
+import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
+import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.query.dto.PagingParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +57,7 @@ public class CompanyV1Controller {
 
     /**
      * 기업 성장 그래프
+     *
      * @param companyId
      * @return CompanyGrowthResponse
      */
@@ -63,6 +66,30 @@ public class CompanyV1Controller {
             @PathVariable Long companyId) {
 
         List<CompanyGrowthResponse> response = companyService.findCompanyGrowth(companyId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 언론 감정 분석
+     */
+    @GetMapping(value = "/companies/{companyId}/sentiment")
+    public ResponseEntity<CompanySentimentResponse> findCompanySentiment(
+            @PathVariable Long companyId) {
+
+        CompanySentimentResponse response = companyService.findCompanySentiment(companyId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 언론 긍부정 뉴스 목록
+     */
+    @GetMapping(value = "/companies/{companyId}/news")
+    public ResponseEntity<List<CompanyNewsResponse>> findCompanyNewsList(
+            @PathVariable Long companyId) {
+
+        List<CompanyNewsResponse> response = companyService.findCompanyNewsList(companyId);
 
         return ResponseEntity.ok(response);
     }
