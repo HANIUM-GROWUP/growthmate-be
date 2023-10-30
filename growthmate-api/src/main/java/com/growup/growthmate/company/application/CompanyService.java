@@ -66,6 +66,7 @@ public class CompanyService {
 
     public List<CompanyGrowthResponse> findCompanyGrowth(Long companyId) {
 
+        if (companyId == null) throw throwCompanyNotFoundException();
         List<CompanyGrowthProjection> entityResponse = companyRepository.findCompanyGrowth(companyId);
 
         return companyMapper.toGrowthDTO(entityResponse);
@@ -73,6 +74,7 @@ public class CompanyService {
 
     public CompanySentimentResponse findCompanySentiment(Long companyId) {
 
+        if (companyId == null) throw throwCompanyNotFoundException();
         CompanySentimentProjection entityResponse = companyRepository.findCompanySentiment(companyId);
 
         return companyMapper.toSentimentDTO(entityResponse);
@@ -80,10 +82,17 @@ public class CompanyService {
 
     public List<CompanyNewsResponse> findCompanyNewsList(CompanyNewsRequest request) {
 
+        if (request.companyId() == null) throw throwCompanyNotFoundException();
         List<CompanyNewsProjection> entityResponse = companyRepository.findCompanyNewsList(request);
 
         return entityResponse.stream()
                 .map(companyNewsMapper::toResponse)
                 .toList();
+    }
+
+    private BusinessException throwCompanyNotFoundException() {
+
+        CompanyException notFound = CompanyException.NO_FOUND_COMPANY;
+        return new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage());
     }
 }
