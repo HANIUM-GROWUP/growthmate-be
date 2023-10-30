@@ -14,14 +14,14 @@ public class CompanyNewsProjection {
 
     public static final ConstructorExpression<CompanyNewsProjection> CONSTRUCTOR_EXPRESSION =
             Projections.constructor(CompanyNewsProjection.class,
-                    companyNews.companyId,
+                    companyNews.id,
                     companyNews.title,
                     companyNews.description,
                     companyNews.url,
                     companyNews.sentiment
             );
 
-    private Long companyId;
+    private Long companyNewsId;
     private String title;
     private String description;
     private String url;

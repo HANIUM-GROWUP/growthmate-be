@@ -9,7 +9,7 @@ public class CompanyNewsMapper {
 
     public CompanyNewsResponse toResponse(CompanyNewsProjection projection) {
         return new CompanyNewsResponse(
-                projection.getCompanyId(),
+                projection.getCompanyNewsId(),
                 projection.getTitle(),
                 projection.getDescription(),
                 projection.getUrl(),
