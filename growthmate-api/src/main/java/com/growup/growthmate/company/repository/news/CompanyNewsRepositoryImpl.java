@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static com.growup.growthmate.community.post.domain.QPost.post;
 import static com.growup.growthmate.company.domain.QCompanyNews.companyNews;
 
 @RequiredArgsConstructor
@@ -22,7 +21,9 @@ public class CompanyNewsRepositoryImpl implements CompanyNewsRepository {
         return queryFactory.select(CompanyNewsProjection.CONSTRUCTOR_EXPRESSION)
                 .from(companyNews)
                 .where(companyNews.companyId.eq(request.companyId())
-                .and(getCursorCondition(request.cursor(), post.id)))
+                .and(getCursorCondition(request.cursor(), companyNews.id)))
+                .orderBy(companyNews.id.desc())
+                .limit(request.size())
                 .fetch();
     }
 

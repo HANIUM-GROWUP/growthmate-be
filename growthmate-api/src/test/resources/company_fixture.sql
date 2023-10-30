@@ -80,3 +80,39 @@ values (2, 1, '뉴스 제목입니다.2', '뉴스 상세설명입니다.2', 'new
 
 INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
 values (3, 1, '뉴스 제목입니다.3', '뉴스 상세설명입니다.3', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (4, 1, '뉴스 제목입니다.4', '뉴스 상세설명입니다.4', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (5, 1, '뉴스 제목입니다.5', '뉴스 상세설명입니다.5', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (6, 1, '뉴스 제목입니다.6', '뉴스 상세설명입니다.6', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (7, 1, '뉴스 제목입니다.7', '뉴스 상세설명입니다.7', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (8, 1, '뉴스 제목입니다.8', '뉴스 상세설명입니다.8', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (9, 1, '뉴스 제목입니다.9', '뉴스 상세설명입니다.9', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (10, 1, '뉴스 제목입니다.10', '뉴스 상세설명입니다.10', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (11, 1, '뉴스 제목입니다.11', '뉴스 상세설명입니다.11', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (12, 1, '뉴스 제목입니다.12', '뉴스 상세설명입니다.12', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (13, 1, '뉴스 제목입니다.13', '뉴스 상세설명입니다.13', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (14, 1, '뉴스 제목입니다.14', '뉴스 상세설명입니다.14', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (15, 1, '뉴스 제목입니다.15', '뉴스 상세설명입니다.15', 'news.url3', 'POSITIVE');

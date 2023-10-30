@@ -13,6 +13,8 @@ import com.growup.growthmate.company.dto.news.CompanyNewsRequest;
 import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
 import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.isolation.TestIsolation;
+import com.growup.growthmate.query.dto.request.PostPreviewRequest;
+import com.growup.growthmate.query.dto.response.PostPreviewResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -217,12 +219,40 @@ class CompanyServiceTest {
 
             //then
             assertAll(
-                    () -> assertThat(response.size()).isEqualTo(3),
-                    () -> assertThat(response.get(0).title()).isEqualTo("뉴스 제목입니다.1"),
-                    () -> assertThat(response.get(1).description()).isEqualTo("뉴스 상세설명입니다.2"),
-                    () -> assertThat(response.get(2).sentiment()).isEqualTo(Sentiment.POSITIVE)
+                    () -> assertThat(response.size()).isEqualTo(10),
+                    () -> assertThat(response.get(0).title()).isEqualTo("뉴스 제목입니다.15"),
+                    () -> assertThat(response.get(1).description()).isEqualTo("뉴스 상세설명입니다.14"),
+                    () -> assertThat(response.get(2).sentiment()).isEqualTo(Sentiment.NEGATIVE)
             );
 
+        }
+
+        @Test
+        void cursor를_지정하면_cursor_이전에_만든_게시글을_조회한다() {
+            // given
+            CompanyNewsRequest request = new CompanyNewsRequest(COMPANY_ID, 13L, DEFAULT_SIZE);
+
+            // when
+            List<CompanyNewsResponse> actual = companyService.findCompanyNewsList(request);
+
+            // then
+            assertThat(actual)
+                    .map(CompanyNewsResponse::companyNewsId)
+                    .containsExactly(12L, 11L, 10L, 9L, 8L, 7L, 6L, 5L, 4L, 3L);
+        }
+
+        @Test
+        void size만큼_조회된다() {
+            // given
+            CompanyNewsRequest request = new CompanyNewsRequest(COMPANY_ID, null, 3);
+
+            // when
+            List<CompanyNewsResponse> actual = companyService.findCompanyNewsList(request);
+
+            // then
+            assertThat(actual)
+                    .map(CompanyNewsResponse::companyNewsId)
+                    .containsExactly(15L, 14L, 13L);
         }
 
     }
