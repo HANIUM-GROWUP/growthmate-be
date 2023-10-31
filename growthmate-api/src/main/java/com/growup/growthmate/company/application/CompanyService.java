@@ -66,33 +66,31 @@ public class CompanyService {
 
     public List<CompanyGrowthResponse> findCompanyGrowth(Long companyId) {
 
-        if (companyId == null) throw throwCompanyNotFoundException();
-        List<CompanyGrowthProjection> entityResponse = companyRepository.findCompanyGrowth(companyId);
+        Optional<List<CompanyGrowthProjection>> entityResponse = Optional.ofNullable(companyRepository.findCompanyGrowth(companyId));
 
-        return companyMapper.toGrowthDTO(entityResponse);
+        return entityResponse
+                .map(companyMapper::toGrowthDTO)
+                .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
     }
 
     public CompanySentimentResponse findCompanySentiment(Long companyId) {
 
-        if (companyId == null) throw throwCompanyNotFoundException();
-        CompanySentimentProjection entityResponse = companyRepository.findCompanySentiment(companyId);
+        Optional<CompanySentimentProjection> entityResponse = Optional.ofNullable(companyRepository.findCompanySentiment(companyId));
 
-        return companyMapper.toSentimentDTO(entityResponse);
+        return entityResponse
+                .map(companyMapper::toSentimentDTO)
+                .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
     }
 
     public List<CompanyNewsResponse> findCompanyNewsList(CompanyNewsRequest request) {
 
-        if (request.companyId() == null) throw throwCompanyNotFoundException();
-        List<CompanyNewsProjection> entityResponse = companyRepository.findCompanyNewsList(request);
+        Optional<List<CompanyNewsProjection>> entityResponseOptional = Optional.ofNullable(companyRepository.findCompanyNewsList(request));
 
-        return entityResponse.stream()
-                .map(companyNewsMapper::toResponse)
-                .toList();
+        return entityResponseOptional
+                .map(entityResponse -> entityResponse.stream()
+                        .map(companyNewsMapper::toResponse)
+                        .toList())
+                .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
     }
 
-    private BusinessException throwCompanyNotFoundException() {
-
-        CompanyException notFound = CompanyException.NO_FOUND_COMPANY;
-        return new BusinessException(notFound.getHttpStatusCode(), notFound.getMessage());
-    }
 }
