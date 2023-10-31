@@ -66,11 +66,9 @@ public class CompanyService {
 
     public List<CompanyGrowthResponse> findCompanyGrowth(Long companyId) {
 
-        Optional<List<CompanyGrowthProjection>> entityResponse = Optional.ofNullable(companyRepository.findCompanyGrowth(companyId));
+        List<CompanyGrowthProjection> entityResponse = companyRepository.findCompanyGrowth(companyId);
 
-        return entityResponse
-                .map(companyMapper::toGrowthDTO)
-                .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
+        return companyMapper.toGrowthDTO(entityResponse);
     }
 
     public CompanySentimentResponse findCompanySentiment(Long companyId) {
@@ -84,13 +82,11 @@ public class CompanyService {
 
     public List<CompanyNewsResponse> findCompanyNewsList(CompanyNewsRequest request) {
 
-        Optional<List<CompanyNewsProjection>> entityResponseOptional = Optional.ofNullable(companyRepository.findCompanyNewsList(request));
+        List<CompanyNewsProjection> entityResponse = companyRepository.findCompanyNewsList(request);
 
-        return entityResponseOptional
-                .map(entityResponse -> entityResponse.stream()
-                        .map(companyNewsMapper::toResponse)
-                        .toList())
-                .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
+        return entityResponse.stream()
+                .map(companyNewsMapper::toResponse)
+                .toList();
     }
 
 }
