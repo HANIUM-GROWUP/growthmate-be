@@ -38,3 +38,10 @@ VALUES (5, 2, 2019, 10000.0);
 
 INSERT INTO company_growth(company_growth_id, company_id, years, sales)
 VALUES (6, 2, 2020, 10000.0);
+
+-- 회사 언론 감정
+INSERT INTO company_sentiment(company_sentiment_id, company_id, positive_rate, negative_rate)
+VALUES (1, 1, 0.5, 0.5);
+
+INSERT INTO company_sentiment(company_sentiment_id, company_id, positive_rate, negative_rate)
+VALUES (2, 2, 0.5, 0.5);

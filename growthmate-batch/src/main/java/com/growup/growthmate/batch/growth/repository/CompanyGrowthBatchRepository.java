@@ -1,55 +1,47 @@
 package com.growup.growthmate.batch.growth.repository;
 
-import com.growup.growthmate.batch.BatchRepository;
+import com.growup.growthmate.batch.BatchAbstractRepository;
 import com.growup.growthmate.company.domain.CompanyGrowth;
-import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.growup.growthmate.batch.growth.repository.CompanyGrowthTable.*;
-
 
 @Component
-@RequiredArgsConstructor
-public class CompanyGrowthBatchRepository implements BatchRepository<CompanyGrowth> {
+public class CompanyGrowthBatchRepository extends BatchAbstractRepository<CompanyGrowth> {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
+    private static final String ID = "companyGrowthId";
+    private static final String COMPANY_ID = "companyId";
+    private static final String YEAR = "year";
+    private static final String SALES = "sales";
 
-    @Override
-    public void insertAll(List<CompanyGrowth> entities) {
-        jdbcTemplate.batchUpdate(INSERT_SQL, generateParameterSource(entities));
+    private static final String INSERT_SQL = "INSERT INTO company_growth(" +
+            "company_id, years, sales" +
+            ") VALUES(" +
+            ":companyId, :year, :sales" +
+            ")";
+
+    private static final String UPDATE_SQL = "UPDATE company_growth SET " +
+            "years = :year, " +
+            "sales = :sales " +
+            "WHERE company_growth_id = :companyGrowthId";
+
+
+    protected CompanyGrowthBatchRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        super(jdbcTemplate, INSERT_SQL, UPDATE_SQL);
     }
 
     @Override
-    public void updateAll(List<CompanyGrowth> entities) {
-        jdbcTemplate.batchUpdate(UPDATE_SQL, generateParameterSource(entities));
-    }
-
-    private SqlParameterSource[] generateParameterSource(List<CompanyGrowth> growth) {
-        return growth.stream()
-                .map(this::mapParameters)
-                .toArray(SqlParameterSource[]::new);
-    }
-
-    private SqlParameterSource mapParameters(CompanyGrowth growth) {
-        MapSqlParameterSource source = new MapSqlParameterSource(generateGrowthParams(growth));
-        Optional.ofNullable(growth.getId())
-                .ifPresent(id -> source.addValue(ID, id));
-        return source;
-    }
-
-    private Map<String, Object> generateGrowthParams(CompanyGrowth growth) {
+    protected Map<String, Object> generateEntityParams(CompanyGrowth growth) {
         Map<String, Object> params = new HashMap<>();
         params.put(COMPANY_ID, growth.getCompanyId());
         params.put(YEAR, growth.getYear());
         params.put(SALES, growth.getSales());
+        Optional.ofNullable(growth.getId())
+                .ifPresent(id -> params.put(ID, id));
         return params;
     }
 }
