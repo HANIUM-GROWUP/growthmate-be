@@ -18,3 +18,5 @@ spring:
 file-path:
   company: fake-company-path
   company-analysis: fake-company-analysis-path
+  company-growth: fake-company-growth-path
+  company-sentiment: fake-company-sentiment-path

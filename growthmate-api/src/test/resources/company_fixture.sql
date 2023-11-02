@@ -66,3 +66,53 @@ values (3, 1, 2021, 1208988);
 
 INSERT INTO company_growth (company_growth_id, company_id, years, sales)
 values (4, 1, 2022, 0.215994326);
+
+-- company sentiment 테이블 sample data
+INSERT INTO company_sentiment (company_sentiment_id, company_id, positive_rate, negative_rate)
+values (1, 1, 77.999, 22.001);
+
+-- company news 테이블 sample data
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (1, 1, '뉴스 제목입니다.1', '뉴스 상세설명입니다.1', 'news.url1', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (2, 1, '뉴스 제목입니다.2', '뉴스 상세설명입니다.2', 'news.url2', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (3, 1, '뉴스 제목입니다.3', '뉴스 상세설명입니다.3', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (4, 1, '뉴스 제목입니다.4', '뉴스 상세설명입니다.4', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (5, 1, '뉴스 제목입니다.5', '뉴스 상세설명입니다.5', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (6, 1, '뉴스 제목입니다.6', '뉴스 상세설명입니다.6', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (7, 1, '뉴스 제목입니다.7', '뉴스 상세설명입니다.7', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (8, 1, '뉴스 제목입니다.8', '뉴스 상세설명입니다.8', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (9, 1, '뉴스 제목입니다.9', '뉴스 상세설명입니다.9', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (10, 1, '뉴스 제목입니다.10', '뉴스 상세설명입니다.10', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (11, 1, '뉴스 제목입니다.11', '뉴스 상세설명입니다.11', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (12, 1, '뉴스 제목입니다.12', '뉴스 상세설명입니다.12', 'news.url3', 'POSITIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (13, 1, '뉴스 제목입니다.13', '뉴스 상세설명입니다.13', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (14, 1, '뉴스 제목입니다.14', '뉴스 상세설명입니다.14', 'news.url3', 'NEGATIVE');
+
+INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
+values (15, 1, '뉴스 제목입니다.15', '뉴스 상세설명입니다.15', 'news.url3', 'POSITIVE');

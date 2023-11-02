@@ -1,50 +1,46 @@
 package com.growup.growthmate.batch.analysis.repository;
 
-import com.growup.growthmate.batch.BatchRepository;
+import com.growup.growthmate.batch.BatchAbstractRepository;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
-import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.growup.growthmate.batch.analysis.repository.CompanyAnalysisTable.*;
-
 @Component
-@RequiredArgsConstructor
-public class CompanyAnalysisBatchRepository implements BatchRepository<CompanyAnalysis> {
+public class CompanyAnalysisBatchRepository extends BatchAbstractRepository<CompanyAnalysis> {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
+    private static final String ID = "companyAnalysisId";
+    private static final String COMPANY_ID = "companyId";
+    private static final String GROWTH = "growth";
+    private static final String STABILITY = "stability";
+    private static final String PROFITABILITY = "profitability";
+    private static final String EFFICIENCY = "efficiency";
+    private static final String BUSINESS_PERFORMANCE = "businessPerformance";
 
-    @Override
-    public void insertAll(List<CompanyAnalysis> entities) {
-        jdbcTemplate.batchUpdate(INSERT_SQL, generateParameterSource(entities));
+    private static final String INSERT_SQL = "INSERT INTO company_analysis(" +
+            "company_id, growth, stability, profitability, efficiency, business_performance" +
+            ") VALUES(" +
+            ":companyId, :growth, :stability, :profitability, :efficiency, :businessPerformance" +
+            ")";
+
+    private static final String UPDATE_SQL = "UPDATE company_analysis SET " +
+            "growth = :growth, " +
+            "stability = :stability, " +
+            "profitability = :profitability, " +
+            "efficiency = :efficiency, " +
+            "business_performance = :businessPerformance " +
+            "WHERE company_analysis_id = :companyAnalysisId";
+
+
+    protected CompanyAnalysisBatchRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        super(jdbcTemplate, INSERT_SQL, UPDATE_SQL);
     }
 
     @Override
-    public void updateAll(List<CompanyAnalysis> entities) {
-        jdbcTemplate.batchUpdate(UPDATE_SQL, generateParameterSource(entities));
-    }
-
-    private SqlParameterSource[] generateParameterSource(List<CompanyAnalysis> analyses) {
-        return analyses.stream()
-                .map(this::mapParameters)
-                .toArray(SqlParameterSource[]::new);
-    }
-
-    private SqlParameterSource mapParameters(CompanyAnalysis analysis) {
-        MapSqlParameterSource source = new MapSqlParameterSource(generateAnalysesParams(analysis));
-        Optional.ofNullable(analysis.getId())
-                .ifPresent(id -> source.addValue(ID, id));
-        return source;
-    }
-
-    private Map<String, Object> generateAnalysesParams(CompanyAnalysis analysis) {
+    protected Map<String, Object> generateEntityParams(CompanyAnalysis analysis) {
         Map<String, Object> params = new HashMap<>();
         params.put(COMPANY_ID, analysis.getCompanyId());
         params.put(GROWTH, analysis.getGrowth());
@@ -52,6 +48,8 @@ public class CompanyAnalysisBatchRepository implements BatchRepository<CompanyAn
         params.put(PROFITABILITY, analysis.getProfitability());
         params.put(EFFICIENCY, analysis.getEfficiency());
         params.put(BUSINESS_PERFORMANCE, analysis.getBusinessPerformance());
+        Optional.ofNullable(analysis.getId())
+                .ifPresent(id -> params.put(ID, id));
         return params;
     }
 }
