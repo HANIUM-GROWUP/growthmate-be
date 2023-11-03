@@ -1,6 +1,6 @@
 package com.growup.growthmate.batch.company;
 
-import com.growup.growthmate.CompanyAbstractReader;
+import com.growup.growthmate.batch.CompanyAbstractReader;
 import com.growup.growthmate.company.domain.Company;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

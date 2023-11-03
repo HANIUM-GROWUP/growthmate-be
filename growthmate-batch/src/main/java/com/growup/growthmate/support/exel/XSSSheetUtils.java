@@ -1,5 +1,6 @@
-package com.growup.growthmate.support;
+package com.growup.growthmate.support.exel;
 
+import com.growup.growthmate.support.ExelNotFoundException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,7 +17,7 @@ public class XSSSheetUtils {
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             return workbook.getSheetAt(0);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ExelNotFoundException(path);
         }
     }
 }

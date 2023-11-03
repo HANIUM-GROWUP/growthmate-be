@@ -1,6 +1,6 @@
 package com.growup.growthmate.batch.analysis;
 
-import com.growup.growthmate.CompanyAbstractReader;
+import com.growup.growthmate.batch.CompanyAbstractReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

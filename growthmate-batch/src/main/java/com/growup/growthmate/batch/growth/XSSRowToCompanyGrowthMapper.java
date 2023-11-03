@@ -1,7 +1,7 @@
 package com.growup.growthmate.batch.growth;
 
-import com.growup.growthmate.support.XSSFRowMapper;
-import com.growup.growthmate.support.XSSFRowUtils;
+import com.growup.growthmate.support.exel.XSSFRowMapper;
+import com.growup.growthmate.support.exel.XSSFRowUtils;
 import lombok.Getter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.springframework.stereotype.Component;
