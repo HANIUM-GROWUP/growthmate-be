@@ -17,7 +17,7 @@ public class XSSFRowUtils {
     private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]+\\s*\\.\\s*[0-9]+\\s*\\.\\s*[0-9]+");
 
     public static LocalDateTime toLocalDateTimeValue(XSSFRow row, int cellIndex) {
-        return Optional.ofNullable(toStringValue(row, cellIndex))
+        return Optional.of(toStringValue(row, cellIndex))
                 .filter(stringValue -> DATE_PATTERN.matcher(stringValue).matches())
                 .map(XSSFRowUtils::convertToLocalDateTime)
                 .orElse(null);
@@ -38,7 +38,7 @@ public class XSSFRowUtils {
     public static String toStringValue(XSSFRow row, int cellIndex) {
         return Optional.ofNullable(row.getCell(cellIndex))
                 .map(XSSFRowUtils::extractString)
-                .orElse(null);
+                .orElse("");
     }
 
     private static String extractString(XSSFCell cell) {
