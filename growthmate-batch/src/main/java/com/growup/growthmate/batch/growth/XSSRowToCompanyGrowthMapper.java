@@ -33,7 +33,8 @@ public class XSSRowToCompanyGrowthMapper implements XSSFRowMapper<List<CompanyGr
         TWO_THOUSAND_19(2, 2019),
         TWO_THOUSAND_20(3, 2020),
         TWO_THOUSAND_21(4, 2021),
-        TWO_THOUSAND_22(5, 2022);
+        TWO_THOUSAND_22(5, 2022),
+        TWO_THOUSAND_23(6, 2023);
 
         private final int index;
         private final int year;
