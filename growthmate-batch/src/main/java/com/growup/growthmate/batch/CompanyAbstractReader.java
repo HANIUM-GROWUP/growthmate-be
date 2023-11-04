@@ -5,6 +5,7 @@ import com.growup.growthmate.support.exel.XSSSheetUtils;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.batch.item.ItemReader;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public abstract class CompanyAbstractReader<T> implements ItemReader<T> {
@@ -25,9 +26,22 @@ public abstract class CompanyAbstractReader<T> implements ItemReader<T> {
 
     @Override
     public T read() {
-        if (sheet == null) {
-            sheet = XSSSheetUtils.initialize(path);
+        if (sheet == null && !isValidPath()) {
+            return null;
         }
+        return extractItem(sheet);
+    }
+
+    private boolean isValidPath() {
+        try {
+            sheet = XSSSheetUtils.initialize(path);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    private T extractItem(XSSFSheet sheet) {
         return Optional.ofNullable(sheet.getRow(rowNum++))
                 .map(mapper::map)
                 .orElse(null);
