@@ -3,6 +3,7 @@ package com.growup.growthmate.support.exel;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 
@@ -37,42 +38,40 @@ public class XSSFRowUtils {
 
     public static String toStringValue(XSSFRow row, int cellIndex) {
         return Optional.ofNullable(row.getCell(cellIndex))
-                .map(XSSFRowUtils::extractString)
+                .map(XSSFRowUtils::extractStringValue)
                 .orElse("");
-    }
-
-    private static String extractString(XSSFCell cell) {
-        try {
-            return cell.getStringCellValue();
-        } catch (IllegalStateException | NumberFormatException e) {
-            log.error(cell + "는 StringValue로 변환될 수 없습니다.");
-            throw e;
-        }
     }
 
     public static Long toLongValue(XSSFRow row, int cellIndex) {
         return Optional.ofNullable(row.getCell(cellIndex))
-                .map(cell -> (long) extractNumeric(cell))
+                .map(cell -> (long) extractNumericValue(cell))
                 .orElse(null);
     }
 
     public static Integer toIntValue(XSSFRow row, int cellIndex) {
         return Optional.ofNullable(row.getCell(cellIndex))
-                .map(cell -> (int) extractNumeric(cell))
-                .orElse(null);
-    }
-    public static Double toDoubleValue(XSSFRow row, int cellIndex) {
-        return Optional.ofNullable(row.getCell(cellIndex))
-                .map(XSSFRowUtils::extractNumeric)
+                .map(cell -> (int) extractNumericValue(cell))
                 .orElse(null);
     }
 
-    private static double extractNumeric(XSSFCell cell) {
-        try {
-            return cell.getNumericCellValue();
-        } catch (IllegalStateException | NumberFormatException e) {
-            log.error(cell + "는 NumericValue로 변환될 수 없습니다.");
-            throw e;
+    public static Double toDoubleValue(XSSFRow row, int cellIndex) {
+        return Optional.ofNullable(row.getCell(cellIndex))
+                .map(XSSFRowUtils::extractNumericValue)
+                .orElse(null);
+    }
+
+    private static double extractNumericValue(XSSFCell cell) {
+        String value = extractStringValue(cell);
+        if (value.isBlank()) {
+            return 0;
         }
+        return Double.parseDouble(value);
+    }
+
+    private static String extractStringValue(XSSFCell cell) {
+        if (CellType.NUMERIC == cell.getCellType()) {
+            return String.valueOf(cell.getNumericCellValue());
+        }
+        return cell.getStringCellValue();
     }
 }
