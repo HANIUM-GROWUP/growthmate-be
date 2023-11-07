@@ -28,6 +28,7 @@ public class CompanyNews {
     private String description;
 
     @Column(nullable = false)
+    @Lob
     private String url;
 
     @Column(nullable = false)
