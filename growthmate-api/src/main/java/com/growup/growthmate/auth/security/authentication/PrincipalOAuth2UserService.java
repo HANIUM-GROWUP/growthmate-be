@@ -39,7 +39,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
         return oAuthProvider.toLoginRequest(oAuth2User);
     }
 
-    private LoginResponse login(LoginRequest loginRequest) {
+    public LoginResponse login(LoginRequest loginRequest) {
         try {
             Long memberId = authService.login(loginRequest);
             String accessToken = jwtTokenProvider.createToken(new TokenPayload(memberId));
