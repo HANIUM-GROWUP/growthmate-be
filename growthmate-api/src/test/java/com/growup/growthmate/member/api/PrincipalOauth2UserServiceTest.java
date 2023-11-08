@@ -14,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
 @TestIsolation
-@Sql(scripts = "/company_fixture.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-class MemberServiceTest {
+class PrincipalOauth2UserServiceTest {
 
     @Autowired
     private PrincipalOAuth2UserService principalOAuth2UserService;
@@ -31,7 +30,7 @@ class MemberServiceTest {
 
         //then
         assertAll(
-                () -> assertThat(response.memberId()).isEqualTo(2),
+                () -> assertThat(response.memberId()).isEqualTo(1),
                 () -> assertThat(response.accessToken()).isNotNull()
         );
     }
