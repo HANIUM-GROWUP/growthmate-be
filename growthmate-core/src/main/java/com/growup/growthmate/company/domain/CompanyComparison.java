@@ -24,5 +24,5 @@ public class CompanyComparison {
     private Long salesForecast;
 
     @Column(nullable = false)
-    private Integer salesForecastPercentage;
+    private Double salesForecastPercentage;
 }
