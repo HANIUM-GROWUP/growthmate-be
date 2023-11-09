@@ -1,7 +1,6 @@
 package com.growup.growthmate.member.api;
 
 import com.growup.growthmate.LoginMember;
-import com.growup.growthmate.auth.application.AuthService;
 import com.growup.growthmate.auth.dto.LoginRequest;
 import com.growup.growthmate.auth.dto.LoginResponse;
 import com.growup.growthmate.auth.security.authentication.PrincipalOAuth2UserService;
@@ -33,8 +32,7 @@ public class MemberV1Controller {
 
     @Operation(summary = "회원 정보 수정 api", description = "updateMemberInfo")
     @PatchMapping(value = "/me")
-    public ResponseEntity<Void> updateMemberInfo(@RequestBody MemberUpdateInfoRequest memberInfo,
-                                               LoginMember loginMember) {
+    public ResponseEntity<Void> updateMemberInfo(@RequestBody MemberUpdateInfoRequest memberInfo) {
 
         memberService.updateName(memberInfo);
 
