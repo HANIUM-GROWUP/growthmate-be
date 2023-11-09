@@ -1,6 +1,10 @@
 package com.growup.growthmate.member.api;
 
 import com.growup.growthmate.LoginMember;
+import com.growup.growthmate.auth.application.AuthService;
+import com.growup.growthmate.auth.dto.LoginRequest;
+import com.growup.growthmate.auth.dto.LoginResponse;
+import com.growup.growthmate.auth.security.authentication.PrincipalOAuth2UserService;
 import com.growup.growthmate.member.application.MemberService;
 import com.growup.growthmate.member.dto.MemberInfoResponse;
 import com.growup.growthmate.member.dto.MemberUpdateInfoRequest;
@@ -17,6 +21,15 @@ import org.springframework.web.bind.annotation.*;
 public class MemberV1Controller {
 
     private final MemberService memberService;
+    private final PrincipalOAuth2UserService principalOAuth2UserService;
+
+    @Operation(summary = "회원 로그인 api", description = "login")
+    @PostMapping(value = "/login")
+    public ResponseEntity<LoginResponse> authLogin(@RequestBody LoginRequest loginRequest) {
+
+        LoginResponse response = principalOAuth2UserService.login(loginRequest);
+        return ResponseEntity.ok(response);
+    }
 
     @Operation(summary = "회원 정보 수정 api", description = "updateMemberInfo")
     @PatchMapping(value = "/me")

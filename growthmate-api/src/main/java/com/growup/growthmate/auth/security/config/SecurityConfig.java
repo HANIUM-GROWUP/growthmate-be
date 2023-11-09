@@ -1,8 +1,5 @@
 package com.growup.growthmate.auth.security.config;
 
-import com.growup.growthmate.auth.security.authentication.OAuthLoginFailureHandler;
-import com.growup.growthmate.auth.security.authentication.OAuthLoginSuccessHandler;
-import com.growup.growthmate.auth.security.authentication.PrincipalOAuth2UserService;
 import com.growup.growthmate.auth.security.authoriization.JwtAuthorizationFilter;
 import com.growup.growthmate.auth.security.authoriization.UnAuthorizationEntryPoint;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +25,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final PrincipalOAuth2UserService userService;
-    private final OAuthLoginSuccessHandler successHandler;
-    private final OAuthLoginFailureHandler failureHandler;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
     private final UnAuthorizationEntryPoint unauthorizationEntryPoint;
 
@@ -57,12 +51,6 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/companies/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
-                .and()
-
-                .oauth2Login()
-                .userInfoEndpoint().userService(userService).and()
-                .successHandler(successHandler)
-                .failureHandler(failureHandler)
                 .and()
 
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)

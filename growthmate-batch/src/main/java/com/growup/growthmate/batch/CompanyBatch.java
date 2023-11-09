@@ -11,14 +11,15 @@ import com.growup.growthmate.batch.growth.CompanyGrowthDto;
 import com.growup.growthmate.batch.growth.CompanyGrowthProcessor;
 import com.growup.growthmate.batch.growth.CompanyGrowthReader;
 import com.growup.growthmate.batch.growth.CompanyGrowthWriter;
+import com.growup.growthmate.batch.news.CompanyNewsDto;
+import com.growup.growthmate.batch.news.CompanyNewsProcessor;
+import com.growup.growthmate.batch.news.CompanyNewsReader;
+import com.growup.growthmate.batch.news.CompanyNewsWriter;
 import com.growup.growthmate.batch.sentiment.CompanySentimentDto;
 import com.growup.growthmate.batch.sentiment.CompanySentimentProcessor;
 import com.growup.growthmate.batch.sentiment.CompanySentimentReader;
 import com.growup.growthmate.batch.sentiment.CompanySentimentWriter;
-import com.growup.growthmate.company.domain.Company;
-import com.growup.growthmate.company.domain.CompanyAnalysis;
-import com.growup.growthmate.company.domain.CompanyGrowth;
-import com.growup.growthmate.company.domain.CompanySentiment;
+import com.growup.growthmate.company.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
@@ -56,6 +57,10 @@ public class CompanyBatch {
     private final CompanySentimentProcessor companySentimentProcessor;
     private final CompanySentimentWriter companySentimentWriter;
 
+    private final CompanyNewsReader companyNewsReader;
+    private final CompanyNewsProcessor companyNewsProcessor;
+    private final CompanyNewsWriter companyNewsWriter;
+
     @Value("${batch.company.chunk-size:100}")
     private int chunkSize;
 
@@ -66,6 +71,7 @@ public class CompanyBatch {
                 .next(updateCompanyAnalysisStep())
                 .next(updateCompanyGrowthStep())
                 .next(updateCompanySentimentStep())
+                .next(insertCompanyNewsStep())
                 .listener(jobExecutionTimeListener())
                 .build();
     }
@@ -113,6 +119,18 @@ public class CompanyBatch {
                 .reader(companySentimentReader)
                 .processor(companySentimentProcessor)
                 .writer(companySentimentWriter)
+                .listener(stepExecutionTimeListener())
+                .allowStartIfComplete(true)
+                .build();
+    }
+
+    @Bean
+    public Step insertCompanyNewsStep() {
+        return new StepBuilder("insertCompanyNewsStep", jobRepository)
+                .<CompanyNewsDto, CompanyNews>chunk(chunkSize, transactionManager)
+                .reader(companyNewsReader)
+                .processor(companyNewsProcessor)
+                .writer(companyNewsWriter)
                 .listener(stepExecutionTimeListener())
                 .allowStartIfComplete(true)
                 .build();
