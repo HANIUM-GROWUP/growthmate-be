@@ -2,7 +2,9 @@ package com.growup.growthmate.company.mapper;
 
 import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
+import com.growup.growthmate.company.domain.CompanyComparison;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.comparison.CompanyComparisonResponse;
 import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyResponse;
 import com.growup.growthmate.company.dto.growth.CompanyGrowthResponse;
@@ -60,5 +62,11 @@ public interface CompanyMapper {
             @Mapping(source = "negativeRate", target = "negativeRate")
     })
     CompanySentimentResponse toSentimentDTO(CompanySentimentProjection projection);
+
+    @Mappings({
+            @Mapping(source = "salesForecast", target = "salesForecast"),
+            @Mapping(source = "salesForecastPercentage", target = "salesForecastPercentage")
+    })
+    CompanyComparisonResponse toComparisonDTO(CompanyComparison comparison);
 
 }
