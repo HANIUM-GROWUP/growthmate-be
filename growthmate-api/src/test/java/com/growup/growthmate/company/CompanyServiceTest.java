@@ -14,8 +14,6 @@ import com.growup.growthmate.company.dto.news.CompanyNewsRequest;
 import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
 import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.isolation.TestIsolation;
-import com.growup.growthmate.query.dto.request.PostPreviewRequest;
-import com.growup.growthmate.query.dto.response.PostPreviewResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -4,7 +4,6 @@ import com.growup.growthmate.company.domain.CompanyComparison;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
-import static com.growup.growthmate.company.domain.QCompanyAnalysis.companyAnalysis;
 import static com.growup.growthmate.company.domain.QCompanyComparison.companyComparison;
 
 @RequiredArgsConstructor
