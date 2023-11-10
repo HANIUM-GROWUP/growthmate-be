@@ -1,5 +1,6 @@
 package com.growup.growthmate.support.exel;
 
+import com.growup.growthmate.support.LocalDateTimeConverter;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,31 +10,16 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
 public class XSSFRowUtils {
 
-    private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]+\\s*\\.\\s*[0-9]+\\s*\\.\\s*[0-9]+");
-
     public static LocalDateTime toLocalDateTimeValue(XSSFRow row, int cellIndex) {
         return Optional.of(toStringValue(row, cellIndex))
-                .filter(stringValue -> DATE_PATTERN.matcher(stringValue).matches())
-                .map(XSSFRowUtils::convertToLocalDateTime)
+                .filter(LocalDateTimeConverter::isConvertable)
+                .map(LocalDateTimeConverter::convert)
                 .orElse(null);
-    }
-
-    private static LocalDateTime convertToLocalDateTime(String stringValue) {
-        String[] dateTime = stringValue.replaceAll(" ", "")
-                .split("\\.");
-        return LocalDateTime.of(
-                Integer.parseInt(dateTime[0]),
-                Integer.parseInt(dateTime[1]),
-                Integer.parseInt(dateTime[2]),
-                0,
-                0
-        );
     }
 
     public static String toStringValue(XSSFRow row, int cellIndex) {
