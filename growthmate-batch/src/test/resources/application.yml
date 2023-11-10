@@ -30,6 +30,7 @@ file-path:
   company-growth: src/test/resources/company-files/growth.xlsx
   company-sentiment: src/test/resources/company-files/sentiment.xlsx
   company-news: src/test/resources/company-files/news.xlsx
+  company-comparison: src/test/resources/company-files/comparison.xlsx
 
 logging:
   level:
