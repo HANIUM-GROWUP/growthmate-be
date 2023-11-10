@@ -3,9 +3,11 @@ package com.growup.growthmate.company.application;
 import com.growup.growthmate.BusinessException;
 import com.growup.growthmate.company.domain.Company;
 import com.growup.growthmate.company.domain.CompanyAnalysis;
+import com.growup.growthmate.company.domain.CompanyComparison;
 import com.growup.growthmate.company.domain.exception.CompanyException;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.comparison.CompanyComparisonResponse;
 import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
 import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
@@ -87,6 +89,15 @@ public class CompanyService {
         return entityResponse.stream()
                 .map(companyNewsMapper::toResponse)
                 .toList();
+    }
+
+    public CompanyComparisonResponse findCompanyComparison(Long companyId) {
+
+        Optional<CompanyComparison> entityResponse = Optional.ofNullable(companyRepository.findCompanyComparison(companyId));
+
+        return entityResponse
+                .map(companyMapper::toComparisonDTO)
+                .orElseThrow(() -> new BusinessException(CompanyException.NO_FOUND_COMPANY.getHttpStatusCode(), CompanyException.NO_FOUND_COMPANY.getMessage()));
     }
 
 }

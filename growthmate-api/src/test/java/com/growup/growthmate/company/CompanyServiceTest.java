@@ -4,6 +4,7 @@ import com.growup.growthmate.company.application.CompanyService;
 import com.growup.growthmate.company.domain.Sentiment;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.comparison.CompanyComparisonResponse;
 import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
 import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
@@ -13,8 +14,6 @@ import com.growup.growthmate.company.dto.news.CompanyNewsRequest;
 import com.growup.growthmate.company.dto.news.CompanyNewsResponse;
 import com.growup.growthmate.company.dto.sentiment.CompanySentimentResponse;
 import com.growup.growthmate.isolation.TestIsolation;
-import com.growup.growthmate.query.dto.request.PostPreviewRequest;
-import com.growup.growthmate.query.dto.response.PostPreviewResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -253,6 +252,27 @@ class CompanyServiceTest {
             assertThat(actual)
                     .map(CompanyNewsResponse::companyNewsId)
                     .containsExactly(15L, 14L, 13L);
+        }
+
+    }
+
+    @Nested
+    @DisplayName("동종 업게 비교")
+    class CompanyComparisonTest {
+
+        @Test
+        void 동종_업계_비교가_companyid_에_맞게_조회된다() {
+
+            //given
+
+            //when
+            CompanyComparisonResponse response = companyService.findCompanyComparison(COMPANY_ID);
+
+            //then
+            assertAll(
+                    () -> assertThat(response.salesForecast()).isEqualTo(SALES_FORECAST),
+                    () -> assertThat(response.salesForecastPercentage()).isEqualTo(SALES_FORECAST_PERCENTAGE)
+            );
         }
 
     }

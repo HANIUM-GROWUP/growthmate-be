@@ -2,6 +2,7 @@ package com.growup.growthmate.company.repository;
 
 import com.growup.growthmate.company.domain.CompanyAnalysis;
 import com.growup.growthmate.company.repository.analysis.CompanyAnalysisRepository;
+import com.growup.growthmate.company.repository.comparison.CompanyComparisonRepository;
 import com.growup.growthmate.company.repository.find.CompanyFindRepository;
 import com.growup.growthmate.company.repository.growth.CompanyGrowthRepository;
 import com.growup.growthmate.company.repository.news.CompanyNewsRepository;
@@ -13,6 +14,7 @@ public interface CompanyRepository extends Repository<CompanyAnalysis, Long>,
         CompanyFindRepository,
         CompanyGrowthRepository,
         CompanySentimentRepository,
-        CompanyNewsRepository {
+        CompanyNewsRepository,
+        CompanyComparisonRepository {
 
 }

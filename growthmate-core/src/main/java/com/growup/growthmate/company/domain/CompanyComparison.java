@@ -14,7 +14,7 @@ public class CompanyComparison {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_comparision_id")
+    @Column(name = "company_comparison_id")
     private Long id;
 
     @Column(nullable = false)

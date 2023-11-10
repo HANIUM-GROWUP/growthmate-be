@@ -24,4 +24,8 @@ public class CompanyFixture {
     public static final Integer EFFICIENCY = 50;
     public static final Integer BUISNESS_PERFORMANCE = 60;
 
+    // COMPANY COMPARISON DATA
+    public static final Long SALES_FORECAST = 2881698135185L;
+    public static final Double SALES_FORECAST_PERCENTAGE = 0.002673797;
+
 }

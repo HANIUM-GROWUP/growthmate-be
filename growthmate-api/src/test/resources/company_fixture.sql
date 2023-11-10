@@ -116,3 +116,7 @@ values (14, 1, '뉴스 제목입니다.14', '뉴스 상세설명입니다.14', '
 
 INSERT INTO company_news (company_news_id, company_id, title, description, url, sentiment)
 values (15, 1, '뉴스 제목입니다.15', '뉴스 상세설명입니다.15', 'news.url3', 'POSITIVE');
+
+-- company comparison 테이블 sample data
+INSERT INTO company_comparison (company_comparison_id, company_id, sales_forecast, sales_forecast_percentage)
+values (1, 1, 2881698135185, 0.002673797);
