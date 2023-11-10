@@ -3,6 +3,7 @@ package com.growup.growthmate.company.api;
 import com.growup.growthmate.company.application.CompanyService;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisRequest;
 import com.growup.growthmate.company.dto.analysis.CompanyAnalysisResponse;
+import com.growup.growthmate.company.dto.comparison.CompanyComparisonResponse;
 import com.growup.growthmate.company.dto.find.CompanyDetailRequest;
 import com.growup.growthmate.company.dto.find.CompanyDetailResponse;
 import com.growup.growthmate.company.dto.find.SortedCompanyRequest;
@@ -94,6 +95,17 @@ public class CompanyV1Controller {
         CompanyNewsRequest request = new CompanyNewsRequest(companyId, params.getCursor(), params.getSize());
         List<CompanyNewsResponse> response = companyService.findCompanyNewsList(request);
 
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 동종 업계 비교 api
+     */
+    @GetMapping(value = "/companies/{comapanyId}/comparison")
+    public ResponseEntity<CompanyComparisonResponse> findCompanyComparison(
+            @PathVariable Long comapanyId) {
+
+        CompanyComparisonResponse response = companyService.findCompanyComparison(comapanyId);
         return ResponseEntity.ok(response);
     }
 
