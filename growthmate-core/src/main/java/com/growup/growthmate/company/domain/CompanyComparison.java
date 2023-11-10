@@ -25,4 +25,8 @@ public class CompanyComparison {
 
     @Column(nullable = false)
     private Double salesForecastPercentage;
+
+    public CompanyComparison(Long companyId, Long salesForecast, Double salesForecastPercentage) {
+        this(null, companyId, salesForecast, salesForecastPercentage);
+    }
 }
