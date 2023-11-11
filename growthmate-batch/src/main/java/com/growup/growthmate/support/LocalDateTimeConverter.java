@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LocalDateTimeConverter {
 
-    private static final Pattern DATE_PATTERN = Pattern.compile("\\d{4}\\.\\d{2}\\.\\d{2}\\.?");
+    private static final Pattern DATE_PATTERN = Pattern.compile("\\d{4}\\.\\d{1,2}\\.\\d{1,2}\\.?");
 
     public static LocalDateTime convert(String value) {
         String[] dateTime = removeBlank(value).split("\\.");
