@@ -11,7 +11,7 @@ class LocalDateTimeConverterTest {
 
 
     @ParameterizedTest
-    @ValueSource(strings = {"1998.01.30", "1998. 01. 30", "2000 .02 .01", "1998. 01. 30."})
+    @ValueSource(strings = {"1998.01.30", "1998. 01. 30", "2000 .02 .01", "1998. 01. 30.", "1998.1.30.", "1998.1.1."})
     void 올바른_형식인지_검증한다(String value) {
         // when
         boolean actual = LocalDateTimeConverter.isConvertable(value);
@@ -31,7 +31,7 @@ class LocalDateTimeConverterTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1998.01.30", "1998. 01. 30", "1998 .01 .30"})
+    @ValueSource(strings = {"1998.01.30", "1998. 01. 30", "1998 .01 .30", "1998.1.30"})
     void convert(String value) {
         // when
         LocalDateTime actual = LocalDateTimeConverter.convert(value);

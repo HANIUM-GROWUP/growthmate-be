@@ -7,6 +7,10 @@ import com.growup.growthmate.batch.analysis.CompanyAnalysisWriter;
 import com.growup.growthmate.batch.company.CompanyProcessor;
 import com.growup.growthmate.batch.company.CompanyReader;
 import com.growup.growthmate.batch.company.CompanyWriter;
+import com.growup.growthmate.batch.comparison.CompanyComparisonDto;
+import com.growup.growthmate.batch.comparison.CompanyComparisonProcessor;
+import com.growup.growthmate.batch.comparison.CompanyComparisonReader;
+import com.growup.growthmate.batch.comparison.CompanyComparisonWriter;
 import com.growup.growthmate.batch.growth.CompanyGrowthDto;
 import com.growup.growthmate.batch.growth.CompanyGrowthProcessor;
 import com.growup.growthmate.batch.growth.CompanyGrowthReader;
@@ -61,6 +65,10 @@ public class CompanyBatch {
     private final CompanyNewsProcessor companyNewsProcessor;
     private final CompanyNewsWriter companyNewsWriter;
 
+    private final CompanyComparisonReader companyComparisonReader;
+    private final CompanyComparisonProcessor companyComparisonProcessor;
+    private final CompanyComparisonWriter companyComparisonWriter;
+
     @Value("${batch.company.chunk-size:100}")
     private int chunkSize;
 
@@ -72,6 +80,7 @@ public class CompanyBatch {
                 .next(updateCompanyGrowthStep())
                 .next(updateCompanySentimentStep())
                 .next(insertCompanyNewsStep())
+                .next(updateCompanyComparisonStep())
                 .listener(jobExecutionTimeListener())
                 .build();
     }
@@ -131,6 +140,18 @@ public class CompanyBatch {
                 .reader(companyNewsReader)
                 .processor(companyNewsProcessor)
                 .writer(companyNewsWriter)
+                .listener(stepExecutionTimeListener())
+                .allowStartIfComplete(true)
+                .build();
+    }
+
+    @Bean
+    public Step updateCompanyComparisonStep() {
+        return new StepBuilder("updateCompanyComparisonStep", jobRepository)
+                .<CompanyComparisonDto, CompanyComparison>chunk(chunkSize, transactionManager)
+                .reader(companyComparisonReader)
+                .processor(companyComparisonProcessor)
+                .writer(companyComparisonWriter)
                 .listener(stepExecutionTimeListener())
                 .allowStartIfComplete(true)
                 .build();

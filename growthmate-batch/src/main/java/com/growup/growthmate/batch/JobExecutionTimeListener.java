@@ -31,6 +31,8 @@ public class JobExecutionTimeListener implements JobExecutionListener {
         StringBuilder stepStatuses = new StringBuilder();
         Collection<StepExecution> stepExecutions = jobExecution.getStepExecutions();
         for (StepExecution stepExecution : stepExecutions) {
+            String stepName = stepExecution.getStepName();
+            stepStatuses.append(stepName).append(" : ");
             stepStatuses.append(stepExecution.getExitStatus()).append("\n");
         }
         log.info("각 Step 성공 여부 : \n" + stepStatuses);
