@@ -45,3 +45,9 @@ VALUES (1, 1, 0.5, 0.5);
 
 INSERT INTO company_sentiment(company_sentiment_id, company_id, positive_rate, negative_rate)
 VALUES (2, 2, 0.5, 0.5);
+
+-- 회사 비교
+INSERT INTO company_comparison(company_comparison_id, company_id, sales_forecast, sales_forecast_percentage)
+VALUES (1, 1, 1234235, 0.1);
+INSERT INTO company_comparison(company_comparison_id, company_id, sales_forecast, sales_forecast_percentage)
+VALUES (2, 2, 4523546, 0.2);
