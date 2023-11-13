@@ -45,6 +45,9 @@ public class PostPreviewProjection {
     private Long commentCount;
 
     public String getContent() {
+        if (content.length() <= CONTENT_MAX_INDEX) {
+            return content;
+        }
         return this.content.substring(CONTENT_MIN_INDEX, CONTENT_MAX_INDEX);
     }
 }
