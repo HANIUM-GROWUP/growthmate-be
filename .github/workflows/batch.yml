@@ -1,4 +1,4 @@
-name: Batch module docker hub push
+name: Batch module docker hub push 
 
 on:
   push:
